@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AcSoundManager.cs">
+    <Files>
+      <File FileName="Assets\Scripts\AcSoundManager.cs" Line="95" Column="6" />
+      <File FileName="Assets\Scripts\AcPlayer.cs" Line="471" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="C:\workshop\project\Unity\TheDoor\Assets\Scripts\AcSoundManager.cs" line="92" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
