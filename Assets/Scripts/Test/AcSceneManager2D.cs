@@ -201,11 +201,11 @@ public class AcSceneManager2D : MonoBehaviour
 	{
 		m_vAnimator = m_vGameObject[ _OBJECT_SELECT ].GetComponent<Animator>();
 
-		m_vChanger.initialize( m_vGameObject[ _OBJECT_BG ].renderer );
-		m_vChanger.initialize( m_vGameObject[ _OBJECT_SELECT_START ].renderer );
-		m_vChanger.initialize( m_vGameObject[ _OBJECT_SELECT_TIMEATTACK ].renderer );
-		m_vChanger.initialize( m_vGameObject[ _OBJECT_SELECT_CHALLENGE ].renderer );
-		m_vChanger.initialize( m_vGameObject[ _OBJECT_SELECT_RANKING ].renderer );
+		//m_vChanger.initialize( m_vGameObject[ _OBJECT_BG ].renderer );
+		//m_vChanger.initialize( m_vGameObject[ _OBJECT_SELECT_START ].renderer );
+		//m_vChanger.initialize( m_vGameObject[ _OBJECT_SELECT_TIMEATTACK ].renderer );
+		//m_vChanger.initialize( m_vGameObject[ _OBJECT_SELECT_CHALLENGE ].renderer );
+		//m_vChanger.initialize( m_vGameObject[ _OBJECT_SELECT_RANKING ].renderer );
 
 		m_vGameObject[ _OBJECT_SELECT_TIMEATTACK ].SetActive( false );
 		m_vGameObject[ _OBJECT_SELECT_CHALLENGE ].SetActive( false );
@@ -226,11 +226,11 @@ public class AcSceneManager2D : MonoBehaviour
 	{
 		int _frame = Time.frameCount;
 
-		m_vChanger.update( m_vGameObject[ _OBJECT_BG ].renderer, _frame, _CHENGER_BG_TITLE, 0, 0 );
-		m_vChanger.update( m_vGameObject[ _OBJECT_SELECT_START ].renderer, _frame, _CHENGER_SELECT_START, 0, 0 );
-		m_vChanger.update( m_vGameObject[ _OBJECT_SELECT_TIMEATTACK ].renderer, _frame, _CHENGER_SELECT_TIMEATTACK, 0, 0 );
-		m_vChanger.update( m_vGameObject[ _OBJECT_SELECT_CHALLENGE ].renderer, _frame, _CHENGER_SELECT_CHALLENGE, 0, 0 );
-		m_vChanger.update( m_vGameObject[ _OBJECT_SELECT_RANKING ].renderer, _frame, _CHENGER_SELECT_RANKING, 0, 0 );
+		//m_vChanger.update( m_vGameObject[ _OBJECT_BG ].renderer, _frame, _CHENGER_BG_TITLE, 0, 0 );
+		//m_vChanger.update( m_vGameObject[ _OBJECT_SELECT_START ].renderer, _frame, _CHENGER_SELECT_START, 0, 0 );
+		//m_vChanger.update( m_vGameObject[ _OBJECT_SELECT_TIMEATTACK ].renderer, _frame, _CHENGER_SELECT_TIMEATTACK, 0, 0 );
+		//m_vChanger.update( m_vGameObject[ _OBJECT_SELECT_CHALLENGE ].renderer, _frame, _CHENGER_SELECT_CHALLENGE, 0, 0 );
+		//m_vChanger.update( m_vGameObject[ _OBJECT_SELECT_RANKING ].renderer, _frame, _CHENGER_SELECT_RANKING, 0, 0 );
 	}
 
 	protected void _start_Howtoplay()
@@ -267,53 +267,53 @@ public class AcSceneManager2D : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		AcTextureChanger.Data[] _changerTbl =
-//		_changerTbl = new AcTextureChanger.Data[]
-		{
-			new AcTextureChanger.Data(
-				"Images/Exterior/title_1", 8, 8, 4,
-				new int[] {  0,  1,  2,  3,},
-				new int[] {  8,  9, 10, 11,},
-				new int[] { 40, 41, 42, 43,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				//
-				new int[] {  4,  5,  6,  7,},
-				new int[] { 12, 13, 14, 15, 20, 21, 22, 23, 28, 29, 30, 31, 36, 37, 38, 39,}
-			),
-			//
-			new AcTextureChanger.Data(
-				"Images" + AcUtil.getLanguageSuffix() + "/Exterior/title_1", 8, 8, 4,
-				new int[] {  0,  1,  2,  3,},
-				new int[] {  8,  9, 10, 11,},
-				new int[] { 40, 41, 42, 43,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				new int[] { 48, 49, 50, 51,},
-				//
-				new int[] {  4,  5,  6,  7,},
-				new int[] { 12, 13, 14, 15, 20, 21, 22, 23, 28, 29, 30, 31, 36, 37, 38, 39,}
-			),
-		};
+//		AcTextureChanger.Data[] _changerTbl =
+////		_changerTbl = new AcTextureChanger.Data[]
+//		{
+//			new AcTextureChanger.Data(
+//				"Images/Exterior/title_1", 8, 8, 4,
+//				new int[] {  0,  1,  2,  3,},
+//				new int[] {  8,  9, 10, 11,},
+//				new int[] { 40, 41, 42, 43,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				//
+//				new int[] {  4,  5,  6,  7,},
+//				new int[] { 12, 13, 14, 15, 20, 21, 22, 23, 28, 29, 30, 31, 36, 37, 38, 39,}
+//			),
+//			//
+//			new AcTextureChanger.Data(
+//				"Images" + AcUtil.getLanguageSuffix() + "/Exterior/title_1", 8, 8, 4,
+//				new int[] {  0,  1,  2,  3,},
+//				new int[] {  8,  9, 10, 11,},
+//				new int[] { 40, 41, 42, 43,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				new int[] { 48, 49, 50, 51,},
+//				//
+//				new int[] {  4,  5,  6,  7,},
+//				new int[] { 12, 13, 14, 15, 20, 21, 22, 23, 28, 29, 30, 31, 36, 37, 38, 39,}
+//			),
+//		};
 
-		m_vChanger = new AcTextureChanger( _changerTbl[ 0 ] );
+	//	m_vChanger = new AcTextureChanger( _changerTbl[ 0 ] );
 		//
 		m_vGameObject = new GameObject[ _OBJECT_NUM ];
 		//

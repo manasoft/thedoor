@@ -90,15 +90,22 @@ public class AcHowtoplayManager : MonoBehaviour
 	void Start()
 	{
 		//
-		m_vChanger = new AcTextureChanger( new AcTextureChanger.Data(
-			//
-			"Images" + AcUtil.getLanguageSuffix() + "/howtoplay_1", 8, 8, 4,
-			new int[] { 0, 1, },
-			new int[] { 8, 9, },
-			new int[] { 16,17, },
-			new int[] { 24, 25, }
-			//
-		) );
+		//m_vChanger = new AcTextureChanger( new AcTextureChanger.Data(
+		//	//
+		//	"Images" + AcUtil.getLanguageSuffix() + "/howtoplay_1", 8, 8, 4,
+		//	new int[] { 0, 1, },
+		//	new int[] { 8, 9, },
+		//	new int[] { 16,17, },
+		//	new int[] { 24, 25, }
+		//	//
+		//) );
+
+		//
+		m_vChanger = new AcTextureChanger();
+		m_vChanger.add(	"Images" + AcUtil.getLanguageSuffix() + "/howtoplay_1", 8, 8, 4,new int[] { 0, 1, } );
+		m_vChanger.add(	"Images" + AcUtil.getLanguageSuffix() + "/howtoplay_1", 8, 8, 4,new int[] { 8, 9, } );
+		m_vChanger.add(	"Images" + AcUtil.getLanguageSuffix() + "/howtoplay_1", 8, 8, 4,new int[] { 16, 17, } );
+		m_vChanger.add(	"Images" + AcUtil.getLanguageSuffix() + "/howtoplay_1", 8, 8, 4,new int[] { 24, 25, } );
 
 		//
 		m_vGameObject = new GameObject[ _OBJECT_NUM ];
@@ -107,7 +114,7 @@ public class AcHowtoplayManager : MonoBehaviour
 		for ( int count = 0; count < _OBJECT_NUM; count++ )
 		{
 			m_vGameObject[ count ] = transform.FindChild( _objectTbl[ count ] ).gameObject;
-			m_vChanger.initialize( m_vGameObject[ count ].renderer );
+//			m_vChanger.initialize( m_vGameObject[ count ].renderer );
 		}
 	}
 
@@ -119,16 +126,16 @@ public class AcHowtoplayManager : MonoBehaviour
 		switch ( AcSetting.getMode() )
 		{
 			case ( AcSetting.TIMEATTACK_MODE ):
-				m_vChanger.update( m_vGameObject[ _OBJECT_BACKGROUND ].renderer, _frame, _CHENGER_TIMEATTACK, 0, 0 );
+				m_vChanger.update( m_vGameObject[ _OBJECT_BACKGROUND ].renderer, _frame, _CHENGER_TIMEATTACK );
 				break;
 			//
 			case ( AcSetting.CHALLENGE_MODE ):
-				m_vChanger.update( m_vGameObject[ _OBJECT_BACKGROUND ].renderer, _frame, _CHENGER_CHALLENGE, 0, 0 );
+				m_vChanger.update( m_vGameObject[ _OBJECT_BACKGROUND ].renderer, _frame, _CHENGER_CHALLENGE );
 				break;
 		}
 		//
-		m_vChanger.update( m_vGameObject[ _OBJECT_BUTTON_YES ].renderer, _frame, _CHENGER_YES, 0, 0 );
-		m_vChanger.update( m_vGameObject[ _OBJECT_BUTTON_NO ].renderer, _frame, _CHENGER_NO, 0, 0 );
+		m_vChanger.update( m_vGameObject[ _OBJECT_BUTTON_YES ].renderer, _frame, _CHENGER_YES );
+		m_vChanger.update( m_vGameObject[ _OBJECT_BUTTON_NO ].renderer, _frame, _CHENGER_NO );
 
 		//for ( int _index = 0; _index < _OBJECT_NUM; _index ++)
 		//{

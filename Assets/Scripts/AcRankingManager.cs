@@ -81,13 +81,17 @@ public class AcRankingManager : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+		////
+		//m_vChanger = new AcTextureChanger( new AcTextureChanger.Data(
+		//	//
+		//	"Images" + AcUtil.getLanguageSuffix() + "/ranking_1", 8, 8, 4,
+		//	new int[] { 0, 1, 2, 3, },
+		//	new int[] { 8, 9, 10, 11, }
+		//) );
 		//
-		m_vChanger = new AcTextureChanger( new AcTextureChanger.Data(
-			//
-			"Images" +AcUtil.getLanguageSuffix() + "/ranking_1", 8, 8, 4,
-			new int[] { 0, 1, 2, 3, },
-			new int[] { 8, 9, 10, 11, }
-		) );
+		m_vChanger = new AcTextureChanger();
+		m_vChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/ranking_1", 8, 8, 4, new int[] { 0, 1, 2, 3, } );
+		m_vChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/ranking_1", 8, 8, 4, new int[] { 8, 9, 10, 11, } );
 		//
 		m_vChangerGui = AcGuiBase.getTextureChanger();
 
@@ -98,7 +102,7 @@ public class AcRankingManager : MonoBehaviour
 		for ( int count = 0; count < _OBJECT_NUM; count++ )
 		{
 			m_vGameObject[ count ] = this.transform.FindChild( _objectTbl[ count ] ).gameObject;
-			m_vChanger.initialize( m_vGameObject[ count ].renderer );
+//			m_vChanger.initialize( m_vGameObject[ count ].renderer );
 		}
 	}
 
@@ -107,7 +111,8 @@ public class AcRankingManager : MonoBehaviour
 	{
 		int _count = Time.frameCount;
 
-		m_vChanger.update( m_vGameObject[ _OBJECT_BACKGROUND ].renderer, _count, _CHENGER_BACKGROUND, 0, 0 );
+//		m_vChanger.update( m_vGameObject[ _OBJECT_BACKGROUND ].renderer, _count, _CHENGER_BACKGROUND, 0, 0 );
+		m_vChanger.update( m_vGameObject[ _OBJECT_BACKGROUND ].renderer, _count, _CHENGER_BACKGROUND );
 
 		//		if ( Application.platform == RuntimePlatform.Android && Input.GetKey( KeyCode.Escape ) )
 		if ( Input.GetKey( KeyCode.Escape ) )

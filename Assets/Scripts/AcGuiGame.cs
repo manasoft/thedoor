@@ -143,7 +143,8 @@ public class AcGuiGame : object
 	 */
 	public AcGuiGame()
 	{
-		m_vChanger = new AcTextureChanger( AcGuiBase.getTextureChangerData() );
+//		m_vChanger = new AcTextureChanger( AcGuiBase.getTextureChangerData() );
+		m_vChanger = AcGuiBase.getTextureChanger();
 
 		m_bReadyActive = false;
 		m_vReadyCounter = 0;
@@ -345,11 +346,22 @@ public class AcGuiGame : object
 			 */
 			ArrayList _data = new ArrayList();
 			//
-			_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FIG_0 + ( m_vValue % 10 ), 0, 0 ), m_vChanger.getWH() ) );
+			int _index = _CHANGER_FIG_0 + ( m_vValue % 10 );
+			//
+//			_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FIG_0 + ( m_vValue % 10 ), 0, 0 ), m_vChanger.getWH() ) );
+			_data.Add( new _Data(
+				m_vChanger.getTexture( _index ),
+				( m_vX + _x ) * _scale,
+				( m_vY + _y ) * _scale,
+				_w * _scale,
+				_h * _scale,
+				m_vChanger.getUV( _index, _count ),
+				m_vChanger.getWH( _index ) ) );
 			//
 			foreach ( _Data __data in _data )
 			{
-				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
+				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture( _index ), __data.m_vUvwh );
+//				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
 			}
 		}
 	}
@@ -386,16 +398,33 @@ public class AcGuiGame : object
 			//
 			if ( bSuccess )
 			{
-				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_SUCCESS, 0, 0 ), m_vChanger.getWH() ) );
+//				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_SUCCESS, 0, 0 ), m_vChanger.getWH() ) );
+				_data.Add( new _Data(
+					m_vChanger.getTexture( _CHANGER_SUCCESS ),
+					( m_vX + _x ) * _scale,
+					( m_vY + _y ) * _scale,
+					_w * _scale,
+					_h * _scale,
+					m_vChanger.getUV( _CHANGER_SUCCESS, _count ),
+					m_vChanger.getWH( _CHANGER_SUCCESS ) ) );
 			}
 			else
 			{
-				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FAILURE, 0, 0 ), m_vChanger.getWH() ) );
+//				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FAILURE, 0, 0 ), m_vChanger.getWH() ) );
+				_data.Add( new _Data(
+					m_vChanger.getTexture( _CHANGER_FAILURE ),
+					( m_vX + _x ) * _scale,
+					( m_vY + _y ) * _scale,
+					_w * _scale,
+					_h * _scale,
+					m_vChanger.getUV( _CHANGER_FAILURE, _count ),
+					m_vChanger.getWH( _CHANGER_FAILURE ) ) );
 			}
 			//
 			foreach ( _Data __data in _data )
 			{
-				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
+//				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
+				GUI.DrawTextureWithTexCoords( __data.m_vXywh, __data.m_vTexture, __data.m_vUvwh );
 			}
 		}
 	}

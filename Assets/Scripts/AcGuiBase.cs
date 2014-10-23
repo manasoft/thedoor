@@ -245,52 +245,51 @@ public class AcGuiBase
 
 	public static AcTextureChanger getTextureChanger()
 	{
-		return (
-			new AcTextureChanger( new AcTextureChanger.Data(
-				"Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4,
-				new int[] { 0, 1, 2, 3, },		// 0
-				new int[] { 4, 5, 6, 7, },		// 1
-				new int[] { 8, 9, 10, 11, },		// 2
-				new int[] { 12, 13, 14, 15, },		// 3
-				new int[] { 16, 17, 18, 19, },		// 4
-				new int[] { 20, 21, 22, 23, },		// 5
-				new int[] { 24, 25, 26, 27, },		// 6
-				new int[] { 28, 29, 30, 31, },		// 7
-				new int[] { 32, 33, 34, 35, },		// 8
-				new int[] { 36, 37, 38, 39, },		// 9
-				new int[] { 40, 41, 42, 43, },		// :
-				new int[] { 48, 49, 50, 51, },		// 赤フレーム
-				new int[] { 56, 57, 58, 59, },		// 黄プレーム:
-				new int[] { 44, 45, 46, 47, },		// 成功
-				new int[] { 52, 53, 54, 55, }		// 失敗
-			) )
-		);
+		AcTextureChanger _textureChanger = new AcTextureChanger();
+		//
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 0, 1, 2, 3, } );			// 0
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 4, 5, 6, 7, } );			// 1
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 8, 9, 10, 11, } );			// 2
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 12, 13, 14, 15, } );		// 3
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 16, 17, 18, 19, } );		// 4
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 20, 21, 22, 23, } );		// 5
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 24, 25, 26, 27, } );		// 6
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 28, 29, 30, 31, } );		// 7
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 32, 33, 34, 35, } );		// 8
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 36, 37, 38, 39, } );		// 9
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 40, 41, 42, 43, } );		// :
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 48, 49, 50, 51, } );		// 赤フレーム
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 56, 57, 58, 59, } );		// 黄プレーム:
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 44, 45, 46, 47, } );		// 成功
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 52, 53, 54, 55, } );		// 失敗
+		//
+		return ( _textureChanger );
 	}
 
-	public static AcTextureChanger.Data getTextureChangerData()
-	{
-		return (
-			new AcTextureChanger.Data(
-				"Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4,
-				new int[] { 0, 1, 2, 3, },		// 0
-				new int[] { 4, 5, 6, 7, },		// 1
-				new int[] { 8, 9, 10, 11, },		// 2
-				new int[] { 12, 13, 14, 15, },		// 3
-				new int[] { 16, 17, 18, 19, },		// 4
-				new int[] { 20, 21, 22, 23, },		// 5
-				new int[] { 24, 25, 26, 27, },		// 6
-				new int[] { 28, 29, 30, 31, },		// 7
-				new int[] { 32, 33, 34, 35, },		// 8
-				new int[] { 36, 37, 38, 39, },		// 9
-				new int[] { 40, 41, 42, 43, },		// :
-				new int[] { 48, 49, 50, 51, },		// 赤フレーム
-				new int[] { 56, 57, 58, 59, },		// 黄プレーム:
-				new int[] { 44, 45, 46, 47, },		// 成功
-				new int[] { 52, 53, 54, 55, }		// 失敗
-			)
-		);
-		//		return ( _changerTbl[ 0 ] );
-	}
+	//public static AcTextureChanger.Data getTextureChangerData()
+	//{
+	//	return (
+	//		new AcTextureChanger.Data(
+	//			"Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4,
+	//			new int[] { 0, 1, 2, 3, },		// 0
+	//			new int[] { 4, 5, 6, 7, },		// 1
+	//			new int[] { 8, 9, 10, 11, },		// 2
+	//			new int[] { 12, 13, 14, 15, },		// 3
+	//			new int[] { 16, 17, 18, 19, },		// 4
+	//			new int[] { 20, 21, 22, 23, },		// 5
+	//			new int[] { 24, 25, 26, 27, },		// 6
+	//			new int[] { 28, 29, 30, 31, },		// 7
+	//			new int[] { 32, 33, 34, 35, },		// 8
+	//			new int[] { 36, 37, 38, 39, },		// 9
+	//			new int[] { 40, 41, 42, 43, },		// :
+	//			new int[] { 48, 49, 50, 51, },		// 赤フレーム
+	//			new int[] { 56, 57, 58, 59, },		// 黄プレーム:
+	//			new int[] { 44, 45, 46, 47, },		// 成功
+	//			new int[] { 52, 53, 54, 55, }		// 失敗
+	//		)
+	//	);
+	//	//		return ( _changerTbl[ 0 ] );
+	//}
 
 	// ========================================================================== //
 	// ========================================================================== //
@@ -301,10 +300,11 @@ public class AcGuiBase
 	/// <summary>
 	/// 描画情報のデータを持たせる構造体だよ
 	/// </summary>
-	protected struct _Data
+	protected class _Data
 	{
-		internal Rect m_vXywh;
-		internal Rect m_vUvwh;
+		public Texture m_vTexture;
+		public Rect m_vXywh;
+		public Rect m_vUvwh;
 
 		//public _Data( float vX, float vY, float vW, float vH, float vScale, Vector2 vUv, Vector2 vWh )
 		//{
@@ -331,8 +331,25 @@ public class AcGuiBase
 		/// <param name="vH"></param>
 		/// <param name="vUv"></param>
 		/// <param name="vWh"></param>
-		public _Data( float vX, float vY, float vW, float vH, Vector2 vUv, Vector2 vWh )
+		//public _Data( float vX, float vY, float vW, float vH, Vector2 vUv, Vector2 vWh )
+		//{
+		//	m_vXywh = new Rect( vX, vY, vW, vH );
+		//	m_vUvwh = new Rect( vUv.x, vUv.y, vWh.x, vWh.y );
+		//}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="vTexture"></param>
+		/// <param name="vX"></param>
+		/// <param name="vY"></param>
+		/// <param name="vW"></param>
+		/// <param name="vH"></param>
+		/// <param name="vUv"></param>
+		/// <param name="vWh"></param>
+		public _Data( Texture vTexture, float vX, float vY, float vW, float vH, Vector2 vUv, Vector2 vWh )
 		{
+			m_vTexture = vTexture;
 			m_vXywh = new Rect( vX, vY, vW, vH );
 			m_vUvwh = new Rect( vUv.x, vUv.y, vWh.x, vWh.y );
 		}

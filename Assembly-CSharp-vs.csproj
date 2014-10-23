@@ -93,7 +93,6 @@
      <Compile Include="Assets\Scripts\AcRanking.cs" />
      <Compile Include="Assets\Scripts\AcRankingManager.cs" />
      <Compile Include="Assets\Scripts\AcRoom.cs" />
-     <Compile Include="Assets\Scripts\AcSceneManager2D.cs" />
      <Compile Include="Assets\Scripts\AcSelectButtons.cs" />
      <Compile Include="Assets\Scripts\AcSetting.cs" />
      <Compile Include="Assets\Scripts\AcSoundManager.cs" />
@@ -105,6 +104,7 @@
      <Compile Include="Assets\Scripts\Test\AcDownloadManager.cs" />
      <Compile Include="Assets\Scripts\Test\AcGui.cs" />
      <Compile Include="Assets\Scripts\Test\AcGui_prefab.cs" />
+     <Compile Include="Assets\Scripts\Test\AcSceneManager2D.cs" />
      <Compile Include="Assets\Scripts\Test\AcTest2Manager.cs" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-sv\common_strings.xml" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-lo-rLA\auth_strings.xml" />

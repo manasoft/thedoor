@@ -124,16 +124,50 @@ public class AcGuiDoor : AcGuiBase
 
 		ArrayList _data = new ArrayList();
 
-		// ドアフレーム
-		_data.Add( new _Data( _x, _y, _frame_w, _frame_h, m_vChanger.getUV( _count, _CHANGER_FRAME_2, 0, 0 ), m_vChanger.getWH() ) );
-		// ドア
-		_data.Add( new _Data( _x + _padding_x + ( _parts_w * 1 ), _y + _padding_y, _parts_w, _parts_h, m_vChanger.getUV( _count, _CHANGER_FIG_0 + ( _value / 100 % 10 ), 0, 0 ), m_vChanger.getWH() ) );
-		_data.Add( new _Data( _x + _padding_x + ( _parts_w * 2 ), _y + _padding_y, _parts_w, _parts_h, m_vChanger.getUV( _count, _CHANGER_FIG_0 + ( _value / 10 % 10 ), 0, 0 ), m_vChanger.getWH() ) );
-		_data.Add( new _Data( _x + _padding_x + ( _parts_w * 3 ), _y + _padding_y, _parts_w, _parts_h, m_vChanger.getUV( _count, _CHANGER_FIG_0 + ( _value / 1 % 10 ), 0, 0 ), m_vChanger.getWH() ) );
+		int _index;
 
+		// ドアフレーム
+		_index = _CHANGER_FRAME_2;
+		_data.Add( new _Data(
+			m_vChanger.getTexture( _index ),
+			_x, _y, _frame_w, _frame_h,
+			m_vChanger.getUV( _index, _count ),
+			m_vChanger.getWH( _index ) ) );
+		// ドア
+		_index = _CHANGER_FIG_0 + ( _value / 100 % 10 );
+		_data.Add( new _Data(
+			m_vChanger.getTexture( _index ),
+			_x + _padding_x + ( _parts_w * 1 ),
+			_y + _padding_y,
+			_parts_w,
+			_parts_h,
+			m_vChanger.getUV( _index, _count ),
+			m_vChanger.getWH( _index ) ) );
+		//
+		_index = _CHANGER_FIG_0 + ( _value / 10 % 10 );
+		_data.Add( new _Data(
+			m_vChanger.getTexture( _index ),
+			_x + _padding_x + ( _parts_w * 2 ),
+			_y + _padding_y,
+			_parts_w,
+			_parts_h,
+			m_vChanger.getUV( _index, _count ),
+			m_vChanger.getWH( _index ) ) );
+		//
+		_index = _CHANGER_FIG_0 + ( _value / 1 % 10 );
+		_data.Add( new _Data(
+			m_vChanger.getTexture( _index ),
+			_x + _padding_x + ( _parts_w * 3 ),
+			_y + _padding_y,
+			_parts_w,
+			_parts_h,
+			m_vChanger.getUV( _index, _count ),
+			m_vChanger.getWH( _index ) ) );
+
+		//
 		foreach ( _Data __data in _data )
 		{
-			GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
+			GUI.DrawTextureWithTexCoords( __data.m_vXywh, __data.m_vTexture, __data.m_vUvwh );
 		}
 	}
 
