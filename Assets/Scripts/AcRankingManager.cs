@@ -109,10 +109,10 @@ public class AcRankingManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		int _count = Time.frameCount;
+		int _timer = Time.frameCount;
 
 //		m_vChanger.update( m_vGameObject[ _OBJECT_BACKGROUND ].renderer, _count, _CHENGER_BACKGROUND, 0, 0 );
-		m_vChanger.update( m_vGameObject[ _OBJECT_BACKGROUND ].renderer, _count, _CHENGER_BACKGROUND );
+		m_vChanger.update( m_vGameObject[ _OBJECT_BACKGROUND ].renderer, _timer, _CHENGER_BACKGROUND, 0 );
 
 		//		if ( Application.platform == RuntimePlatform.Android && Input.GetKey( KeyCode.Escape ) )
 		if ( Input.GetKey( KeyCode.Escape ) )
@@ -130,7 +130,7 @@ public class AcRankingManager : MonoBehaviour
 		float _sizeScale = 1.0f;
 
 		//
-		int[] _times = AcRanking.getTimes();
+		float[] _times = AcRanking.getTimes();
 		//
 		for ( int _count = 0; _count < _times.Length; _count++ )
 		{

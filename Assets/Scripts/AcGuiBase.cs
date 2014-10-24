@@ -97,7 +97,9 @@ public class AcGuiBase
 	// ========================================================================== //
 	// ========================================================================== //
 
-	protected int m_vValue;
+	protected int m_vValueInt;
+	protected float m_vValueFloat;
+	//
 	protected float m_vX;
 	protected float m_vY;
 	//protected float m_vBaseScale;
@@ -119,7 +121,8 @@ public class AcGuiBase
 	/// </summary>
 	private void _ini()
 	{
-		m_vValue = 0;
+		m_vValueInt = 0;
+		m_vValueFloat = 0.0f;
 		m_vX = 0.0f;
 		m_vY = 0.0f;
 		//m_vBaseScale = 1.0f;
@@ -172,7 +175,16 @@ public class AcGuiBase
 	{
 		_ini();
 		//
-		m_vValue = vValue;
+		m_vValueInt = vValue;
+		m_vX = vX;
+		m_vY = vY;
+		m_vChanger = vChanger;
+	}
+	public AcGuiBase( float vValue, float vX, float vY, AcTextureChanger vChanger )
+	{
+		_ini();
+		//
+		m_vValueFloat = vValue;
 		m_vX = vX;
 		m_vY = vY;
 		m_vChanger = vChanger;

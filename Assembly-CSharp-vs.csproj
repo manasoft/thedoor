@@ -100,12 +100,6 @@
      <Compile Include="Assets\Scripts\AcTitleButtons.cs" />
      <Compile Include="Assets\Scripts\AcTitleManager.cs" />
      <Compile Include="Assets\Scripts\AcUtil.cs" />
-     <Compile Include="Assets\Scripts\Test\AcDoors.cs" />
-     <Compile Include="Assets\Scripts\Test\AcDownloadManager.cs" />
-     <Compile Include="Assets\Scripts\Test\AcGui.cs" />
-     <Compile Include="Assets\Scripts\Test\AcGui_prefab.cs" />
-     <Compile Include="Assets\Scripts\Test\AcSceneManager2D.cs" />
-     <Compile Include="Assets\Scripts\Test\AcTest2Manager.cs" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-sv\common_strings.xml" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-lo-rLA\auth_strings.xml" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values\wallet_attrs.xml" />

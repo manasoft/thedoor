@@ -24,7 +24,8 @@ public class AcRanking : object
 	 * http://msdn.microsoft.com/ja-jp/library/system.serializableattribute(v=vs.90).aspx
 	 * 
 	 */
-
+	// -------------------------------------------------------------------------- //
+	// -------------------------------------------------------------------------- //
 	/*
 	 * ソート
 	 * http://programmers.high-way.info/cs/list-sort.html
@@ -125,16 +126,16 @@ public class AcRanking : object
 				/*
 				 * デバッグ
 				 */
-				m_vSave.addTime( 60 * 99 );
-				m_vSave.addTime( 60 * 98 );
-				m_vSave.addTime( 60 * 97 );
-				m_vSave.addTime( 60 * 96 );
-				m_vSave.addTime( 60 * 95 );
-				m_vSave.addTime( 60 * 94 );
-				m_vSave.addTime( 60 * 93 );
-				m_vSave.addTime( 60 * 92 );
-				m_vSave.addTime( 60 * 91 );
-				m_vSave.addTime( 60 * 90 );
+				m_vSave.addTime( 99.99f );
+				m_vSave.addTime( 98.0f );
+				m_vSave.addTime( 97.0f );
+				m_vSave.addTime( 96.0f );
+				m_vSave.addTime( 95.0f );
+				m_vSave.addTime( 94.0f );
+				m_vSave.addTime( 93.0f );
+				m_vSave.addTime( 92.0f );
+				m_vSave.addTime( 91.0f );
+				m_vSave.addTime( 90.0f );
 
 				m_vSave.addDoor( 1 );
 				m_vSave.addDoor( 2 );
@@ -224,11 +225,11 @@ public class AcRanking : object
 	// ========================================================================== //
 	// ========================================================================== //
 
-	public static int[] getTimes()
+	public static float[] getTimes()
 	{
 		ArrayList _arrayList = m_vInstance.m_vSave.m_vData_TimeAttack;
 
-		int[] _times = new int[ _arrayList.Count ];
+		float[] _times = new float[ _arrayList.Count ];
 		//
 		for ( int _count = 0; _count < _arrayList.Count; _count++ )
 		{
@@ -317,7 +318,7 @@ public class AcRanking : object
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
 
-	public static void addTime( int vTime )
+	public static void addTime( float vTime )
 	{
 		m_vInstance.m_vSave.addTime( vTime );
 		//
@@ -372,7 +373,8 @@ public class AcRanking : object
 				_Data_TimeAttack _l = ( _Data_TimeAttack ) vL;
 				_Data_TimeAttack _r = ( _Data_TimeAttack ) vR;
 				//
-				return ( _l.m_vTime - _r.m_vTime );
+				return ( _l.m_vTime.CompareTo( _r.m_vTime ) );
+				//				return ( _l.m_vTime - _r.m_vTime );
 			}
 		}
 
@@ -400,7 +402,7 @@ public class AcRanking : object
 			AcUtil.writeObject( vPath, this );
 		}
 
-		public void addTime( int vTime )
+		public void addTime( float vTime )
 		{
 			m_vData_TimeAttack.Add( new _Data_TimeAttack( vTime ) );
 			/*
@@ -450,9 +452,9 @@ public class AcRanking : object
 	[Serializable]
 	private struct _Data_TimeAttack
 	{
-		internal int m_vTime;
+		public float m_vTime;
 
-		public _Data_TimeAttack( int vTime )
+		public _Data_TimeAttack( float vTime )
 		{
 			m_vTime = vTime;
 		}
@@ -461,7 +463,7 @@ public class AcRanking : object
 	[Serializable]
 	private struct _Data_Challenge
 	{
-		internal int m_vDoor;
+		public int m_vDoor;
 
 		public _Data_Challenge( int vDoor )
 		{
@@ -471,5 +473,4 @@ public class AcRanking : object
 
 	// ========================================================================== //
 	// ========================================================================== //
-
 }

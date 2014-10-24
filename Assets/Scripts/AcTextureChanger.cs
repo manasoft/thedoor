@@ -95,40 +95,58 @@ public class AcTextureChanger : Object
 		m_vDictionary = new Dictionary<string, Texture>();
 	}
 
-	// -------------------------------------------------------------------------- //
-	// -------------------------------------------------------------------------- //
+	// ========================================================================== //
+	// ========================================================================== //
 
-	public void add( string vFile, int vGridX, int vGridY, int vFrame, int[] vIndex )
+	// ========================================================================== //
+	// ========================================================================== //
+
+	/// <summary>
+	/// データを追加するよ（テーブルを作るって感じかな？）
+	/// </summary>
+	/// <param name="vFile"></param>
+	/// <param name="vGridX"></param>
+	/// <param name="vGridY"></param>
+	/// <param name="vRound"></param>
+	/// <param name="vOrder"></param>
+	public void add( string vFile, int vGridX, int vGridY, int vRound, int[] vOrder )
 	{
-		Debug.Log( "データを追加（ファイル）>> " + vFile );
-		//
-		m_vArrayList.Add( new _Data( vFile, vGridX, vGridY, vFrame, vIndex ) );
-		//
-		if ( ! m_vDictionary.ContainsKey( vFile ) )
+		/*
+		 * データを追加
+		 */
+		m_vArrayList.Add( new _Data( vFile, vGridX, vGridY, vRound, vOrder ) );
+		/*
+		 * テクスチャーを追加（注意：同じファイル名は追加しないよ！）
+		 */
+		if ( !m_vDictionary.ContainsKey( vFile ) )
 		{
-			Debug.Log( "テクスチャ追加（ファイル）>> " + vFile );
-
 			m_vDictionary.Add( vFile, ( Texture ) Instantiate( Resources.Load( vFile, typeof( Texture ) ) ) );
-
-			Debug.Log( "テクスチャ追加完了" );
 		}
 	}
 
-	// -------------------------------------------------------------------------- //
-	// -------------------------------------------------------------------------- //
+	// ========================================================================== //
+	// ========================================================================== //
 
+	// ========================================================================== //
+	// ========================================================================== //
+
+	// -------------------------------------------------------------------------- //
+	// -------------------------------------------------------------------------- //
 
 	private _Data _getData( int vIndex )
 	{
 		_Data _data = null;
 		//
-		if ( vIndex < m_vArrayList.Count )
+		if ( ( 0 <= vIndex ) && ( vIndex < m_vArrayList.Count ) )
 		{
 			_data = ( _Data ) m_vArrayList[ vIndex ];
 		}
 		//
 		return ( _data );
 	}
+
+	// -------------------------------------------------------------------------- //
+	// -------------------------------------------------------------------------- //
 
 	public Texture getTexture( int vIndex )
 	{
@@ -162,7 +180,33 @@ public class AcTextureChanger : Object
 	//	return ( new Vector2( m_vSizeW * indexX, 1.0f - m_vSizeH * ( indexY + 1 ) ) );
 	//}
 
-	public Vector2 getUV( int vIndex, int vFrame )
+	//public Vector2 getUV( int vIndex, int vFrame )
+	//{
+	//	Vector2 _vector = new Vector2();
+	//	//
+	//	_Data _data = _getData( vIndex );
+	//	//
+	//	if ( _data != null )
+	//	{
+	//		int _index = _data.m_vIndex[ ( vFrame / _data.m_vFrame ) % _data.m_vIndex.Length ];
+	//		int _index_x = _index % _data.m_vGridX;
+	//		int _index_y = _index / _data.m_vGridX;
+	//		//
+	//		Vector2 _wh = getWH( vIndex );
+	//		/*
+	//		 * 画像の位置
+	//		 * (0,1)---(1,1)
+	//		 * |           |
+	//		 * (0,0)---(1,0)
+	//		 */
+	//		_vector.x = _wh.x * _index_x;
+	//		_vector.y = 1.0f - _wh.y * ( _index_y + 1 );
+	//	}
+	//	//
+	//	return ( _vector );
+	//}
+
+	public Vector2 getUV( int vTimer, int vIndex, int vStart )
 	{
 		Vector2 _vector = new Vector2();
 		//
@@ -170,7 +214,7 @@ public class AcTextureChanger : Object
 		//
 		if ( _data != null )
 		{
-			int _index = _data.m_vIndex[ ( vFrame / _data.m_vFrame ) % _data.m_vIndex.Length ];
+			int _index = _data.m_vOrder[ ( vStart + ( vTimer / _data.m_vRound ) ) % _data.m_vOrder.Length ];
 			int _index_x = _index % _data.m_vGridX;
 			int _index_y = _index / _data.m_vGridX;
 			//
@@ -188,6 +232,7 @@ public class AcTextureChanger : Object
 		return ( _vector );
 	}
 
+
 	public Vector2 getWH( int vIndex )
 	{
 		Vector2 _vector = new Vector2();
@@ -204,17 +249,48 @@ public class AcTextureChanger : Object
 	}
 
 
-	public void update( Renderer vRenderer, int vFrame, int vIndex )
+	//public void update( Renderer vRenderer, int vFrame, int vIndex )
+	//{
+	//	Texture _texture = getTexture( vIndex );
+	//	//
+	//	if ( ( vRenderer.material.mainTexture == null ) || ( !vRenderer.material.mainTexture.Equals( _texture ) ) )
+	//	{
+	//		/*
+	//		 * この処理は結構重いみたいです（実はメソッド的な処理が行われている？）
+	//		 * 参照を渡すだけじゃなくて、内部的にコピーしてんじゃないの？
+	//		 */
+	//		vRenderer.material.mainTexture = _texture;
+	//	}
+	//	/*
+	//	 * "_MainTex" の意味がさっぱりわからんが・・・
+	//	 */
+	//	vRenderer.material.SetTextureOffset( "_MainTex", getUV( vIndex, vFrame ) );
+	//	vRenderer.material.SetTextureScale( "_MainTex", getWH( vIndex ) );
+	//}
+
+	/// <summary>
+	/// 画像切替処理
+	/// </summary>
+	/// <param name="vRenderer"></param>
+	/// <param name="vTimer"></param>
+	/// <param name="vIndex"></param>
+	/// <param name="vStart">同じ画像を表示する場合に画像をずらす値</param>
+	public void update( Renderer vRenderer, int vTimer, int vIndex, int vStart )
 	{
 		Texture _texture = getTexture( vIndex );
 		//
-		if((vRenderer.material.mainTexture == null) || (! vRenderer.material.mainTexture.Equals( _texture ) ) )
+		if ( ( vRenderer.material.mainTexture == null ) || ( !vRenderer.material.mainTexture.Equals( _texture ) ) )
 		{
-			// この処理は結構重いみたいです（実はメソッド的な処理が行われている？）
+			/*
+			 * この処理は結構重いみたいです（実はメソッド的な処理が行われている？）
+			 * 参照を渡すだけじゃなくて、内部的にコピーしてんじゃないの？
+			 */
 			vRenderer.material.mainTexture = _texture;
 		}
-		//
-		vRenderer.material.SetTextureOffset( "_MainTex", getUV( vIndex, vFrame ) );
+		/*
+		 * "_MainTex" の意味がさっぱりわからんが・・・
+		 */
+		vRenderer.material.SetTextureOffset( "_MainTex", getUV( vTimer, vIndex, vStart ) );
 		vRenderer.material.SetTextureScale( "_MainTex", getWH( vIndex ) );
 	}
 
@@ -320,6 +396,11 @@ public class AcTextureChanger : Object
 	//{
 	//	return ( m_vData.m_vIndex.Length );
 	//}
+
+	/// <summary>
+	/// 保持しているデータの数（"getDataSize()" とかの方がいいかも・・・）
+	/// </summary>
+	/// <returns></returns>
 	public int getDataLength()
 	{
 		return ( m_vArrayList.Count );
@@ -373,27 +454,50 @@ public class AcTextureChanger : Object
 	//	}
 	//}
 
-
+	/// <summary>
+	/// 画像データを管理するよ！
+	/// </summary>
 	private class _Data
 	{
+		/// <summary>
+		/// 画像ファイル名（パスを間違えないようにね）
+		/// </summary>
 		public string m_vFile;
+		/// <summary>
+		/// 分割数
+		/// </summary>
 		public int m_vGridX;
+		/// <summary>
+		/// 分割数
+		/// </summary>
 		public int m_vGridY;
-		public int m_vFrame;
-		public int[] m_vIndex;
+		/// <summary>
+		/// 切り替えタイミング的な・・・
+		/// </summary>
+		public int m_vRound;
+		/// <summary>
+		/// 表示する画像番号の順番
+		/// </summary>
+		public int[] m_vOrder;
 
-		public _Data( string vFile, int vGridX, int vGridY, int vFrame, int[] vIndex )
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="vFile"></param>
+		/// <param name="vGridX"></param>
+		/// <param name="vGridY"></param>
+		/// <param name="vRound"></param>
+		/// <param name="vOrder"></param>
+		public _Data( string vFile, int vGridX, int vGridY, int vRound, int[] vOrder )
 		{
 			m_vFile = vFile;
 			m_vGridX = vGridX;
 			m_vGridY = vGridY;
-			m_vFrame = vFrame;
-			m_vIndex = vIndex;
+			m_vRound = vRound;
+			m_vOrder = vOrder;
 		}
-
 	}
 
 	// ========================================================================== //
 	// ========================================================================== //
-
 }

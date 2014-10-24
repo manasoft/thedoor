@@ -97,7 +97,7 @@ public class AcGuiGame : object
 	private int m_vReadyCounter;
 
 	private bool m_bTimeActive;
-	private int m_vTimerCounter;
+	private float m_vTimerCounter;
 
 	private bool m_bDoorActive;
 	private int m_vDoorCounter;
@@ -150,7 +150,7 @@ public class AcGuiGame : object
 		m_vReadyCounter = 0;
 
 		m_bTimeActive = false;
-		m_vTimerCounter = 0;
+		m_vTimerCounter = 0.0f;
 
 		m_bDoorActive = false;
 		m_vDoorCounter = 0;
@@ -295,7 +295,7 @@ public class AcGuiGame : object
 		m_vReadyCounter = vReady;
 	}
 
-	public void setTime( int vTime )
+	public void setTime( float vTime )
 	{
 		m_vTimerCounter = vTime;
 	}
@@ -330,7 +330,7 @@ public class AcGuiGame : object
 		{
 			float _scale = AcUtil.getScreenScaleX( AcSetting.SCREEN_W );
 
-			int _count = Time.frameCount;
+			int _timer = Time.frameCount;
 
 			/*
 			 * サイズを決めてセンタリングしてみる
@@ -346,22 +346,22 @@ public class AcGuiGame : object
 			 */
 			ArrayList _data = new ArrayList();
 			//
-			int _index = _CHANGER_FIG_0 + ( m_vValue % 10 );
+			int _index = _CHANGER_FIG_0 + ( m_vValueInt % 10 );
 			//
-//			_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FIG_0 + ( m_vValue % 10 ), 0, 0 ), m_vChanger.getWH() ) );
+			//			_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FIG_0 + ( m_vValue % 10 ), 0, 0 ), m_vChanger.getWH() ) );
 			_data.Add( new _Data(
 				m_vChanger.getTexture( _index ),
 				( m_vX + _x ) * _scale,
 				( m_vY + _y ) * _scale,
 				_w * _scale,
 				_h * _scale,
-				m_vChanger.getUV( _index, _count ),
+				m_vChanger.getUV( _timer, _index, 0 ),
 				m_vChanger.getWH( _index ) ) );
 			//
 			foreach ( _Data __data in _data )
 			{
 				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture( _index ), __data.m_vUvwh );
-//				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
+				//				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
 			}
 		}
 	}
@@ -380,7 +380,7 @@ public class AcGuiGame : object
 		{
 			float _scale = AcUtil.getScreenScaleX( AcSetting.SCREEN_W );
 
-			int _count = Time.frameCount;
+			int _timer = Time.frameCount;
 
 			/*
 			 * サイズを決めてセンタリングしてみる
@@ -396,34 +396,40 @@ public class AcGuiGame : object
 			 */
 			ArrayList _data = new ArrayList();
 			//
+			int _index;
+			//
 			if ( bSuccess )
 			{
-//				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_SUCCESS, 0, 0 ), m_vChanger.getWH() ) );
+				_index = _CHANGER_SUCCESS;
+				//
+				//				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_SUCCESS, 0, 0 ), m_vChanger.getWH() ) );
 				_data.Add( new _Data(
-					m_vChanger.getTexture( _CHANGER_SUCCESS ),
+					m_vChanger.getTexture( _index ),
 					( m_vX + _x ) * _scale,
 					( m_vY + _y ) * _scale,
 					_w * _scale,
 					_h * _scale,
-					m_vChanger.getUV( _CHANGER_SUCCESS, _count ),
-					m_vChanger.getWH( _CHANGER_SUCCESS ) ) );
+					m_vChanger.getUV( _timer, _index, 0 ),
+					m_vChanger.getWH( _index ) ) );
 			}
 			else
 			{
-//				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FAILURE, 0, 0 ), m_vChanger.getWH() ) );
+				_index = _CHANGER_FAILURE;
+				//
+				//				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FAILURE, 0, 0 ), m_vChanger.getWH() ) );
 				_data.Add( new _Data(
-					m_vChanger.getTexture( _CHANGER_FAILURE ),
+					m_vChanger.getTexture( _index ),
 					( m_vX + _x ) * _scale,
 					( m_vY + _y ) * _scale,
 					_w * _scale,
 					_h * _scale,
-					m_vChanger.getUV( _CHANGER_FAILURE, _count ),
-					m_vChanger.getWH( _CHANGER_FAILURE ) ) );
+					m_vChanger.getUV( _timer, _index, 0 ),
+					m_vChanger.getWH( _index ) ) );
 			}
 			//
 			foreach ( _Data __data in _data )
 			{
-//				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
+				//				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
 				GUI.DrawTextureWithTexCoords( __data.m_vXywh, __data.m_vTexture, __data.m_vUvwh );
 			}
 		}

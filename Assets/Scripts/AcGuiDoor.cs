@@ -106,7 +106,7 @@ public class AcGuiDoor : AcGuiBase
 
 	public override void onGUI( float vBaseScale, float vSizeScale )
 	{
-		int _count = Time.frameCount;
+		int _timer = Time.frameCount;
 
 		float _x = ( m_vX * vBaseScale ) - ( _FRAME_W * vBaseScale * ( vSizeScale - 1.0f ) / 2.0f );
 		float _y = ( m_vY * vBaseScale ) - ( _FRAME_H * vBaseScale * ( vSizeScale - 1.0f ) / 2.0f );
@@ -120,7 +120,7 @@ public class AcGuiDoor : AcGuiBase
 		float _parts_w = _PARTS_W * _scale;
 		float _parts_h = _PARTS_H * _scale;
 
-		int _value = m_vValue;
+		int _value = m_vValueInt;
 
 		ArrayList _data = new ArrayList();
 
@@ -131,7 +131,7 @@ public class AcGuiDoor : AcGuiBase
 		_data.Add( new _Data(
 			m_vChanger.getTexture( _index ),
 			_x, _y, _frame_w, _frame_h,
-			m_vChanger.getUV( _index, _count ),
+			m_vChanger.getUV( _timer, _index, 0 ),
 			m_vChanger.getWH( _index ) ) );
 		// ドア
 		_index = _CHANGER_FIG_0 + ( _value / 100 % 10 );
@@ -141,7 +141,7 @@ public class AcGuiDoor : AcGuiBase
 			_y + _padding_y,
 			_parts_w,
 			_parts_h,
-			m_vChanger.getUV( _index, _count ),
+			m_vChanger.getUV( _timer, _index, 0 ),
 			m_vChanger.getWH( _index ) ) );
 		//
 		_index = _CHANGER_FIG_0 + ( _value / 10 % 10 );
@@ -151,7 +151,7 @@ public class AcGuiDoor : AcGuiBase
 			_y + _padding_y,
 			_parts_w,
 			_parts_h,
-			m_vChanger.getUV( _index, _count ),
+			m_vChanger.getUV( _timer, _index, 0 ),
 			m_vChanger.getWH( _index ) ) );
 		//
 		_index = _CHANGER_FIG_0 + ( _value / 1 % 10 );
@@ -161,7 +161,7 @@ public class AcGuiDoor : AcGuiBase
 			_y + _padding_y,
 			_parts_w,
 			_parts_h,
-			m_vChanger.getUV( _index, _count ),
+			m_vChanger.getUV( _timer, _index, 0 ),
 			m_vChanger.getWH( _index ) ) );
 
 		//
