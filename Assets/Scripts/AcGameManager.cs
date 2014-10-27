@@ -140,13 +140,13 @@ public class AcGameManager : MonoBehaviour
 	// ========================================================================== //
 	// ========================================================================== //
 
-	private enum _Phase
-	{
-		_PHASE_INI,
-		_PHASE_TITLE,
-		_PHASE_GAME,
-		_PHASE_RANKING,
-	}
+	//private enum _Phase
+	//{
+	//	_PHASE_INI,
+	//	_PHASE_TITLE,
+	//	_PHASE_GAME,
+	//	_PHASE_RANKING,
+	//}
 
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
@@ -162,7 +162,15 @@ public class AcGameManager : MonoBehaviour
 	// ========================================================================== //
 	// ========================================================================== //
 
-	private _Phase m_vPhase;
+	/// <summary>
+	/// 
+	/// </summary>
+	private AcSoundManager m_vSoundManager;
+
+	// -------------------------------------------------------------------------- //
+	// -------------------------------------------------------------------------- //
+
+//	private _Phase m_vPhase;
 
 	private AcPlayer m_vPlayer;
 	//
@@ -176,52 +184,105 @@ public class AcGameManager : MonoBehaviour
 	// ========================================================================== //
 	// ========================================================================== //
 
+	/// <summary>
+	/// 音出るよ！
+	/// </summary>
+	/// <param name="vEntryName"></param>
+	/// <returns></returns>
+	public string soundPlay( string vEntryName )
+	{
+		return ( m_vSoundManager.play( vEntryName ) );
+	}
+
+	public void soundStop( string vTrackName )
+	{
+		m_vSoundManager.stop( vTrackName );
+	}
+
 	// ========================================================================== //
 	// ========================================================================== //
 
-	private void _start()
+	// ========================================================================== //
+	// ========================================================================== //
+
+	private void _awake()
 	{
+		this.transform.position = AcApp.GamePosition;
+
 		/*
 		 * ランキングの読み込み
 		 */
 		AcSave.Create();
 
 		//
-		m_vPlayer = AcPlayer.Create( new _PlayerTrigger( this ) );
+		/*
+		 * 動的なオブジェクトの親子関係
+		 * 親に追加するんじゃなくて、子に親を設定するらしいっす
+		 * http://www.wisdomsoft.jp/114.html
+		 */
+
 		//
-		m_vTitle = AcTitle.Create( new _TitleTrigger( this ) );
+		m_vPlayer = AcPlayer.Create( this, new _PlayerTrigger( this ) );
 		//
-		m_vHowtoplay = AcHowtoplay.Create( new _HowtoplayTrigger( this ) );
+		m_vTitle = AcTitle.Create( this, new _TitleTrigger( this ) );
+		//
+		m_vHowtoplay = AcHowtoplay.Create( this, new _HowtoplayTrigger( this ) );
 		m_vHowtoplay.gameObject.SetActive( false );
 		//
-		m_vRanking = AcRanking.Create( new _RangingTrigger( this ) );
+		m_vRanking = AcRanking.Create( this, new _RangingTrigger( this ) );
 		m_vRanking.gameObject.SetActive( false );
+	}
+
+	private void _start()
+	{
+		///*
+		// * ランキングの読み込み
+		// */
+		//AcSave.Create();
+
+		////
+		//m_vPlayer = AcPlayer.Create( new _PlayerTrigger( this ) );
+		////
+		//m_vTitle = AcTitle.Create( new _TitleTrigger( this ) );
+		////
+		//m_vHowtoplay = AcHowtoplay.Create( new _HowtoplayTrigger( this ) );
+		//m_vHowtoplay.gameObject.SetActive( false );
+		////
+		//m_vRanking = AcRanking.Create( new _RangingTrigger( this ) );
+		//m_vRanking.gameObject.SetActive( false );
 		//
-		m_vPhase = _Phase._PHASE_INI;
+//		m_vPhase = _Phase._PHASE_INI;
+
+		m_vSoundManager = new AcSoundManager();
+		m_vSoundManager.add( "se_1", new string[] { "se1", "se2", "se3" }, "Sounds/Seikai02-1" );
+		m_vSoundManager.add( "se_2", new string[] { "se1" }, "Sounds/Huseikai02-4" );
+		m_vSoundManager.add( "bgm_1", new string[] { "bgm1" }, "Sounds/Encounter_loop" );
 	}
 
 
 	private void _update()
 	{
-		switch ( m_vPhase )
-		{
-			case ( _Phase._PHASE_INI ):
-				//
-				m_vPhase = _Phase._PHASE_TITLE;
-				break;
-			//
-			case ( _Phase._PHASE_TITLE ):
-				break;
-			//
-			case ( _Phase._PHASE_GAME ):
-				break;
-			//
-			case ( _Phase._PHASE_RANKING ):
-				break;
-			//
-			default:
-				break;
-		}
+		m_vSoundManager.update();
+
+		//switch ( m_vPhase )
+		//{
+		//	case ( _Phase._PHASE_INI ):
+		//		//
+		//		m_vPhase = _Phase._PHASE_TITLE;
+		//		break;
+		//	//
+		//	case ( _Phase._PHASE_TITLE ):
+		//		break;
+		//	//
+		//	case ( _Phase._PHASE_GAME ):
+		//		break;
+		//	//
+		//	case ( _Phase._PHASE_RANKING ):
+		//		break;
+		//	//
+		//	default:
+		//		break;
+		//}
 
 		///*
 		// * バックキー？
@@ -243,6 +304,11 @@ public class AcGameManager : MonoBehaviour
 
 	// ========================================================================== //
 	// ========================================================================== //
+
+	void Awake()
+	{
+		_awake();
+	}
 
 	// Use this for initialization
 	void Start()
@@ -339,6 +405,8 @@ public class AcGameManager : MonoBehaviour
 					//
 					m_vManager.m_vTitle.gameObject.SetActive( false );
 					m_vManager.m_vHowtoplay.gameObject.SetActive( true );
+					//
+					m_vManager.soundPlay( "se_1" );
 					break;
 				//
 				case ( AcTitle.Trigger.CHALLENGE ):
