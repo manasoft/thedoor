@@ -32,7 +32,7 @@ public class AcSelectButtons : MonoBehaviour
 	/// <summary>
 	/// Find で探せばいい気もするけど・・・まぁイロイロと Unity の機能を試すという意味でこんな定義をしてみる
 	/// </summary>
-	public AcTitleManager manager;
+	public AcTitle manager;
 
 	// ========================================================================== //
 	// ========================================================================== //

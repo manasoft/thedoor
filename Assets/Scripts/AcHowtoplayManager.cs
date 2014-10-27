@@ -123,13 +123,13 @@ public class AcHowtoplayManager : MonoBehaviour
 	{
 		int _timer = Time.frameCount;
 
-		switch ( AcSetting.getMode() )
+		switch ( AcApp.getMode() )
 		{
-			case ( AcSetting.TIMEATTACK_MODE ):
+			case ( AcApp.TIMEATTACK_MODE ):
 				m_vChanger.update( m_vGameObject[ _OBJECT_BACKGROUND ].renderer, _timer, _CHENGER_TIMEATTACK, 0 );
 				break;
 			//
-			case ( AcSetting.CHALLENGE_MODE ):
+			case ( AcApp.CHALLENGE_MODE ):
 				m_vChanger.update( m_vGameObject[ _OBJECT_BACKGROUND ].renderer, _timer, _CHENGER_CHALLENGE, 0 );
 				break;
 		}

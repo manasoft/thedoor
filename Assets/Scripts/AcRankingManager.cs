@@ -126,11 +126,11 @@ public class AcRankingManager : MonoBehaviour
 
 	void OnGUI()
 	{
-		float _baseScale = AcUtil.getScreenScaleX( AcSetting.SCREEN_W );
+		float _baseScale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
 		float _sizeScale = 1.0f;
 
 		//
-		float[] _times = AcRanking.getTimes();
+		float[] _times = AcSave.getTimes();
 		//
 		for ( int _count = 0; _count < _times.Length; _count++ )
 		{
@@ -140,12 +140,12 @@ public class AcRankingManager : MonoBehaviour
 		}
 
 		//
-		int[] _doors = AcRanking.getDoors();
+		int[] _doors = AcSave.getDoors();
 		//
 		for ( int _count = 0; _count < _doors.Length; _count++ )
 		{
 			//			AcGuiDoor _guiDoor = new AcGuiDoor( _doors[ _count ], 480 - 80 - 88, 200 + ( _count * 48 ), _baseScale, m_vChanger[ _CHENGER_GUI ] );
-			AcGuiDoor _guiDoor = new AcGuiDoor( _doors[ _count ], AcSetting.SCREEN_W - AcGuiDoor.getFrameW() - 80.0f, 200 + ( _count * ( AcGuiDoor.getFrameH() + 2 ) ), m_vChangerGui );
+			AcGuiDoor _guiDoor = new AcGuiDoor( _doors[ _count ], AcApp.SCREEN_W - AcGuiDoor.getFrameW() - 80.0f, 200 + ( _count * ( AcGuiDoor.getFrameH() + 2 ) ), m_vChangerGui );
 			_guiDoor.onGUI( _baseScale, _sizeScale );
 		}
 	}

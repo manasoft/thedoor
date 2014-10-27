@@ -223,7 +223,7 @@ public class AcGuiGame : object
 	{
 		if ( m_bTimeActive )
 		{
-			float _baseScale = AcUtil.getScreenScaleX( AcSetting.SCREEN_W );
+			float _baseScale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
 			float _sizeScale = 1.0f;
 			//
 			AcGuiTime _guiTime = new AcGuiTime( m_vTimerCounter, 10.0f, 10.0f, m_vChanger );
@@ -235,10 +235,10 @@ public class AcGuiGame : object
 	{
 		if ( m_bDoorActive )
 		{
-			float _baseScale = AcUtil.getScreenScaleX( AcSetting.SCREEN_W );
+			float _baseScale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
 			float _sizeScale = 1.0f;
 			//
-			AcGuiDoor _guiDoor = new AcGuiDoor( m_vDoorCounter, AcSetting.SCREEN_W - AcGuiDoor.getFrameW() - 10.0f, 10.0f, m_vChanger );
+			AcGuiDoor _guiDoor = new AcGuiDoor( m_vDoorCounter, AcApp.SCREEN_W - AcGuiDoor.getFrameW() - 10.0f, 10.0f, m_vChanger );
 			_guiDoor.onGUI( _baseScale, _sizeScale );
 		}
 	}
@@ -285,6 +285,10 @@ public class AcGuiGame : object
 		m_bDoorActive = bSw;
 	}
 
+	/// <summary>
+	/// 結果（成功/失敗）の表示を切り替える
+	/// </summary>
+	/// <param name="bSw"></param>
 	public void swResultActive( bool bSw )
 	{
 		m_bResultActive = bSw;
@@ -328,7 +332,7 @@ public class AcGuiGame : object
 
 		public void _onGUI()
 		{
-			float _scale = AcUtil.getScreenScaleX( AcSetting.SCREEN_W );
+			float _scale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
 
 			int _timer = Time.frameCount;
 
@@ -337,7 +341,7 @@ public class AcGuiGame : object
 			 */
 			float _w = 200.0f;
 			float _h = 100.0f;
-			float _x = ( AcSetting.SCREEN_W - _w ) / 2;
+			float _x = ( AcApp.SCREEN_W - _w ) / 2;
 			float _y = 50.0f;
 			//
 			/*
@@ -378,7 +382,7 @@ public class AcGuiGame : object
 
 		public void _onGUI( bool bSuccess )
 		{
-			float _scale = AcUtil.getScreenScaleX( AcSetting.SCREEN_W );
+			float _scale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
 
 			int _timer = Time.frameCount;
 
@@ -387,7 +391,7 @@ public class AcGuiGame : object
 			 */
 			float _w = 300.0f;
 			float _h = 200.0f;
-			float _x = ( AcSetting.SCREEN_W - _w ) / 2;
+			float _x = ( AcApp.SCREEN_W - _w ) / 2;
 			float _y = 150.0f;
 			//
 			/*
