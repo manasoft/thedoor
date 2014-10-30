@@ -383,11 +383,11 @@ public class AcGameManager : MonoBehaviour
 					m_vManager.m_vRanking.gameObject.SetActive( true );
 					break;
 				//
-				case ( AcPlayer.Trigger.QUIT ):
-					Debug.Log( "AcPlayer.Trigger.QUIT" );
-					//
-					m_vManager.m_vTitle.gameObject.SetActive( true );
-					break;
+				//case ( AcPlayer.Trigger.QUIT ):
+				//	Debug.Log( "AcPlayer.Trigger.QUIT" );
+				//	//
+				//	m_vManager.m_vTitle.gameObject.SetActive( true );
+				//	break;
 			}
 		}
 	}
