@@ -66,7 +66,7 @@ public class AcTitle : MonoBehaviour
 	// ========================================================================== //
 	// ========================================================================== //
 
-	private string[] _objectTbl =
+	private static readonly string[] _objectTbl =
 	{
 		"Camera",
 		"Title",
@@ -143,9 +143,12 @@ public class AcTitle : MonoBehaviour
 	// ========================================================================== //
 	// ========================================================================== //
 
-	/*
-	 * プレハブからインスタンスするよ
-	 */
+	/// <summary>
+	/// プレハブからインスタンスするよ
+	/// </summary>
+	/// <param name="vManager"></param>
+	/// <param name="vTrigger"></param>
+	/// <returns></returns>
 	public static AcTitle Create( AcGameManager vManager, AiTitleTrigger vTrigger )
 	{
 		GameObject _prefab = ( GameObject ) Resources.Load( "Prefabs/Title" );

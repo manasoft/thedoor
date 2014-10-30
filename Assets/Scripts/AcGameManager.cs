@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// 2014/10/30 現在で、この中で全てやりますよ
+/// </summary>
 public class AcGameManager : MonoBehaviour
 {
 	// ========================================================================== //
@@ -170,7 +173,7 @@ public class AcGameManager : MonoBehaviour
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
 
-//	private _Phase m_vPhase;
+	//	private _Phase m_vPhase;
 
 	private AcPlayer m_vPlayer;
 	//
@@ -186,6 +189,7 @@ public class AcGameManager : MonoBehaviour
 
 	/// <summary>
 	/// 音出るよ！
+	/// トラック名を返すよ
 	/// </summary>
 	/// <param name="vEntryName"></param>
 	/// <returns></returns>
@@ -207,19 +211,21 @@ public class AcGameManager : MonoBehaviour
 
 	private void _awake()
 	{
+		/*
+		 * _start() でやってもいいんですけど試しでココでやってみただけです
+		 */
+
+		/*
+		 * 動的なオブジェクトの親子関係
+		 * 親に追加するんじゃなくて、子に親を設定するらしいっす
+		 * http://www.wisdomsoft.jp/114.html
+		 */
 		this.transform.position = AcApp.GamePosition;
 
 		/*
 		 * ランキングの読み込み
 		 */
 		AcSave.Create();
-
-		//
-		/*
-		 * 動的なオブジェクトの親子関係
-		 * 親に追加するんじゃなくて、子に親を設定するらしいっす
-		 * http://www.wisdomsoft.jp/114.html
-		 */
 
 		//
 		m_vPlayer = AcPlayer.Create( this, new _PlayerTrigger( this ) );
@@ -235,25 +241,8 @@ public class AcGameManager : MonoBehaviour
 
 	private void _start()
 	{
-		///*
-		// * ランキングの読み込み
-		// */
-		//AcSave.Create();
-
-		////
-		//m_vPlayer = AcPlayer.Create( new _PlayerTrigger( this ) );
-		////
-		//m_vTitle = AcTitle.Create( new _TitleTrigger( this ) );
-		////
-		//m_vHowtoplay = AcHowtoplay.Create( new _HowtoplayTrigger( this ) );
-		//m_vHowtoplay.gameObject.SetActive( false );
-		////
-		//m_vRanking = AcRanking.Create( new _RangingTrigger( this ) );
-		//m_vRanking.gameObject.SetActive( false );
-		//
-//		m_vPhase = _Phase._PHASE_INI;
-
 		m_vSoundManager = new AcSoundManager();
+		//
 		m_vSoundManager.add( "se_3", new string[] { "se1", "se2", "se3" }, 1.0f, 1.0f, true, null, "Sounds/Seikai02-1" );
 
 		m_vSoundManager.add( "se_1", new string[] { "se1", "se2", "se3" }, 1.0f, 1.0f, false, null, "Sounds/Seikai02-1" );
@@ -269,30 +258,9 @@ public class AcGameManager : MonoBehaviour
 		m_vSoundManager.add( "se_cd_2", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Accent Simple06-1" );
 	}
 
-
 	private void _update()
 	{
 		m_vSoundManager.update();
-
-		//switch ( m_vPhase )
-		//{
-		//	case ( _Phase._PHASE_INI ):
-		//		//
-		//		m_vPhase = _Phase._PHASE_TITLE;
-		//		break;
-		//	//
-		//	case ( _Phase._PHASE_TITLE ):
-		//		break;
-		//	//
-		//	case ( _Phase._PHASE_GAME ):
-		//		break;
-		//	//
-		//	case ( _Phase._PHASE_RANKING ):
-		//		break;
-		//	//
-		//	default:
-		//		break;
-		//}
 
 		///*
 		// * バックキー？
@@ -303,10 +271,6 @@ public class AcGameManager : MonoBehaviour
 		// */
 		//if ( Input.GetKeyDown( KeyCode.Escape ) )
 		//{
-		//	Debug.Log( "終了？" );
-
-		//	Application.LoadLevel( "Title" );
-		//}
 	}
 
 	// ========================================================================== //
@@ -344,12 +308,12 @@ public class AcGameManager : MonoBehaviour
 
 	void OnApplicationQuit()
 	{
-		Debug.Log( "AcGameManager >> OnApplicationQuit()" );
+		Debug.Log( "AcGameManager # OnApplicationQuit()" );
 	}
 
 	void OnDestroy()
 	{
-		Debug.Log( "AcGameManager >> OnDestroy()" );
+		Debug.Log( "AcGameManager # OnDestroy()" );
 	}
 
 	// ========================================================================== //
@@ -359,7 +323,7 @@ public class AcGameManager : MonoBehaviour
 	// ========================================================================== //
 
 	/// <summary>
-	/// 
+	/// ゲーム処理からの遷移用です
 	/// </summary>
 	private class _PlayerTrigger : AcPlayer.AiPlayerTrigger
 	{
