@@ -70,8 +70,8 @@ public class AcApp : Object
 	/*
 	 * ゲームモード
 	 */
-	public const int TIMEATTACK_MODE = 0;
-	public const int CHALLENGE_MODE = 1;
+	public const int GAMEMODE_TIMEATTACK = 0;
+	public const int GAMEMODE_CHALLENGE = 1;
 
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
@@ -79,11 +79,11 @@ public class AcApp : Object
 	/*
 	 * クリアすべきドアの数
 	 */
-	public const int TIMEATTACK_DOORS = 20;
+	public const int GAMERULE_TIMEATTACK_DOOR = 20;		// 暫定数値 = 20（2014/10/29 現在）
 	/*
 	 * プレイ時間（秒数です）
 	 */
-	public const float CHALLENGE_TIME = 60.0f;
+	public const float GAMERULE_CHALLENGE_TIME = 60.0f;		// 暫定数値 = 60.0f（2014/10/29 現在）
 
 	// ========================================================================== //
 	// ========================================================================== //
@@ -122,7 +122,7 @@ public class AcApp : Object
 	/// <summary>
 	/// タイムアタックモード / チャレンジモード
 	/// </summary>
-	private int m_vMode;
+	private int m_vGameMode;
 
 	// ========================================================================== //
 	// ========================================================================== //
@@ -141,7 +141,7 @@ public class AcApp : Object
 		//m_bPlayAuto = false;
 		//m_bStopAuto = false;
 		//
-		m_vMode = TIMEATTACK_MODE;
+		m_vGameMode = GAMEMODE_TIMEATTACK;
 	}
 
 	// ========================================================================== //
@@ -242,14 +242,14 @@ public class AcApp : Object
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
 
-	public static void setMode( int vMode )
+	public static void setGameMode( int vGameMode )
 	{
-		m_vInstance.m_vMode = vMode;
+		m_vInstance.m_vGameMode = vGameMode;
 	}
 
-	public static int getMode()
+	public static int getGameMode()
 	{
-		return ( m_vInstance.m_vMode );
+		return ( m_vInstance.m_vGameMode );
 	}
 
 	// -------------------------------------------------------------------------- //
@@ -258,6 +258,8 @@ public class AcApp : Object
 	/// <summary>
 	/// フレームレートを取得する
 	/// と思ったがあんまり役に立たない？
+	/// 
+	/// とりあえず使用禁止！
 	/// </summary>
 	/// <returns></returns>
 	public static int getFrameRate()

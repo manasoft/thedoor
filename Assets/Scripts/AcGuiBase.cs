@@ -39,7 +39,8 @@ public class AcGuiBase
 	protected const int _CHANGER_FRAME_1 = 11;
 	protected const int _CHANGER_FRAME_2 = 12;
 	protected const int _CHANGER_SUCCESS = 13;
-	protected const int _CHANGER_FAILURE = 14;
+	protected const int _CHANGER_SUCCESS_CHALLENGE = 14;
+	protected const int _CHANGER_FAILURE = 15;
 
 	// ========================================================================== //
 	// ========================================================================== //
@@ -273,7 +274,8 @@ public class AcGuiBase
 		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 48, 49, 50, 51, } );		// 赤フレーム
 		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 56, 57, 58, 59, } );		// 黄プレーム:
 		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 44, 45, 46, 47, } );		// 成功
-		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 52, 53, 54, 55, } );		// 失敗
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 52, 53, 54, 55, } );		// 成功
+		_textureChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/gui_1", 8, 8, 4, new int[] { 60, 61, 62, 63, } );		// 失敗
 		//
 		return ( _textureChanger );
 	}

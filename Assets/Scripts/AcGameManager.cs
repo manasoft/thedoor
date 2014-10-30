@@ -189,14 +189,14 @@ public class AcGameManager : MonoBehaviour
 	/// </summary>
 	/// <param name="vEntryName"></param>
 	/// <returns></returns>
-	public string soundPlay( string vEntryName )
+	public string soundPlay( string vEntryName, float vFadeInTime = 0.0f )
 	{
-		return ( m_vSoundManager.play( vEntryName ) );
+		return ( m_vSoundManager.play( vEntryName, vFadeInTime ) );
 	}
 
-	public void soundStop( string vTrackName )
+	public void soundStop( string vTrackName, float vFadeOutTime = 0.0f )
 	{
-		m_vSoundManager.stop( vTrackName );
+		m_vSoundManager.stop( vTrackName, vFadeOutTime );
 	}
 
 	// ========================================================================== //
@@ -254,9 +254,19 @@ public class AcGameManager : MonoBehaviour
 //		m_vPhase = _Phase._PHASE_INI;
 
 		m_vSoundManager = new AcSoundManager();
-		m_vSoundManager.add( "se_1", new string[] { "se1", "se2", "se3" }, "Sounds/Seikai02-1" );
-		m_vSoundManager.add( "se_2", new string[] { "se1" }, "Sounds/Huseikai02-4" );
-		m_vSoundManager.add( "bgm_1", new string[] { "bgm1" }, "Sounds/Encounter_loop" );
+		m_vSoundManager.add( "se_3", new string[] { "se1", "se2", "se3" }, 1.0f, 1.0f, true, null, "Sounds/Seikai02-1" );
+
+		m_vSoundManager.add( "se_1", new string[] { "se1", "se2", "se3" }, 1.0f, 1.0f, false, null, "Sounds/Seikai02-1" );
+		m_vSoundManager.add( "se_2", new string[] { "se1" }, 1.0f, -1.0f, false, null, "Sounds/Huseikai02-4" );
+
+
+		m_vSoundManager.add( "bgm_1", new string[] { "bgm1" }, 0.05f, 0.0f, false, "bgm_2", "Sounds/Encounter_loop" );
+		m_vSoundManager.add( "bgm_2", new string[] { "bgm1" }, 0.05f, 0.0f, true, null, "Sounds/Top_Speed" );
+
+		m_vSoundManager.add( "se_3", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Seikai02-1" );
+
+		m_vSoundManager.add( "se_cd_1", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Accent Simple07-1" );
+		m_vSoundManager.add( "se_cd_2", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Accent Simple06-1" );
 	}
 
 
@@ -367,10 +377,16 @@ public class AcGameManager : MonoBehaviour
 			switch ( vTrigger )
 			{
 				//
-				case ( AcPlayer.Trigger.END ):
-					Debug.Log( AcPlayer.Trigger.END );
+				case ( AcPlayer.Trigger.FINISH ):
+					Debug.Log( "AcPlayer.Trigger.FINISH" );
 					//
 					m_vManager.m_vRanking.gameObject.SetActive( true );
+					break;
+				//
+				case ( AcPlayer.Trigger.QUIT ):
+					Debug.Log( "AcPlayer.Trigger.QUIT" );
+					//
+					m_vManager.m_vTitle.gameObject.SetActive( true );
 					break;
 			}
 		}
@@ -401,7 +417,7 @@ public class AcGameManager : MonoBehaviour
 				case ( AcTitle.Trigger.TIMEATTACK ):
 					Debug.Log( "AcTitle.Trigger.TIMEATTACK" );
 					//
-					AcApp.setMode( AcApp.TIMEATTACK_MODE );
+					AcApp.setGameMode( AcApp.GAMEMODE_TIMEATTACK );
 					//
 					m_vManager.m_vTitle.gameObject.SetActive( false );
 					m_vManager.m_vHowtoplay.gameObject.SetActive( true );
@@ -412,7 +428,7 @@ public class AcGameManager : MonoBehaviour
 				case ( AcTitle.Trigger.CHALLENGE ):
 					Debug.Log( "AcTitle.Trigger.CHALLENGE" );
 					//
-					AcApp.setMode( AcApp.CHALLENGE_MODE );
+					AcApp.setGameMode( AcApp.GAMEMODE_CHALLENGE );
 					//
 					m_vManager.m_vTitle.gameObject.SetActive( false );
 					m_vManager.m_vHowtoplay.gameObject.SetActive( true );

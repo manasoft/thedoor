@@ -404,7 +404,18 @@ public class AcGuiGame : object
 			//
 			if ( bSuccess )
 			{
-				_index = _CHANGER_SUCCESS;
+				switch ( AcApp.getGameMode() )
+				{
+					//
+					case ( AcApp.GAMEMODE_TIMEATTACK ):
+						_index = _CHANGER_SUCCESS;
+						break;
+					//
+					//case ( AcApp.GAMEMODE_CHALLENGE ):
+					default:
+						_index = _CHANGER_SUCCESS_CHALLENGE;
+						break;
+				}
 				//
 				//				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_SUCCESS, 0, 0 ), m_vChanger.getWH() ) );
 				_data.Add( new _Data(
