@@ -91,6 +91,7 @@
      <Compile Include="Assets\Scripts\AcGuiTime.cs" />
      <Compile Include="Assets\Scripts\AcHowtoplay.cs" />
      <Compile Include="Assets\Scripts\AcHowtoplayManager.cs" />
+     <Compile Include="Assets\Scripts\AcImageManager.cs" />
      <Compile Include="Assets\Scripts\AcPlayer.cs" />
      <Compile Include="Assets\Scripts\AcRanking.cs" />
      <Compile Include="Assets\Scripts\AcRankingManager.cs" />
@@ -103,6 +104,7 @@
      <Compile Include="Assets\Scripts\AcTitleButtons.cs" />
      <Compile Include="Assets\Scripts\AcTitleManager.cs" />
      <Compile Include="Assets\Scripts\AcUtil.cs" />
+     <Compile Include="Assets\Scripts\Test_Resource_Manager.cs" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-sv\common_strings.xml" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-lo-rLA\auth_strings.xml" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values\wallet_attrs.xml" />

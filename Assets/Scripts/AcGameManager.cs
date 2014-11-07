@@ -241,21 +241,26 @@ public class AcGameManager : MonoBehaviour
 
 	private void _start()
 	{
+		{
+			// 実験
+			AcImageManager.test();
+		}
+
 		m_vSoundManager = new AcSoundManager();
 		//
-		m_vSoundManager.add( "se_3", new string[] { "se1", "se2", "se3" }, 1.0f, 1.0f, true, null, "Sounds/Seikai02-1" );
+		m_vSoundManager.add( "se_3", "sound", new string[] { "se1", "se2", "se3" }, 1.0f, 1.0f, true, null, "Sounds/Seikai02-1" );
 
-		m_vSoundManager.add( "se_1", new string[] { "se1", "se2", "se3" }, 1.0f, 1.0f, false, null, "Sounds/Seikai02-1" );
-		m_vSoundManager.add( "se_2", new string[] { "se1" }, 1.0f, -1.0f, false, null, "Sounds/Huseikai02-4" );
+		m_vSoundManager.add( "se_1", "sound", new string[] { "se1", "se2", "se3" }, 1.0f, 1.0f, false, null, "Sounds/Seikai02-1" );
+		m_vSoundManager.add( "se_2", "sound", new string[] { "se1" }, 1.0f, -1.0f, false, null, "Sounds/Huseikai02-4" );
 
 
-		m_vSoundManager.add( "bgm_1", new string[] { "bgm1" }, 0.05f, 0.0f, false, "bgm_2", "Sounds/Encounter_loop" );
-		m_vSoundManager.add( "bgm_2", new string[] { "bgm1" }, 0.05f, 0.0f, true, null, "Sounds/Top_Speed" );
+		m_vSoundManager.add( "bgm_1", "sound", new string[] { "bgm1" }, 0.05f, 0.0f, false, "bgm_2", "Sounds/Encounter_loop" );
+		m_vSoundManager.add( "bgm_2", "sound", new string[] { "bgm1" }, 0.05f, 0.0f, true, null, "Sounds/Top_Speed" );
 
-		m_vSoundManager.add( "se_3", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Seikai02-1" );
+		m_vSoundManager.add( "se_3", "sound", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Seikai02-1" );
 
-		m_vSoundManager.add( "se_cd_1", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Accent Simple07-1" );
-		m_vSoundManager.add( "se_cd_2", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Accent Simple06-1" );
+		m_vSoundManager.add( "se_cd_1", "sound", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Accent Simple07-1" );
+		m_vSoundManager.add( "se_cd_2", "sound", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Accent Simple06-1" );
 	}
 
 	private void _update()

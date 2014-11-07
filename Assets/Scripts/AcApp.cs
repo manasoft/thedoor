@@ -27,6 +27,9 @@ public class AcApp : Object
 	 * http://docs-jp.unity3d.com/Documentation/Components/Layers.html
 	 * 
 	 * http://www.wisdomsoft.jp/150.html
+	 * 
+	 * 2014/11/04
+	 * カメラの重ねあわせとかで実験したけど取り敢えず使わない予定
 	 */
 
 	public const int OBJECT_LAYER_GAME = 8;

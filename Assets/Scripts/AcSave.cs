@@ -19,15 +19,29 @@ public class AcSave : Object
 	// ========================================================================== //
 	// ========================================================================== //
 	/*
-	 * シリアライズ
-	 * http://msdn.microsoft.com/ja-jp/library/system.serializableattribute(v=vs.90).aspx
 	 * 
 	 */
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
 	/*
+	 * シリアライズ
+	 * http://msdn.microsoft.com/ja-jp/library/system.serializableattribute(v=vs.90).aspx
+	 * 
+	 */
+	/*
 	 * ソート
 	 * http://programmers.high-way.info/cs/list-sort.html
+	 */
+	/*
+	 * パス
+	 * http://qiita.com/bokkuri_orz/items/c37b2fd543458a189d4d
+	 * http://hiiro-game.seesaa.net/article/272455420.html
+	 * Application.dataPath
+	 * Application.persistentDataPath
+	 * Application.temporaryCachePath
+	 * 
+	 * スクリプトによって取得できるパス - Neareal
+	 * Application.streamingAssetsPath
 	 */
 	// ========================================================================== //
 	// ========================================================================== //
