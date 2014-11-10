@@ -168,7 +168,7 @@ public class AcGameManager : MonoBehaviour
 	/// <summary>
 	/// 
 	/// </summary>
-//	private AcSoundManager m_vSoundManager;
+	//	private AcSoundManager m_vSoundManager;
 
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
@@ -180,6 +180,7 @@ public class AcGameManager : MonoBehaviour
 	private AcTitle m_vTitle;
 	private AcHowtoplay m_vHowtoplay;
 	private AcRanking m_vRanking;
+	private AcAd m_vAd;
 
 	// ========================================================================== //
 	// ========================================================================== //
@@ -202,6 +203,24 @@ public class AcGameManager : MonoBehaviour
 	//{
 	//	m_vSoundManager.stop( vTrackName, vFadeOutTime );
 	//}
+
+	// ========================================================================== //
+	// ========================================================================== //
+
+	// ========================================================================== //
+	// ========================================================================== //
+
+	// -------------------------------------------------------------------------- //
+	// -------------------------------------------------------------------------- //
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="vString"></param>
+	private void _debugLog( string vString )
+	{
+		AcDebug.debugLog( this.GetType().FullName + " # " + vString );
+	}
 
 	// ========================================================================== //
 	// ========================================================================== //
@@ -233,12 +252,13 @@ public class AcGameManager : MonoBehaviour
 		m_vTitle = AcTitle.Create( this, new _TitleTrigger( this ) );
 		//
 		m_vHowtoplay = AcHowtoplay.Create( this, new _HowtoplayTrigger( this ) );
-//		m_vHowtoplay.gameObject.SetActive( false );
 		m_vHowtoplay.setActive( false );
 		//
-		m_vRanking = AcRanking.Create( this, new _RangingTrigger( this ) );
-//		m_vRanking.gameObject.SetActive( false );
+		m_vRanking = AcRanking.Create( this, new _RankingTrigger( this ) );
 		m_vRanking.setActive( false );
+		//
+		m_vAd = AcAd.Create( this, new _AdTrigger( this ) );
+		m_vAd.setActive( false );
 	}
 
 	private void _start()
@@ -267,7 +287,7 @@ public class AcGameManager : MonoBehaviour
 
 	private void _update()
 	{
-	//	m_vSoundManager.update();
+		//	m_vSoundManager.update();
 		AcApp.soundUpdate();
 
 		///*
@@ -316,12 +336,12 @@ public class AcGameManager : MonoBehaviour
 
 	void OnApplicationQuit()
 	{
-		Debug.Log( "AcGameManager # OnApplicationQuit" );
+		_debugLog( "AcGameManager # OnApplicationQuit" );
 	}
 
 	void OnDestroy()
 	{
-		Debug.Log( "AcGameManager # OnDestroy" );
+		_debugLog( "AcGameManager # OnDestroy" );
 	}
 
 	// ========================================================================== //
@@ -344,13 +364,13 @@ public class AcGameManager : MonoBehaviour
 
 		public void onTrigger( AcPlayer.Trigger vTrigger )
 		{
-			Debug.Log( "_PlayerTrigger が呼ばれたよ" );
+			m_vManager._debugLog( "_PlayerTrigger が呼ばれたよ" );
 
 			switch ( vTrigger )
 			{
 				//
 				case ( AcPlayer.Trigger.FINISH ):
-					Debug.Log( "AcPlayer.Trigger.FINISH" );
+					m_vManager._debugLog( "AcPlayer.Trigger.FINISH" );
 					//
 					//m_vManager.m_vRanking.gameObject.SetActive( true );
 					m_vManager.m_vRanking.setActive( true );
@@ -382,41 +402,42 @@ public class AcGameManager : MonoBehaviour
 
 		public void onTrigger( AcTitle.Trigger vTrigger )
 		{
-			Debug.Log( "_TitleTrigger が呼ばれたよ" );
+			m_vManager._debugLog( "_TitleTrigger が呼ばれたよ" );
 
 			switch ( vTrigger )
 			{
+				////
+				//case ( AcTitle.Trigger.TIMEATTACK ):
+				//	Debug.Log( "AcTitle.Trigger.TIMEATTACK" );
+				//	//
+				//	//AcApp.setGameMode( AcApp.GAMEMODE_TIMEATTACK );
+				//	//
+				//	//m_vManager.m_vTitle.gameObject.SetActive( false );
+				//	//m_vManager.m_vHowtoplay.gameObject.SetActive( true );
+				//	m_vManager.m_vTitle.setActive( false );
+				//	m_vManager.m_vHowtoplay.setActive( true );
+				//	//
+				//	//m_vManager.soundPlay( "se_1" );
+				//	AcApp.soundPlay( "se_1" );
+				//	break;
+				////
+				//case ( AcTitle.Trigger.CHALLENGE ):
+				//	Debug.Log( "AcTitle.Trigger.CHALLENGE" );
+				//	//
+				//	//AcApp.setGameMode( AcApp.GAMEMODE_CHALLENGE );
+				//	//
+				//	//m_vManager.m_vTitle.gameObject.SetActive( false );
+				//	//m_vManager.m_vHowtoplay.gameObject.SetActive( true );
+				//	m_vManager.m_vTitle.setActive( false );
+				//	m_vManager.m_vHowtoplay.setActive( true );
+				//	break;
 				//
-				case ( AcTitle.Trigger.TIMEATTACK ):
-					Debug.Log( "AcTitle.Trigger.TIMEATTACK" );
-					//
-					AcApp.setGameMode( AcApp.GAMEMODE_TIMEATTACK );
-					//
-					//m_vManager.m_vTitle.gameObject.SetActive( false );
-					//m_vManager.m_vHowtoplay.gameObject.SetActive( true );
-					m_vManager.m_vTitle.setActive( false );
-					m_vManager.m_vHowtoplay.setActive( true );
-					//
-					//m_vManager.soundPlay( "se_1" );
-					AcApp.soundPlay( "se_1" );
-					break;
-				//
-				case ( AcTitle.Trigger.CHALLENGE ):
-					Debug.Log( "AcTitle.Trigger.CHALLENGE" );
-					//
-					AcApp.setGameMode( AcApp.GAMEMODE_CHALLENGE );
-					//
-					//m_vManager.m_vTitle.gameObject.SetActive( false );
-					//m_vManager.m_vHowtoplay.gameObject.SetActive( true );
+				case ( AcTitle.Trigger.GAME ):
 					m_vManager.m_vTitle.setActive( false );
 					m_vManager.m_vHowtoplay.setActive( true );
 					break;
 				//
 				case ( AcTitle.Trigger.RANKING ):
-					Debug.Log( "AcTitle.Trigger.RANKING" );
-					//
-					//m_vManager.m_vTitle.gameObject.SetActive( false );
-					//m_vManager.m_vRanking.gameObject.SetActive( true );
 					m_vManager.m_vTitle.setActive( false );
 					m_vManager.m_vRanking.setActive( true );
 					break;
@@ -441,13 +462,13 @@ public class AcGameManager : MonoBehaviour
 
 		public void onTrigger( AcHowtoplay.Trigger vTrigger )
 		{
-			Debug.Log( "_HowtoplayTrigger が呼ばれたよ" );
+			m_vManager._debugLog( "_HowtoplayTrigger が呼ばれたよ" );
 
 			switch ( vTrigger )
 			{
 				//
 				case ( AcHowtoplay.Trigger.YES ):
-					Debug.Log( "AcHowtoplay.Trigger.YES" );
+					m_vManager._debugLog( "AcHowtoplay.Trigger.YES" );
 					//
 					//m_vManager.m_vHowtoplay.gameObject.SetActive( false );
 					m_vManager.m_vHowtoplay.setActive( false );
@@ -456,7 +477,7 @@ public class AcGameManager : MonoBehaviour
 					break;
 				//
 				case ( AcHowtoplay.Trigger.NO ):
-					Debug.Log( "AcHowtoplay.Trigger.NO" );
+					m_vManager._debugLog( "AcHowtoplay.Trigger.NO" );
 					//
 					//m_vManager.m_vHowtoplay.gameObject.SetActive( false );
 					//m_vManager.m_vTitle.gameObject.SetActive( true );
@@ -473,28 +494,60 @@ public class AcGameManager : MonoBehaviour
 	/// <summary>
 	/// Ranking からの遷移用です
 	/// </summary>
-	private class _RangingTrigger : AcRanking.AiRankingTrigger
+	private class _RankingTrigger : AcRanking.AiRankingTrigger
 	{
 		private AcGameManager m_vManager;
 
-		public _RangingTrigger( AcGameManager vManager )
+		public _RankingTrigger( AcGameManager vManager )
 		{
 			m_vManager = vManager;
 		}
 
 		public void onTrigger( AcRanking.Trigger vTrigger )
 		{
-			Debug.Log( "_RangingTrigger が呼ばれたよ" );
+			m_vManager._debugLog( "_RankingTrigger が呼ばれたよ" );
 
 			switch ( vTrigger )
 			{
 				//
 				case ( AcRanking.Trigger.OK ):
-					Debug.Log( "AcRanking.Trigger.OK" );
+					m_vManager._debugLog( "AcRanking.Trigger.OK" );
 					//
 					//m_vManager.m_vRanking.gameObject.SetActive( false );
 					//m_vManager.m_vTitle.gameObject.SetActive( true );
 					m_vManager.m_vRanking.setActive( false );
+					m_vManager.m_vAd.setActive( true );
+					break;
+			}
+		}
+	}
+
+	// ========================================================================== //
+	// ========================================================================== //
+
+	/// <summary>
+	/// Ranking からの遷移用です
+	/// </summary>
+	private class _AdTrigger : AcAd.AiAdTrigger
+	{
+		private AcGameManager m_vManager;
+
+		public _AdTrigger( AcGameManager vManager )
+		{
+			m_vManager = vManager;
+		}
+
+		public void onTrigger( AcAd.Trigger vTrigger )
+		{
+			m_vManager._debugLog( "_AdTrigger が呼ばれたよ" );
+
+			switch ( vTrigger )
+			{
+				//
+				case ( AcAd.Trigger.OK ):
+					m_vManager._debugLog( "AcAd.Trigger.OK" );
+					//
+					m_vManager.m_vAd.setActive( false );
 					m_vManager.m_vTitle.setActive( true );
 					break;
 			}
