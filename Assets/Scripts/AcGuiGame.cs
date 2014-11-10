@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// List<T>
+using System.Collections.Generic;
 
 //public class AcGui : MonoBehaviour
 /// <summary>
 /// ゲーム中のタイム＆ドア＆その他を表示するクラスです
 /// </summary>
-public class AcGuiGame : object
+public class AcGuiGame : Object
 {
 	// ========================================================================== //
 	// ========================================================================== //
@@ -58,27 +60,27 @@ public class AcGuiGame : object
 	// ========================================================================== //
 	// ========================================================================== //
 
-	public const int GUI_TIMEATTACK_MODE = 0;
-	public const int GUI_CHALLENGE_MODE = 1;
+	//public const int GUI_TIMEATTACK_MODE = 0;
+	//public const int GUI_CHALLENGE_MODE = 1;
 
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
 
-	private const int _CHANGER_FIG_0 = 0;
-	private const int _CHANGER_FIG_1 = 1;
-	private const int _CHANGER_FIG_2 = 2;
-	private const int _CHANGER_FIG_3 = 3;
-	private const int _CHANGER_FIG_4 = 4;
-	private const int _CHANGER_FIG_5 = 5;
-	private const int _CHANGER_FIG_6 = 6;
-	private const int _CHANGER_FIG_7 = 7;
-	private const int _CHANGER_FIG_8 = 8;
-	private const int _CHANGER_FIG_9 = 9;
-	private const int _CHANGER_COLON = 10;
-	private const int _CHANGER_FRAME_1 = 11;
-	private const int _CHANGER_FRAME_2 = 12;
-	private const int _CHANGER_SUCCESS = 13;
-	private const int _CHANGER_FAILURE = 14;
+	//private const int _CHANGER_FIG_0 = 0;
+	//private const int _CHANGER_FIG_1 = 1;
+	//private const int _CHANGER_FIG_2 = 2;
+	//private const int _CHANGER_FIG_3 = 3;
+	//private const int _CHANGER_FIG_4 = 4;
+	//private const int _CHANGER_FIG_5 = 5;
+	//private const int _CHANGER_FIG_6 = 6;
+	//private const int _CHANGER_FIG_7 = 7;
+	//private const int _CHANGER_FIG_8 = 8;
+	//private const int _CHANGER_FIG_9 = 9;
+	//private const int _CHANGER_COLON = 10;
+	//private const int _CHANGER_FRAME_1 = 11;
+	//private const int _CHANGER_FRAME_2 = 12;
+	//private const int _CHANGER_SUCCESS = 13;
+	//private const int _CHANGER_FAILURE = 14;
 
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
@@ -227,7 +229,7 @@ public class AcGuiGame : object
 			float _sizeScale = 1.0f;
 			//
 			AcGuiTime _guiTime = new AcGuiTime( m_vTimerCounter, 10.0f, 10.0f, m_vChanger );
-			_guiTime.onGUI( _baseScale, _sizeScale );
+			_guiTime.onGUI( _baseScale, _sizeScale, false );
 		}
 	}
 
@@ -239,7 +241,7 @@ public class AcGuiGame : object
 			float _sizeScale = 1.0f;
 			//
 			AcGuiDoor _guiDoor = new AcGuiDoor( m_vDoorCounter, AcApp.SCREEN_W - AcGuiDoor.getFrameW() - 10.0f, 10.0f, m_vChanger );
-			_guiDoor.onGUI( _baseScale, _sizeScale );
+			_guiDoor.onGUI( _baseScale, _sizeScale, false );
 		}
 	}
 
@@ -330,7 +332,7 @@ public class AcGuiGame : object
 		{
 		}
 
-		public void _onGUI()
+		public void _onGUI_2()
 		{
 			float _scale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
 
@@ -353,7 +355,7 @@ public class AcGuiGame : object
 			int _index = _CHANGER_FIG_0 + ( m_vValueInt % 10 );
 			//
 			//			_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FIG_0 + ( m_vValue % 10 ), 0, 0 ), m_vChanger.getWH() ) );
-			_data.Add( new _Data(
+			_data.Add( new _ImageList(
 				m_vChanger.getTexture( _index ),
 				( m_vX + _x ) * _scale,
 				( m_vY + _y ) * _scale,
@@ -362,11 +364,44 @@ public class AcGuiGame : object
 				m_vChanger.getUV( _timer, _index, 0 ),
 				m_vChanger.getWH( _index ) ) );
 			//
-			foreach ( _Data __data in _data )
+			foreach ( _ImageList __data in _data )
 			{
 				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture( _index ), __data.m_vUvwh );
 				//				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
 			}
+		}
+
+		public void _onGUI()
+		{
+			float _scale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
+
+			/*
+			 * サイズを決めてセンタリングしてみる
+			 */
+			float _w = 200.0f;
+			float _h = 100.0f;
+			float _x = ( AcApp.SCREEN_W - _w ) / 2;
+			float _y = 50.0f;
+			//
+			/*
+			 * ArrayList クラス
+			 * http://msdn.microsoft.com/ja-jp/library/system.collections.arraylist(v=vs.110).aspx
+			 */
+			List<_ImageList> _data = new List<_ImageList>();
+			//
+			int _index = _CHANGER_FIG_0 + ( m_vValueInt % 10 );
+			//
+			clear();
+			//
+			add(
+				( m_vX + _x ) * _scale,
+				( m_vY + _y ) * _scale,
+				_w * _scale,
+				_h * _scale,
+				_index
+			);
+			//
+			draw();
 		}
 	}
 
@@ -380,7 +415,7 @@ public class AcGuiGame : object
 		{
 		}
 
-		public void _onGUI( bool bSuccess )
+		public void _onGUI_2( bool bSuccess )
 		{
 			float _scale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
 
@@ -398,7 +433,7 @@ public class AcGuiGame : object
 			 * ArrayList クラス
 			 * http://msdn.microsoft.com/ja-jp/library/system.collections.arraylist(v=vs.110).aspx
 			 */
-			ArrayList _data = new ArrayList();
+			ArrayList _list = new ArrayList();
 			//
 			int _index;
 			//
@@ -418,7 +453,7 @@ public class AcGuiGame : object
 				}
 				//
 				//				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_SUCCESS, 0, 0 ), m_vChanger.getWH() ) );
-				_data.Add( new _Data(
+				_list.Add( new _ImageList(
 					m_vChanger.getTexture( _index ),
 					( m_vX + _x ) * _scale,
 					( m_vY + _y ) * _scale,
@@ -432,7 +467,7 @@ public class AcGuiGame : object
 				_index = _CHANGER_FAILURE;
 				//
 				//				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FAILURE, 0, 0 ), m_vChanger.getWH() ) );
-				_data.Add( new _Data(
+				_list.Add( new _ImageList(
 					m_vChanger.getTexture( _index ),
 					( m_vX + _x ) * _scale,
 					( m_vY + _y ) * _scale,
@@ -442,11 +477,72 @@ public class AcGuiGame : object
 					m_vChanger.getWH( _index ) ) );
 			}
 			//
-			foreach ( _Data __data in _data )
+			foreach ( _ImageList __data in _list )
 			{
 				//				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
 				GUI.DrawTextureWithTexCoords( __data.m_vXywh, __data.m_vTexture, __data.m_vUvwh );
 			}
+		}
+
+		public void _onGUI( bool bSuccess )
+		{
+			float _scale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
+
+			/*
+			 * サイズを決めてセンタリングしてみる
+			 */
+			float _w = 300.0f;
+			float _h = 200.0f;
+			float _x = ( AcApp.SCREEN_W - _w ) / 2;
+			float _y = 150.0f;
+			//
+			/*
+			 * ArrayList クラス
+			 * http://msdn.microsoft.com/ja-jp/library/system.collections.arraylist(v=vs.110).aspx
+			 */
+			List<_ImageList> _data = new List<_ImageList>();
+			//
+			clear();
+			//
+			int _index;
+			//
+			if ( bSuccess )
+			{
+				switch ( AcApp.getGameMode() )
+				{
+					//
+					case ( AcApp.GAMEMODE_TIMEATTACK ):
+						_index = _CHANGER_SUCCESS;
+						break;
+					//
+					//case ( AcApp.GAMEMODE_CHALLENGE ):
+					default:
+						_index = _CHANGER_SUCCESS_CHALLENGE;
+						break;
+				}
+				//
+				add(
+					( m_vX + _x ) * _scale,
+					( m_vY + _y ) * _scale,
+					_w * _scale,
+					_h * _scale,
+					_index
+				);
+			}
+			else
+			{
+				_index = _CHANGER_FAILURE;
+				//
+				add(
+					( m_vX + _x ) * _scale,
+					( m_vY + _y ) * _scale,
+					_w * _scale,
+					_h * _scale,
+					_index
+				);
+			}
+			//
+			draw();
 		}
 	}
 

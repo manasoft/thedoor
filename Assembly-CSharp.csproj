@@ -84,6 +84,7 @@
      <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
      <Compile Include="Assets\Scripts\AcAd.cs" />
      <Compile Include="Assets\Scripts\AcApp.cs" />
+     <Compile Include="Assets\Scripts\AcDebug.cs" />
      <Compile Include="Assets\Scripts\AcGameManager.cs" />
      <Compile Include="Assets\Scripts\AcGuiBase.cs" />
      <Compile Include="Assets\Scripts\AcGuiDoor.cs" />

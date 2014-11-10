@@ -168,7 +168,7 @@ public class AcGameManager : MonoBehaviour
 	/// <summary>
 	/// 
 	/// </summary>
-	private AcSoundManager m_vSoundManager;
+//	private AcSoundManager m_vSoundManager;
 
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
@@ -193,15 +193,15 @@ public class AcGameManager : MonoBehaviour
 	/// </summary>
 	/// <param name="vEntryName"></param>
 	/// <returns></returns>
-	public string soundPlay( string vEntryName, float vFadeInTime = 0.0f )
-	{
-		return ( m_vSoundManager.play( vEntryName, vFadeInTime ) );
-	}
+	//public string soundPlay( string vEntryName, float vFadeInTime = 0.0f )
+	//{
+	//	return ( m_vSoundManager.play( vEntryName, vFadeInTime ) );
+	//}
 
-	public void soundStop( string vTrackName, float vFadeOutTime = 0.0f )
-	{
-		m_vSoundManager.stop( vTrackName, vFadeOutTime );
-	}
+	//public void soundStop( string vTrackName, float vFadeOutTime = 0.0f )
+	//{
+	//	m_vSoundManager.stop( vTrackName, vFadeOutTime );
+	//}
 
 	// ========================================================================== //
 	// ========================================================================== //
@@ -233,39 +233,42 @@ public class AcGameManager : MonoBehaviour
 		m_vTitle = AcTitle.Create( this, new _TitleTrigger( this ) );
 		//
 		m_vHowtoplay = AcHowtoplay.Create( this, new _HowtoplayTrigger( this ) );
-		m_vHowtoplay.gameObject.SetActive( false );
+//		m_vHowtoplay.gameObject.SetActive( false );
+		m_vHowtoplay.setActive( false );
 		//
 		m_vRanking = AcRanking.Create( this, new _RangingTrigger( this ) );
-		m_vRanking.gameObject.SetActive( false );
+//		m_vRanking.gameObject.SetActive( false );
+		m_vRanking.setActive( false );
 	}
 
 	private void _start()
 	{
-		{
-			// 実験
-			AcImageManager.test();
-		}
+		//{
+		//	// 実験
+		//	AcImageManager.test();
+		//}
 
-		m_vSoundManager = new AcSoundManager();
-		//
-		m_vSoundManager.add( "se_3", "sound", new string[] { "se1", "se2", "se3" }, 1.0f, 1.0f, true, null, "Sounds/Seikai02-1" );
+		//m_vSoundManager = new AcSoundManager();
+		////
+		//m_vSoundManager.add( "se_3", "sound", new string[] { "se1", "se2", "se3" }, 1.0f, 1.0f, true, null, "Sounds/Seikai02-1" );
 
-		m_vSoundManager.add( "se_1", "sound", new string[] { "se1", "se2", "se3" }, 1.0f, 1.0f, false, null, "Sounds/Seikai02-1" );
-		m_vSoundManager.add( "se_2", "sound", new string[] { "se1" }, 1.0f, -1.0f, false, null, "Sounds/Huseikai02-4" );
+		//m_vSoundManager.add( "se_1", "sound", new string[] { "se1", "se2", "se3" }, 1.0f, 1.0f, false, null, "Sounds/Seikai02-1" );
+		//m_vSoundManager.add( "se_2", "sound", new string[] { "se1" }, 1.0f, -1.0f, false, null, "Sounds/Huseikai02-4" );
 
 
-		m_vSoundManager.add( "bgm_1", "sound", new string[] { "bgm1" }, 0.05f, 0.0f, false, "bgm_2", "Sounds/Encounter_loop" );
-		m_vSoundManager.add( "bgm_2", "sound", new string[] { "bgm1" }, 0.05f, 0.0f, true, null, "Sounds/Top_Speed" );
+		//m_vSoundManager.add( "bgm_1", "sound", new string[] { "bgm1" }, 0.05f, 0.0f, false, "bgm_2", "Sounds/Encounter_loop" );
+		//m_vSoundManager.add( "bgm_2", "sound", new string[] { "bgm1" }, 0.05f, 0.0f, true, null, "Sounds/Top_Speed" );
 
-		m_vSoundManager.add( "se_3", "sound", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Seikai02-1" );
+		//m_vSoundManager.add( "se_3", "sound", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Seikai02-1" );
 
-		m_vSoundManager.add( "se_cd_1", "sound", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Accent Simple07-1" );
-		m_vSoundManager.add( "se_cd_2", "sound", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Accent Simple06-1" );
+		//m_vSoundManager.add( "se_cd_1", "sound", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Accent Simple07-1" );
+		//m_vSoundManager.add( "se_cd_2", "sound", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Accent Simple06-1" );
 	}
 
 	private void _update()
 	{
-		m_vSoundManager.update();
+	//	m_vSoundManager.update();
+		AcApp.soundUpdate();
 
 		///*
 		// * バックキー？
@@ -313,12 +316,12 @@ public class AcGameManager : MonoBehaviour
 
 	void OnApplicationQuit()
 	{
-		Debug.Log( "AcGameManager # OnApplicationQuit()" );
+		Debug.Log( "AcGameManager # OnApplicationQuit" );
 	}
 
 	void OnDestroy()
 	{
-		Debug.Log( "AcGameManager # OnDestroy()" );
+		Debug.Log( "AcGameManager # OnDestroy" );
 	}
 
 	// ========================================================================== //
@@ -349,7 +352,8 @@ public class AcGameManager : MonoBehaviour
 				case ( AcPlayer.Trigger.FINISH ):
 					Debug.Log( "AcPlayer.Trigger.FINISH" );
 					//
-					m_vManager.m_vRanking.gameObject.SetActive( true );
+					//m_vManager.m_vRanking.gameObject.SetActive( true );
+					m_vManager.m_vRanking.setActive( true );
 					break;
 				//
 				//case ( AcPlayer.Trigger.QUIT ):
@@ -388,10 +392,13 @@ public class AcGameManager : MonoBehaviour
 					//
 					AcApp.setGameMode( AcApp.GAMEMODE_TIMEATTACK );
 					//
-					m_vManager.m_vTitle.gameObject.SetActive( false );
-					m_vManager.m_vHowtoplay.gameObject.SetActive( true );
+					//m_vManager.m_vTitle.gameObject.SetActive( false );
+					//m_vManager.m_vHowtoplay.gameObject.SetActive( true );
+					m_vManager.m_vTitle.setActive( false );
+					m_vManager.m_vHowtoplay.setActive( true );
 					//
-					m_vManager.soundPlay( "se_1" );
+					//m_vManager.soundPlay( "se_1" );
+					AcApp.soundPlay( "se_1" );
 					break;
 				//
 				case ( AcTitle.Trigger.CHALLENGE ):
@@ -399,15 +406,19 @@ public class AcGameManager : MonoBehaviour
 					//
 					AcApp.setGameMode( AcApp.GAMEMODE_CHALLENGE );
 					//
-					m_vManager.m_vTitle.gameObject.SetActive( false );
-					m_vManager.m_vHowtoplay.gameObject.SetActive( true );
+					//m_vManager.m_vTitle.gameObject.SetActive( false );
+					//m_vManager.m_vHowtoplay.gameObject.SetActive( true );
+					m_vManager.m_vTitle.setActive( false );
+					m_vManager.m_vHowtoplay.setActive( true );
 					break;
 				//
 				case ( AcTitle.Trigger.RANKING ):
 					Debug.Log( "AcTitle.Trigger.RANKING" );
 					//
-					m_vManager.m_vTitle.gameObject.SetActive( false );
-					m_vManager.m_vRanking.gameObject.SetActive( true );
+					//m_vManager.m_vTitle.gameObject.SetActive( false );
+					//m_vManager.m_vRanking.gameObject.SetActive( true );
+					m_vManager.m_vTitle.setActive( false );
+					m_vManager.m_vRanking.setActive( true );
 					break;
 			}
 		}
@@ -438,7 +449,8 @@ public class AcGameManager : MonoBehaviour
 				case ( AcHowtoplay.Trigger.YES ):
 					Debug.Log( "AcHowtoplay.Trigger.YES" );
 					//
-					m_vManager.m_vHowtoplay.gameObject.SetActive( false );
+					//m_vManager.m_vHowtoplay.gameObject.SetActive( false );
+					m_vManager.m_vHowtoplay.setActive( false );
 					//
 					m_vManager.m_vPlayer.requestStopAuto();
 					break;
@@ -446,8 +458,10 @@ public class AcGameManager : MonoBehaviour
 				case ( AcHowtoplay.Trigger.NO ):
 					Debug.Log( "AcHowtoplay.Trigger.NO" );
 					//
-					m_vManager.m_vHowtoplay.gameObject.SetActive( false );
-					m_vManager.m_vTitle.gameObject.SetActive( true );
+					//m_vManager.m_vHowtoplay.gameObject.SetActive( false );
+					//m_vManager.m_vTitle.gameObject.SetActive( true );
+					m_vManager.m_vHowtoplay.setActive( false );
+					m_vManager.m_vTitle.setActive( true );
 					break;
 			}
 		}
@@ -478,8 +492,10 @@ public class AcGameManager : MonoBehaviour
 				case ( AcRanking.Trigger.OK ):
 					Debug.Log( "AcRanking.Trigger.OK" );
 					//
-					m_vManager.m_vRanking.gameObject.SetActive( false );
-					m_vManager.m_vTitle.gameObject.SetActive( true );
+					//m_vManager.m_vRanking.gameObject.SetActive( false );
+					//m_vManager.m_vTitle.gameObject.SetActive( true );
+					m_vManager.m_vRanking.setActive( false );
+					m_vManager.m_vTitle.setActive( true );
 					break;
 			}
 		}

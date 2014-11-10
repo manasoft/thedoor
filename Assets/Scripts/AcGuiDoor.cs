@@ -103,8 +103,8 @@ public class AcGuiDoor : AcGuiBase
 	//		GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
 	//	}
 	//}
-
-	public override void onGUI( float vBaseScale, float vSizeScale )
+	//	public override void onGUI_2( float vBaseScale, float vSizeScale )
+	public void onGUI_2( float vBaseScale, float vSizeScale )
 	{
 		int _timer = Time.frameCount;
 
@@ -128,14 +128,14 @@ public class AcGuiDoor : AcGuiBase
 
 		// ドアフレーム
 		_index = _CHANGER_FRAME_2;
-		_data.Add( new _Data(
+		_data.Add( new _ImageList(
 			m_vChanger.getTexture( _index ),
 			_x, _y, _frame_w, _frame_h,
 			m_vChanger.getUV( _timer, _index, 0 ),
 			m_vChanger.getWH( _index ) ) );
 		// ドア
 		_index = _CHANGER_FIG_0 + ( _value / 100 % 10 );
-		_data.Add( new _Data(
+		_data.Add( new _ImageList(
 			m_vChanger.getTexture( _index ),
 			_x + _padding_x + ( _parts_w * 1 ),
 			_y + _padding_y,
@@ -145,7 +145,7 @@ public class AcGuiDoor : AcGuiBase
 			m_vChanger.getWH( _index ) ) );
 		//
 		_index = _CHANGER_FIG_0 + ( _value / 10 % 10 );
-		_data.Add( new _Data(
+		_data.Add( new _ImageList(
 			m_vChanger.getTexture( _index ),
 			_x + _padding_x + ( _parts_w * 2 ),
 			_y + _padding_y,
@@ -155,7 +155,7 @@ public class AcGuiDoor : AcGuiBase
 			m_vChanger.getWH( _index ) ) );
 		//
 		_index = _CHANGER_FIG_0 + ( _value / 1 % 10 );
-		_data.Add( new _Data(
+		_data.Add( new _ImageList(
 			m_vChanger.getTexture( _index ),
 			_x + _padding_x + ( _parts_w * 3 ),
 			_y + _padding_y,
@@ -165,10 +165,77 @@ public class AcGuiDoor : AcGuiBase
 			m_vChanger.getWH( _index ) ) );
 
 		//
-		foreach ( _Data __data in _data )
+		foreach ( _ImageList __data in _data )
 		{
 			GUI.DrawTextureWithTexCoords( __data.m_vXywh, __data.m_vTexture, __data.m_vUvwh );
 		}
+	}
+
+
+	public override void onGUI( float vBaseScale, float vSizeScale, bool bRanking )
+	{
+		float _x = ( m_vX * vBaseScale ) - ( _FRAME_W * vBaseScale * ( vSizeScale - 1.0f ) / 2.0f );
+		float _y = ( m_vY * vBaseScale ) - ( _FRAME_H * vBaseScale * ( vSizeScale - 1.0f ) / 2.0f );
+
+		float _scale = vBaseScale * vSizeScale;
+
+		float _padding_x = _PADDING_X * _scale;
+		float _padding_y = _PADDING_Y * _scale;
+		float _frame_w = _FRAME_W * _scale;
+		float _frame_h = _FRAME_H * _scale;
+		float _parts_w = _PARTS_W * _scale;
+		float _parts_h = _PARTS_H * _scale;
+
+		int _value = m_vValueInt;
+
+		//
+		clear();
+		//
+		if ( !bRanking )
+		{
+			// ドアフレーム
+			add(
+				_x,
+				_y,
+				_frame_w,
+				_frame_h,
+				_CHANGER_FRAME_2
+			);
+			//
+			add(
+				_x + _padding_x + ( _parts_w * 4 ),
+				_y + _padding_y,
+				_parts_w,
+				_parts_h,
+				_CHANGER_FIG_0 + ( AcApp.GAMERULE_TIMEATTACK_DOOR / 10 % 10 )
+			);
+			//
+			add(
+				_x + _padding_x + ( _parts_w * 5 ),
+				_y + _padding_y,
+				_parts_w,
+				_parts_h,
+				_CHANGER_FIG_0 + ( AcApp.GAMERULE_TIMEATTACK_DOOR / 1 % 10 )
+			);
+		}
+		// ドアの数字
+		add(
+			_x + _padding_x + ( _parts_w * 1 ),
+			_y + _padding_y,
+			_parts_w,
+			_parts_h,
+			_CHANGER_FIG_0 + ( _value / 10 % 10 )
+		);
+		//
+		add(
+			_x + _padding_x + ( _parts_w * 2 ),
+			_y + _padding_y,
+			_parts_w,
+			_parts_h,
+			_CHANGER_FIG_0 + ( _value / 1 % 10 )
+		);
+		//
+		draw();
 	}
 
 	// ========================================================================== //

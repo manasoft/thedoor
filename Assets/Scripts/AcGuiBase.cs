@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// List<T>
+using System.Collections.Generic;
+
 /// <summary>
 /// AcGuiTime と AcGuiDoor の基底クラス
 /// </summary>
-public class AcGuiBase
+public class AcGuiBase : Object
 {
 	// ========================================================================== //
 	// ========================================================================== //
@@ -114,6 +117,39 @@ public class AcGuiBase
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
 
+	/// <summary>
+	/// 2014/11/09 追加
+	/// </summary>
+	private List<_ImageList> m_vImageList;
+
+	/// <summary>
+	/// スタティックな画像データ
+	/// 配列の順番がインデックスになっているよ！
+	/// </summary>
+	private static readonly _ImageData[] m_vImageData =
+	{
+		new _ImageData( AcApp.IMAGE_NUMBER, 0 ),		// 0
+		new _ImageData( AcApp.IMAGE_NUMBER, 1 ),		// 1
+		new _ImageData( AcApp.IMAGE_NUMBER, 2 ),		// 2
+		new _ImageData( AcApp.IMAGE_NUMBER, 3 ),		// 3
+		new _ImageData( AcApp.IMAGE_NUMBER, 4 ),		// 4
+		new _ImageData( AcApp.IMAGE_NUMBER, 5 ),		// 5
+		new _ImageData( AcApp.IMAGE_NUMBER, 6 ),		// 6
+		new _ImageData( AcApp.IMAGE_NUMBER, 7 ),		// 7
+		new _ImageData( AcApp.IMAGE_NUMBER, 8 ),		// 8
+		new _ImageData( AcApp.IMAGE_NUMBER, 9 ),		// 9
+		new _ImageData( AcApp.IMAGE_NUMBER, 0 ),		// 10
+		new _ImageData( AcApp.IMAGE_TEX_S, 9 ),			// 11
+		new _ImageData( AcApp.IMAGE_TEX_S, 8 ),			// 12
+		new _ImageData( AcApp.IMAGE_TEX_L, 4 ),			// 13
+		new _ImageData( AcApp.IMAGE_TEX_L, 6 ),			// 14
+		new _ImageData( AcApp.IMAGE_TEX_L, 5 ),			// 15
+	};
+
+	// -------------------------------------------------------------------------- //
+	// -------------------------------------------------------------------------- //
+
+
 	// ========================================================================== //
 	// ========================================================================== //
 
@@ -129,6 +165,9 @@ public class AcGuiBase
 		//m_vBaseScale = 1.0f;
 		//m_vSizeScale = 1.0f;
 		m_vChanger = null;
+
+		//
+		m_vImageList = new List<_ImageList>();
 	}
 
 	// ========================================================================== //
@@ -194,6 +233,30 @@ public class AcGuiBase
 	// ========================================================================== //
 	// ========================================================================== //
 
+	public void clear()
+	{
+		m_vImageList.Clear();
+	}
+
+	public void add( float vX, float vY, float vW, float vH, int vIndex )
+	{
+		m_vImageList.Add( new _ImageList( vX, vY, vW, vH, vIndex ) );
+	}
+
+	/// <summary>
+	/// GUI は render じゃなくて draw の方がいいのかな？
+	/// </summary>
+	public void draw()
+	{
+		foreach ( _ImageList _list in m_vImageList )
+		{
+			AcApp.imageDraw( _list.m_vXywh, _list.m_vEntryName, _list.m_vIndex );
+		}
+	}
+
+	// ========================================================================== //
+	// ========================================================================== //
+
 	// ========================================================================== //
 	// ========================================================================== //
 
@@ -211,7 +274,7 @@ public class AcGuiBase
 	/// </summary>
 	/// <param name="vBaseScale"></param>
 	/// <param name="vSizeScale"></param>
-	public virtual void onGUI( float vBaseScale, float vSizeScale )
+	public virtual void onGUI( float vBaseScale, float vSizeScale, bool bRanking )
 	{
 	}
 
@@ -314,7 +377,7 @@ public class AcGuiBase
 	/// <summary>
 	/// 描画情報のデータを持たせる構造体だよ
 	/// </summary>
-	protected class _Data
+	protected class _ImageList
 	{
 		public Texture m_vTexture;
 		public Rect m_vXywh;
@@ -361,14 +424,65 @@ public class AcGuiBase
 		/// <param name="vH"></param>
 		/// <param name="vUv"></param>
 		/// <param name="vWh"></param>
-		public _Data( Texture vTexture, float vX, float vY, float vW, float vH, Vector2 vUv, Vector2 vWh )
+		public _ImageList( Texture vTexture, float vX, float vY, float vW, float vH, Vector2 vUv, Vector2 vWh )
 		{
 			m_vTexture = vTexture;
 			m_vXywh = new Rect( vX, vY, vW, vH );
 			m_vUvwh = new Rect( vUv.x, vUv.y, vWh.x, vWh.y );
 		}
+
+
+		public string m_vEntryName;
+		public int m_vIndex;
+
+
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="vX"></param>
+		/// <param name="vY"></param>
+		/// <param name="vW"></param>
+		/// <param name="vH"></param>
+		/// <param name="vIndex"></param>
+		public _ImageList( float vX, float vY, float vW, float vH, int vIndex )
+		{
+			m_vXywh.Set( vX, vY, vW, vH );
+			m_vEntryName = m_vImageData[ vIndex ].m_vEntryName;
+			m_vIndex = m_vImageData[ vIndex ].m_vIndex;
+		}
+
+		//public _ImageList()
+		//{
+		//}
+
 	}
 
+	// ========================================================================== //
+	// ========================================================================== //
+
+	/// <summary>
+	/// 画像の管理を何でするか？
+	/// AcImageManager は文字列で行っているが、数字を扱っているので数字の方が良くない？
+	/// 
+	/// 例えば 0 を表示したい場合 _IMAGE_ID_0 を int で 0 にしたら
+	/// 0 から AcImageManager への変換処理が必要になるよなぁ
+	/// そのための変換データを管理するクラスを作る
+	/// 
+	/// または AcImageManager で "gui_0" ~ "gui_9" とか名前を全部つけて別画像で管理してもらうか？
+	/// この方法が王道っぽいのだが、ちと面倒な感じもあるんだよね・・・いや、どっちにしろ面倒かな？
+	/// </summary>
+	private class _ImageData
+	{
+		public string m_vEntryName;
+		public int m_vIndex;
+
+		public _ImageData( string vEntryName, int vIndex )
+		{
+			m_vEntryName = vEntryName;
+			m_vIndex = vIndex;
+		}
+	}
+	
 	// ========================================================================== //
 	// ========================================================================== //
 }
