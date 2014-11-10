@@ -91,7 +91,7 @@ public class AcGuiGame : Object
 	// ========================================================================== //
 	// ========================================================================== //
 
-	private AcTextureChanger m_vChanger;
+//	private AcTextureChanger m_vChanger;
 
 	private int m_vMode;
 
@@ -146,7 +146,7 @@ public class AcGuiGame : Object
 	public AcGuiGame()
 	{
 //		m_vChanger = new AcTextureChanger( AcGuiBase.getTextureChangerData() );
-		m_vChanger = AcGuiBase.getTextureChanger();
+//		m_vChanger = AcGuiBase.getTextureChanger();
 
 		m_bReadyActive = false;
 		m_vReadyCounter = 0;
@@ -216,7 +216,8 @@ public class AcGuiGame : Object
 	{
 		if ( m_bReadyActive )
 		{
-			_GuiReady _guiReady = new _GuiReady( m_vReadyCounter, 0, 0, m_vChanger );
+			//_GuiReady _guiReady = new _GuiReady( m_vReadyCounter, 0, 0, m_vChanger );
+			_GuiReady _guiReady = new _GuiReady( m_vReadyCounter, 0, 0 );
 			_guiReady._onGUI();
 		}
 	}
@@ -228,7 +229,8 @@ public class AcGuiGame : Object
 			float _baseScale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
 			float _sizeScale = 1.0f;
 			//
-			AcGuiTime _guiTime = new AcGuiTime( m_vTimerCounter, 10.0f, 10.0f, m_vChanger );
+			//AcGuiTime _guiTime = new AcGuiTime( m_vTimerCounter, 10.0f, 10.0f, m_vChanger );
+			AcGuiTime _guiTime = new AcGuiTime( m_vTimerCounter, 84.0f, 10.0f );
 			_guiTime.onGUI( _baseScale, _sizeScale, false );
 		}
 	}
@@ -240,7 +242,9 @@ public class AcGuiGame : Object
 			float _baseScale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
 			float _sizeScale = 1.0f;
 			//
-			AcGuiDoor _guiDoor = new AcGuiDoor( m_vDoorCounter, AcApp.SCREEN_W - AcGuiDoor.getFrameW() - 10.0f, 10.0f, m_vChanger );
+			//AcGuiDoor _guiDoor = new AcGuiDoor( m_vDoorCounter, AcApp.SCREEN_W - AcGuiDoor.getFrameW() - 10.0f, 10.0f, m_vChanger );
+			//AcGuiDoor _guiDoor = new AcGuiDoor( m_vDoorCounter, AcApp.SCREEN_W - AcGuiDoor.getFrameW() - 10.0f, 10.0f );
+			AcGuiDoor _guiDoor = new AcGuiDoor( m_vDoorCounter, 84.0f, 10.0f  );
 			_guiDoor.onGUI( _baseScale, _sizeScale, false );
 		}
 	}
@@ -250,7 +254,8 @@ public class AcGuiGame : Object
 	{
 		if ( m_bResultActive )
 		{
-			_GuiResult _guiResult = new _GuiResult( 0, 0, 0, m_vChanger );
+			//_GuiResult _guiResult = new _GuiResult( 0, 0, 0, m_vChanger );
+			_GuiResult _guiResult = new _GuiResult( 0, 0, 0 );
 			_guiResult._onGUI( m_bResultSuccess );
 		}
 	}
@@ -327,49 +332,54 @@ public class AcGuiGame : Object
 
 	private class _GuiReady : AcGuiBase
 	{
-		public _GuiReady( int vValue, float vX, float vY, AcTextureChanger vChanger )
-			: base( vValue, vX, vY, vChanger )
+		//public _GuiReady( int vValue, float vX, float vY, AcTextureChanger vChanger )
+		//	: base( vValue, vX, vY, vChanger )
+		//{
+		//}
+
+		public _GuiReady( int vValue, float vX, float vY )
+			: base( vValue, vX, vY )
 		{
 		}
 
-		public void _onGUI_2()
-		{
-			float _scale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
+		//public void _onGUI_2()
+		//{
+		//	float _scale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
 
-			int _timer = Time.frameCount;
+		//	int _timer = Time.frameCount;
 
-			/*
-			 * サイズを決めてセンタリングしてみる
-			 */
-			float _w = 200.0f;
-			float _h = 100.0f;
-			float _x = ( AcApp.SCREEN_W - _w ) / 2;
-			float _y = 50.0f;
-			//
-			/*
-			 * ArrayList クラス
-			 * http://msdn.microsoft.com/ja-jp/library/system.collections.arraylist(v=vs.110).aspx
-			 */
-			ArrayList _data = new ArrayList();
-			//
-			int _index = _CHANGER_FIG_0 + ( m_vValueInt % 10 );
-			//
-			//			_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FIG_0 + ( m_vValue % 10 ), 0, 0 ), m_vChanger.getWH() ) );
-			_data.Add( new _ImageList(
-				m_vChanger.getTexture( _index ),
-				( m_vX + _x ) * _scale,
-				( m_vY + _y ) * _scale,
-				_w * _scale,
-				_h * _scale,
-				m_vChanger.getUV( _timer, _index, 0 ),
-				m_vChanger.getWH( _index ) ) );
-			//
-			foreach ( _ImageList __data in _data )
-			{
-				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture( _index ), __data.m_vUvwh );
-				//				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
-			}
-		}
+		//	/*
+		//	 * サイズを決めてセンタリングしてみる
+		//	 */
+		//	float _w = 200.0f;
+		//	float _h = 100.0f;
+		//	float _x = ( AcApp.SCREEN_W - _w ) / 2;
+		//	float _y = 50.0f;
+		//	//
+		//	/*
+		//	 * ArrayList クラス
+		//	 * http://msdn.microsoft.com/ja-jp/library/system.collections.arraylist(v=vs.110).aspx
+		//	 */
+		//	ArrayList _data = new ArrayList();
+		//	//
+		//	int _index = _CHANGER_FIG_0 + ( m_vValueInt % 10 );
+		//	//
+		//	//			_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FIG_0 + ( m_vValue % 10 ), 0, 0 ), m_vChanger.getWH() ) );
+		//	_data.Add( new _ImageList(
+		//		m_vChanger.getTexture( _index ),
+		//		( m_vX + _x ) * _scale,
+		//		( m_vY + _y ) * _scale,
+		//		_w * _scale,
+		//		_h * _scale,
+		//		m_vChanger.getUV( _timer, _index, 0 ),
+		//		m_vChanger.getWH( _index ) ) );
+		//	//
+		//	foreach ( _ImageList __data in _data )
+		//	{
+		//		GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture( _index ), __data.m_vUvwh );
+		//		//				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
+		//	}
+		//}
 
 		public void _onGUI()
 		{
@@ -378,10 +388,14 @@ public class AcGuiGame : Object
 			/*
 			 * サイズを決めてセンタリングしてみる
 			 */
-			float _w = 200.0f;
-			float _h = 100.0f;
+			//float _w = 200.0f;
+			//float _h = 100.0f;
+			//float _x = ( AcApp.SCREEN_W - _w ) / 2;
+			//float _y = 50.0f;
+			float _w = AcApp.SCREEN_W;
+			float _h = AcApp.SCREEN_H;
 			float _x = ( AcApp.SCREEN_W - _w ) / 2;
-			float _y = 50.0f;
+			float _y = ( AcApp.SCREEN_H - _h ) / 2;
 			//
 			/*
 			 * ArrayList クラス
@@ -389,7 +403,8 @@ public class AcGuiGame : Object
 			 */
 			List<_ImageList> _data = new List<_ImageList>();
 			//
-			int _index = _CHANGER_FIG_0 + ( m_vValueInt % 10 );
+			//int _index = _CHANGER_FIG_0 + ( m_vValueInt % 10 );
+			int _index = _CHANGER_COUNTDOWN_0 + ( m_vValueInt % 10 );
 			//
 			clear();
 			//
@@ -410,79 +425,83 @@ public class AcGuiGame : Object
 
 	private class _GuiResult : AcGuiBase
 	{
-		public _GuiResult( int vValue, float vX, float vY, AcTextureChanger vChanger )
-			: base( vValue, vX, vY, vChanger )
+		//public _GuiResult( int vValue, float vX, float vY, AcTextureChanger vChanger )
+		//	: base( vValue, vX, vY, vChanger )
+		//{
+		//}
+		public _GuiResult( int vValue, float vX, float vY )
+			: base( vValue, vX, vY )
 		{
 		}
 
-		public void _onGUI_2( bool bSuccess )
-		{
-			float _scale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
+		//public void _onGUI_2( bool bSuccess )
+		//{
+		//	float _scale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
 
-			int _timer = Time.frameCount;
+		//	int _timer = Time.frameCount;
 
-			/*
-			 * サイズを決めてセンタリングしてみる
-			 */
-			float _w = 300.0f;
-			float _h = 200.0f;
-			float _x = ( AcApp.SCREEN_W - _w ) / 2;
-			float _y = 150.0f;
-			//
-			/*
-			 * ArrayList クラス
-			 * http://msdn.microsoft.com/ja-jp/library/system.collections.arraylist(v=vs.110).aspx
-			 */
-			ArrayList _list = new ArrayList();
-			//
-			int _index;
-			//
-			if ( bSuccess )
-			{
-				switch ( AcApp.getGameMode() )
-				{
-					//
-					case ( AcApp.GAMEMODE_TIMEATTACK ):
-						_index = _CHANGER_SUCCESS;
-						break;
-					//
-					//case ( AcApp.GAMEMODE_CHALLENGE ):
-					default:
-						_index = _CHANGER_SUCCESS_CHALLENGE;
-						break;
-				}
-				//
-				//				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_SUCCESS, 0, 0 ), m_vChanger.getWH() ) );
-				_list.Add( new _ImageList(
-					m_vChanger.getTexture( _index ),
-					( m_vX + _x ) * _scale,
-					( m_vY + _y ) * _scale,
-					_w * _scale,
-					_h * _scale,
-					m_vChanger.getUV( _timer, _index, 0 ),
-					m_vChanger.getWH( _index ) ) );
-			}
-			else
-			{
-				_index = _CHANGER_FAILURE;
-				//
-				//				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FAILURE, 0, 0 ), m_vChanger.getWH() ) );
-				_list.Add( new _ImageList(
-					m_vChanger.getTexture( _index ),
-					( m_vX + _x ) * _scale,
-					( m_vY + _y ) * _scale,
-					_w * _scale,
-					_h * _scale,
-					m_vChanger.getUV( _timer, _index, 0 ),
-					m_vChanger.getWH( _index ) ) );
-			}
-			//
-			foreach ( _ImageList __data in _list )
-			{
-				//				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
-				GUI.DrawTextureWithTexCoords( __data.m_vXywh, __data.m_vTexture, __data.m_vUvwh );
-			}
-		}
+		//	/*
+		//	 * サイズを決めてセンタリングしてみる
+		//	 */
+		//	float _w = 300.0f;
+		//	float _h = 200.0f;
+		//	float _x = ( AcApp.SCREEN_W - _w ) / 2;
+		//	float _y = 150.0f;
+		//	//
+		//	/*
+		//	 * ArrayList クラス
+		//	 * http://msdn.microsoft.com/ja-jp/library/system.collections.arraylist(v=vs.110).aspx
+		//	 */
+		//	ArrayList _list = new ArrayList();
+		//	//
+		//	int _index;
+		//	//
+		//	if ( bSuccess )
+		//	{
+		//		switch ( AcApp.getGameMode() )
+		//		{
+		//			//
+		//			case ( AcApp.GAMEMODE_TIMEATTACK ):
+		//				_index = _CHANGER_SUCCESS;
+		//				break;
+		//			//
+		//			//case ( AcApp.GAMEMODE_CHALLENGE ):
+		//			default:
+		//				_index = _CHANGER_SUCCESS_CHALLENGE;
+		//				break;
+		//		}
+		//		//
+		//		//				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_SUCCESS, 0, 0 ), m_vChanger.getWH() ) );
+		//		_list.Add( new _ImageList(
+		//			m_vChanger.getTexture( _index ),
+		//			( m_vX + _x ) * _scale,
+		//			( m_vY + _y ) * _scale,
+		//			_w * _scale,
+		//			_h * _scale,
+		//			m_vChanger.getUV( _timer, _index, 0 ),
+		//			m_vChanger.getWH( _index ) ) );
+		//	}
+		//	else
+		//	{
+		//		_index = _CHANGER_FAILURE;
+		//		//
+		//		//				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FAILURE, 0, 0 ), m_vChanger.getWH() ) );
+		//		_list.Add( new _ImageList(
+		//			m_vChanger.getTexture( _index ),
+		//			( m_vX + _x ) * _scale,
+		//			( m_vY + _y ) * _scale,
+		//			_w * _scale,
+		//			_h * _scale,
+		//			m_vChanger.getUV( _timer, _index, 0 ),
+		//			m_vChanger.getWH( _index ) ) );
+		//	}
+		//	//
+		//	foreach ( _ImageList __data in _list )
+		//	{
+		//		//				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
+		//		GUI.DrawTextureWithTexCoords( __data.m_vXywh, __data.m_vTexture, __data.m_vUvwh );
+		//	}
+		//}
 
 		public void _onGUI( bool bSuccess )
 		{

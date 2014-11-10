@@ -526,7 +526,7 @@ public class AcGameManager : MonoBehaviour
 	// ========================================================================== //
 
 	/// <summary>
-	/// Ranking からの遷移用です
+	/// Ad からの遷移用です
 	/// </summary>
 	private class _AdTrigger : AcAd.AiAdTrigger
 	{

@@ -44,6 +44,10 @@ public class AcGuiBase : Object
 	protected const int _CHANGER_SUCCESS = 13;
 	protected const int _CHANGER_SUCCESS_CHALLENGE = 14;
 	protected const int _CHANGER_FAILURE = 15;
+	protected const int _CHANGER_COUNTDOWN_0 = 16;
+	protected const int _CHANGER_COUNTDOWN_1 = 17;
+	protected const int _CHANGER_COUNTDOWN_2 = 18;
+	protected const int _CHANGER_COUNTDOWN_3 = 19;
 
 	// ========================================================================== //
 	// ========================================================================== //
@@ -112,7 +116,7 @@ public class AcGuiBase : Object
 	/// <summary>
 	/// 同じチェンジャーを共有出来るように中に置くのではなく外に置けるようにする（同じテクスチャのメモリを持たないようにするためだよ）
 	/// </summary>
-	protected AcTextureChanger m_vChanger;
+	//protected AcTextureChanger m_vChanger;
 
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
@@ -144,6 +148,11 @@ public class AcGuiBase : Object
 		new _ImageData( AcApp.IMAGE_TEX_L, 4 ),			// 13
 		new _ImageData( AcApp.IMAGE_TEX_L, 6 ),			// 14
 		new _ImageData( AcApp.IMAGE_TEX_L, 5 ),			// 15
+		//
+		new _ImageData( AcApp.IMAGE_TEX_L, 0 ),			// 16
+		new _ImageData( AcApp.IMAGE_TEX_L, 13 ),		// 17
+		new _ImageData( AcApp.IMAGE_TEX_L, 12 ),		// 18
+		new _ImageData( AcApp.IMAGE_TEX_L, 11 ),		// 19
 	};
 
 	// -------------------------------------------------------------------------- //
@@ -164,7 +173,7 @@ public class AcGuiBase : Object
 		m_vY = 0.0f;
 		//m_vBaseScale = 1.0f;
 		//m_vSizeScale = 1.0f;
-		m_vChanger = null;
+		//m_vChanger = null;
 
 		//
 		m_vImageList = new List<_ImageList>();
@@ -204,30 +213,47 @@ public class AcGuiBase : Object
 	//	m_vChanger = vChanger;
 	//}
 
-	/// <summary>
-	/// コンストラクタ
-	/// </summary>
-	/// <param name="vValue"></param>
-	/// <param name="vX"></param>
-	/// <param name="vY"></param>
-	/// <param name="vChanger"></param>
-	public AcGuiBase( int vValue, float vX, float vY, AcTextureChanger vChanger )
+	///// <summary>
+	///// コンストラクタ
+	///// </summary>
+	///// <param name="vValue"></param>
+	///// <param name="vX"></param>
+	///// <param name="vY"></param>
+	///// <param name="vChanger"></param>
+	//public AcGuiBase( int vValue, float vX, float vY, AcTextureChanger vChanger )
+	//{
+	//	_ini();
+	//	//
+	//	m_vValueInt = vValue;
+	//	m_vX = vX;
+	//	m_vY = vY;
+	//	m_vChanger = vChanger;
+	//}
+	//public AcGuiBase( float vValue, float vX, float vY, AcTextureChanger vChanger )
+	//{
+	//	_ini();
+	//	//
+	//	m_vValueFloat = vValue;
+	//	m_vX = vX;
+	//	m_vY = vY;
+	//	m_vChanger = vChanger;
+	//}
+
+	public AcGuiBase( int vValue, float vX, float vY )
 	{
 		_ini();
 		//
 		m_vValueInt = vValue;
 		m_vX = vX;
 		m_vY = vY;
-		m_vChanger = vChanger;
 	}
-	public AcGuiBase( float vValue, float vX, float vY, AcTextureChanger vChanger )
+	public AcGuiBase( float vValue, float vX, float vY )
 	{
 		_ini();
 		//
 		m_vValueFloat = vValue;
 		m_vX = vX;
 		m_vY = vY;
-		m_vChanger = vChanger;
 	}
 
 	// ========================================================================== //
@@ -482,7 +508,7 @@ public class AcGuiBase : Object
 			m_vIndex = vIndex;
 		}
 	}
-	
+
 	// ========================================================================== //
 	// ========================================================================== //
 }
