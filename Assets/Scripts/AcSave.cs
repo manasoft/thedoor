@@ -5,8 +5,9 @@ using System.Collections;
 //using System;
 // 
 
-//
-//using System.Collections.Generic;
+// List<>
+using System.Collections.Generic;
+
 //using System.Object;
 //using System.Collections;
 
@@ -243,13 +244,14 @@ public class AcSave : Object
 
 	public static float[] getTimes()
 	{
-		ArrayList _arrayList = m_vInstance.m_vSave.m_vData_TimeAttack;
+		//ArrayList _arrayList = m_vInstance.m_vSave.m_vData_TimeAttack;
+		List<_Data_TimeAttack> _list = m_vInstance.m_vSave.m_vData_TimeAttack;
 
-		float[] _times = new float[ _arrayList.Count ];
+		float[] _times = new float[ _list.Count ];
 		//
-		for ( int _count = 0; _count < _arrayList.Count; _count++ )
+		for ( int _count = 0; _count < _list.Count; _count++ )
 		{
-			_times[ _count ] = ( ( _Data_TimeAttack ) _arrayList[ _count ] ).m_vTime;
+			_times[ _count ] = ( ( _Data_TimeAttack ) _list[ _count ] ).m_vTime;
 		}
 		//
 		return ( _times );
@@ -257,16 +259,35 @@ public class AcSave : Object
 
 	public static int[] getDoors()
 	{
-		ArrayList _arrayList = m_vInstance.m_vSave.m_vData_Challenge;
+		//ArrayList _arrayList = m_vInstance.m_vSave.m_vData_Challenge;
+		List<_Data_Challenge> _list = m_vInstance.m_vSave.m_vData_Challenge;
 
-		int[] _doors = new int[ _arrayList.Count ];
+		int[] _doors = new int[ _list.Count ];
 		//
-		for ( int _count = 0; _count < _arrayList.Count; _count++ )
+		for ( int _count = 0; _count < _list.Count; _count++ )
 		{
-			_doors[ _count ] = ( ( _Data_Challenge ) _arrayList[ _count ] ).m_vDoor;
+			_doors[ _count ] = ( ( _Data_Challenge ) _list[ _count ] ).m_vDoor;
 		}
 		//
 		return ( _doors );
+	}
+
+	/// <summary>
+	/// ランキングの順位（0~9）
+	/// </summary>
+	/// <returns></returns>
+	public static int getTimesRank()
+	{
+		return ( m_vInstance.m_vSave.m_vRank_TimeAttack );
+	}
+
+	/// <summary>
+	/// ランキングの順位（0~9）
+	/// </summary>
+	/// <returns></returns>
+	public static int getDoorsRank()
+	{
+		return ( m_vInstance.m_vSave.m_vRank_Challenge );
 	}
 
 	// ========================================================================== //
@@ -348,6 +369,21 @@ public class AcSave : Object
 		m_vInstance.m_vSave.save( m_vInstance.m_vPath + _SAVEFILE );
 	}
 
+	public static void missTime()
+	{
+		m_vInstance.m_vSave.missTime();
+		//
+		m_vInstance.m_vSave.save( m_vInstance.m_vPath + _SAVEFILE );
+	}
+
+	public static void missDoor()
+	{
+		m_vInstance.m_vSave.missDoor();
+		//
+		m_vInstance.m_vSave.save( m_vInstance.m_vPath + _SAVEFILE );
+	}
+
+
 	private static void debugPrint()
 	{
 		m_vInstance.m_vSave.debugPrint();
@@ -362,29 +398,39 @@ public class AcSave : Object
 	[System.Serializable]
 	private class _Data
 	{
-		public ArrayList m_vData_TimeAttack;
-		public ArrayList m_vData_Challenge;
+		//public ArrayList m_vData_TimeAttack;
+		//public ArrayList m_vData_Challenge;
+		public List<_Data_TimeAttack> m_vData_TimeAttack;
+		public List<_Data_Challenge> m_vData_Challenge;
+
+		public int m_vRank_TimeAttack;
+		public int m_vRank_Challenge;
 
 		// -------------------------------------------------------------------------- //
 		// -------------------------------------------------------------------------- //
 
 		public _Data()
 		{
-			m_vData_TimeAttack = new ArrayList();
-			m_vData_Challenge = new ArrayList();
+			//m_vData_TimeAttack = new ArrayList();
+			//m_vData_Challenge = new ArrayList();
+			m_vData_TimeAttack = new List<_Data_TimeAttack>();
+			m_vData_Challenge = new List<_Data_Challenge>();
+			//
+			m_vRank_TimeAttack = -1;
+			m_vRank_Challenge = -1;
 		}
 
 		// -------------------------------------------------------------------------- //
 		// -------------------------------------------------------------------------- //
 
-		private class _comparerTime : IComparer
+		private class _comparerTime : IComparer<_Data_TimeAttack>
 		{
 			// Calls CaseInsensitiveComparer.Compare with the parameters reversed.
 			//int IComparer.Compare( _DataTimeAttackMode x, _DataTimeAttackMode y )
 			//{
 			//	return ( x.m_vTime - y.m_vTime );
 			//}
-			int IComparer.Compare( object vL, object vR )
+			public int Compare( _Data_TimeAttack vL, _Data_TimeAttack vR )
 			{
 				_Data_TimeAttack _l = ( _Data_TimeAttack ) vL;
 				_Data_TimeAttack _r = ( _Data_TimeAttack ) vR;
@@ -394,14 +440,14 @@ public class AcSave : Object
 			}
 		}
 
-		private class _comparerDoor : IComparer
+		private class _comparerDoor : IComparer<_Data_Challenge>
 		{
 			// Calls CaseInsensitiveComparer.Compare with the parameters reversed.
 			//int IComparer.Compare( _DataTimeAttackMode x, _DataTimeAttackMode y )
 			//{
 			//	return ( x.m_vTime - y.m_vTime );
 			//}
-			int IComparer.Compare( object vL, object vR )
+			public int Compare( _Data_Challenge vL, _Data_Challenge vR )
 			{
 				_Data_Challenge _l = ( _Data_Challenge ) vL;
 				_Data_Challenge _r = ( _Data_Challenge ) vR;
@@ -420,6 +466,8 @@ public class AcSave : Object
 
 		public void addTime( float vTime )
 		{
+			AcDebug.debugLog( "タイムアタック ランキング 時間 >> " + vTime );
+
 			m_vData_TimeAttack.Add( new _Data_TimeAttack( vTime ) );
 			/*
 			 * http://programmers.high-way.info/cs/list-sort.html
@@ -430,6 +478,22 @@ public class AcSave : Object
 			{
 				Debug.Log( "Time 削除" );
 				m_vData_TimeAttack.RemoveAt( _RANKING );
+			}
+			//
+			AcDebug.debugLog( "タイムアタック ランキング 時間 >> " + vTime );
+
+			m_vRank_TimeAttack = -1;
+			//
+			for ( int _rank = 0; _rank < m_vData_TimeAttack.Count; _rank++ )
+			{
+				_Data_TimeAttack _data = m_vData_TimeAttack[ _rank ];
+				//
+				if ( vTime == _data.m_vTime )
+				{
+					AcDebug.debugLog( "タイムアタック ランキング >> " + _rank );
+
+					m_vRank_TimeAttack = _rank;
+				}
 			}
 		}
 
@@ -444,6 +508,30 @@ public class AcSave : Object
 				Debug.Log( "Door 削除" );
 				m_vData_Challenge.RemoveAt( _RANKING );
 			}
+			//
+			m_vRank_Challenge = -1;
+			//
+			for ( int _rank = 0; _rank < m_vData_Challenge.Count; _rank++ )
+			{
+				_Data_Challenge _data = m_vData_Challenge[ _rank ];
+				//
+				if ( vDoor == _data.m_vDoor )
+				{
+					AcDebug.debugLog( "チェレンジ ランキング >> " + _rank );
+
+					m_vRank_Challenge = _rank;
+				}
+			}
+		}
+
+		public void missTime()
+		{
+			m_vRank_TimeAttack = -1;
+		}
+
+		public void missDoor()
+		{
+			m_vRank_Challenge = -1;
 		}
 
 		public void debugPrint()

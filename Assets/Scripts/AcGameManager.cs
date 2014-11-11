@@ -255,7 +255,7 @@ public class AcGameManager : MonoBehaviour
 		m_vHowtoplay.setActive( false );
 		//
 		m_vRanking = AcRanking.Create( this, new _RankingTrigger( this ) );
-		m_vRanking.setActive( false );
+		m_vRanking.setActive( false, false );
 		//
 		m_vAd = AcAd.Create( this, new _AdTrigger( this ) );
 		m_vAd.setActive( false );
@@ -373,7 +373,7 @@ public class AcGameManager : MonoBehaviour
 					m_vManager._debugLog( "AcPlayer.Trigger.FINISH" );
 					//
 					//m_vManager.m_vRanking.gameObject.SetActive( true );
-					m_vManager.m_vRanking.setActive( true );
+					m_vManager.m_vRanking.setActive( true, true );
 					break;
 				//
 				//case ( AcPlayer.Trigger.QUIT ):
@@ -439,7 +439,7 @@ public class AcGameManager : MonoBehaviour
 				//
 				case ( AcTitle.Trigger.RANKING ):
 					m_vManager.m_vTitle.setActive( false );
-					m_vManager.m_vRanking.setActive( true );
+					m_vManager.m_vRanking.setActive( true, false );
 					break;
 			}
 		}
@@ -515,7 +515,7 @@ public class AcGameManager : MonoBehaviour
 					//
 					//m_vManager.m_vRanking.gameObject.SetActive( false );
 					//m_vManager.m_vTitle.gameObject.SetActive( true );
-					m_vManager.m_vRanking.setActive( false );
+					m_vManager.m_vRanking.setActive( false, false );
 					m_vManager.m_vAd.setActive( true );
 					break;
 			}

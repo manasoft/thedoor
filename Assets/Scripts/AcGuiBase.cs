@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 // List<T>
 using System.Collections.Generic;
 
@@ -48,6 +49,7 @@ public class AcGuiBase : Object
 	protected const int _CHANGER_COUNTDOWN_1 = 17;
 	protected const int _CHANGER_COUNTDOWN_2 = 18;
 	protected const int _CHANGER_COUNTDOWN_3 = 19;
+	protected const int _CHANGER_CURSOR = 20;
 
 	// ========================================================================== //
 	// ========================================================================== //
@@ -105,7 +107,27 @@ public class AcGuiBase : Object
 	// ========================================================================== //
 	// ========================================================================== //
 
+	/// <summary>
+	/// 2014/11/11
+	/// コルーチン処理させたいので MonoBehaviour を "親" から貰います
+	/// と思って実装してたんですけど、これは良くないなと・・・
+	/// やるなら、
+	/// １：AcGuiBase 自体がオブジェクトを持って（プレハブからインスタンス）
+	/// ２：既に行っているように AcPlayer からコルーチン処理するためのメソッドを用意する（setResultPosition(x,y) 等）方が良い
+	/// なのでこのメンバーは削除する予定です
+	/// 使用禁止！
+	/// </summary>
+	//[System.Obsolete]
+	//protected MonoBehaviour m_vMonoBehaviour;
+
+	/// <summary>
+	/// int 表示用の値（ドアの枚数、等）
+	/// </summary>
 	protected int m_vValueInt;
+
+	/// <summary>
+	/// float 表示用の値（時間、等）
+	/// </summary>
 	protected float m_vValueFloat;
 	//
 	protected float m_vX;
@@ -143,8 +165,8 @@ public class AcGuiBase : Object
 		new _ImageData( AcApp.IMAGE_NUMBER, 8 ),		// 8
 		new _ImageData( AcApp.IMAGE_NUMBER, 9 ),		// 9
 		new _ImageData( AcApp.IMAGE_NUMBER, 0 ),		// 10
-		new _ImageData( AcApp.IMAGE_TEX_S, 9 ),			// 11
-		new _ImageData( AcApp.IMAGE_TEX_S, 8 ),			// 12
+		new _ImageData( AcApp.IMAGE_TEX_M, 1 ),			// 11
+		new _ImageData( AcApp.IMAGE_TEX_M, 0 ),			// 12
 		new _ImageData( AcApp.IMAGE_TEX_L, 4 ),			// 13
 		new _ImageData( AcApp.IMAGE_TEX_L, 6 ),			// 14
 		new _ImageData( AcApp.IMAGE_TEX_L, 5 ),			// 15
@@ -153,6 +175,8 @@ public class AcGuiBase : Object
 		new _ImageData( AcApp.IMAGE_TEX_L, 13 ),		// 17
 		new _ImageData( AcApp.IMAGE_TEX_L, 12 ),		// 18
 		new _ImageData( AcApp.IMAGE_TEX_L, 11 ),		// 19
+		//
+		new _ImageData( AcApp.IMAGE_TEX_M, 2 ),			// 20
 	};
 
 	// -------------------------------------------------------------------------- //
@@ -167,6 +191,7 @@ public class AcGuiBase : Object
 	/// </summary>
 	private void _ini()
 	{
+		//m_vMonoBehaviour = null;
 		m_vValueInt = 0;
 		m_vValueFloat = 0.0f;
 		m_vX = 0.0f;
@@ -239,21 +264,44 @@ public class AcGuiBase : Object
 	//	m_vChanger = vChanger;
 	//}
 
-	public AcGuiBase( int vValue, float vX, float vY )
+	//public AcGuiBase( MonoBehaviour vMonoBehaviour, float vX, float vY )
+	//{
+	//	_ini();
+	//	//
+	//	m_vMonoBehaviour = vMonoBehaviour;
+	//	m_vX = vX;
+	//	m_vY = vY;
+	//}
+	//public AcGuiBase( MonoBehaviour vMonoBehaviour, float vX, float vY, int vValue )
+	//	: this( vMonoBehaviour, vX, vY )
+	//{
+	//	m_vValueInt = vValue;
+	//}
+	//public AcGuiBase( MonoBehaviour vMonoBehaviour, float vX, float vY, float vValue )
+	//	: this( vMonoBehaviour, vX, vY )
+	//{
+	//	m_vValueFloat = vValue;
+	//}
+
+	public AcGuiBase()
 	{
 		_ini();
-		//
-		m_vValueInt = vValue;
+	}
+	public AcGuiBase( float vX, float vY )
+		: this()
+	{
 		m_vX = vX;
 		m_vY = vY;
 	}
-	public AcGuiBase( float vValue, float vX, float vY )
+	public AcGuiBase( float vX, float vY, int vValue )
+		: this( vX, vY )
 	{
-		_ini();
-		//
+		m_vValueInt = vValue;
+	}
+	public AcGuiBase( float vX, float vY, float vValue )
+		: this( vX, vY )
+	{
 		m_vValueFloat = vValue;
-		m_vX = vX;
-		m_vY = vY;
 	}
 
 	// ========================================================================== //
@@ -345,6 +393,7 @@ public class AcGuiBase : Object
 	//	return ( _changerTbl[ 0 ] );
 	//}
 
+#if false
 	public static AcTextureChanger getTextureChanger()
 	{
 		AcTextureChanger _textureChanger = new AcTextureChanger();
@@ -368,6 +417,7 @@ public class AcGuiBase : Object
 		//
 		return ( _textureChanger );
 	}
+#endif
 
 	//public static AcTextureChanger.Data getTextureChangerData()
 	//{

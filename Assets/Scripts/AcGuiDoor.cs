@@ -21,6 +21,7 @@ public class AcGuiDoor : AcGuiBase
 
 	//private const float _MARGIN_X = 0.0f;
 	//private const float _MARGIN_Y = 0.0f;
+//	private const float _PADDING_X = 120.0f;
 	private const float _PADDING_X = 120.0f;
 	private const float _PADDING_Y = -1.0f;
 	//
@@ -66,8 +67,13 @@ public class AcGuiDoor : AcGuiBase
 	//	: base( vDoor, vX, vY, vChanger )
 	//{
 	//}
-	public AcGuiDoor( int vDoor, float vX, float vY )
-		: base( vDoor, vX, vY )
+
+	//public AcGuiDoor( MonoBehaviour vMonoBehaviour, float vX, float vY, int vDoor )
+	//	: base( vMonoBehaviour, vX, vY, vDoor )
+	//{
+	//}
+	public AcGuiDoor( float vX, float vY, int vDoor )
+		: base( vX, vY, vDoor )
 	{
 	}
 

@@ -93,7 +93,7 @@ public class AcRankingManager : MonoBehaviour
 		m_vChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/ranking_1", 8, 8, 4, new int[] { 0, 1, 2, 3, } );
 		m_vChanger.add( "Images" + AcUtil.getLanguageSuffix() + "/ranking_1", 8, 8, 4, new int[] { 8, 9, 10, 11, } );
 		//
-		m_vChangerGui = AcGuiBase.getTextureChanger();
+		//m_vChangerGui = AcGuiBase.getTextureChanger();
 
 		//
 		m_vGameObject = new GameObject[ _OBJECT_NUM ];
@@ -136,8 +136,8 @@ public class AcRankingManager : MonoBehaviour
 		{
 			//AcGuiTime _guiTime = new AcGuiTime( _times[ _count ], 80, 200 + ( _count * 48 ), _baseScale, m_vChanger[ _CHENGER_GUI ] );
 			//AcGuiTime _guiTime = new AcGuiTime( _times[ _count ], 80, 200 + ( _count * ( AcGuiTime.getFrameH() + 2 ) ), m_vChangerGui );
-			AcGuiTime _guiTime = new AcGuiTime( _times[ _count ], 80, 200 + ( _count * ( AcGuiTime.getFrameH() + 2 ) ) );
-			_guiTime.onGUI( _baseScale, _sizeScale, true );
+			//AcGuiTime _guiTime = new AcGuiTime( _times[ _count ], 80, 200 + ( _count * ( AcGuiTime.getFrameH() + 2 ) ) );
+			//_guiTime.onGUI( _baseScale, _sizeScale, true );
 		}
 
 		//
@@ -147,8 +147,8 @@ public class AcRankingManager : MonoBehaviour
 		{
 			//AcGuiDoor _guiDoor = new AcGuiDoor( _doors[ _count ], 480 - 80 - 88, 200 + ( _count * 48 ), _baseScale, m_vChanger[ _CHENGER_GUI ] );
 			//AcGuiDoor _guiDoor = new AcGuiDoor( _doors[ _count ], AcApp.SCREEN_W - AcGuiDoor.getFrameW() - 80.0f, 200 + ( _count * ( AcGuiDoor.getFrameH() + 2 ) ), m_vChangerGui );
-			AcGuiDoor _guiDoor = new AcGuiDoor( _doors[ _count ], AcApp.SCREEN_W - AcGuiDoor.getFrameW() - 80.0f, 200 + ( _count * ( AcGuiDoor.getFrameH() + 2 ) ) );
-			_guiDoor.onGUI( _baseScale, _sizeScale, true );
+			//AcGuiDoor _guiDoor = new AcGuiDoor( _doors[ _count ], AcApp.SCREEN_W - AcGuiDoor.getFrameW() - 80.0f, 200 + ( _count * ( AcGuiDoor.getFrameH() + 2 ) ) );
+			//_guiDoor.onGUI( _baseScale, _sizeScale, true );
 		}
 	}
 
