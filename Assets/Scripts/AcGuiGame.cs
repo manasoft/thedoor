@@ -68,6 +68,8 @@ public class AcGuiGame : MonoBehaviour
 	/// </summary>
 	public enum Trigger
 	{
+		TIME_END,
+		DOOR_END,
 		READY_321,
 		READY_GO,
 		RESULT_END,
@@ -76,27 +78,8 @@ public class AcGuiGame : MonoBehaviour
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
 
-	//public const int GUI_TIMEATTACK_MODE = 0;
-	//public const int GUI_CHALLENGE_MODE = 1;
-
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
-
-	//private const int _CHANGER_FIG_0 = 0;
-	//private const int _CHANGER_FIG_1 = 1;
-	//private const int _CHANGER_FIG_2 = 2;
-	//private const int _CHANGER_FIG_3 = 3;
-	//private const int _CHANGER_FIG_4 = 4;
-	//private const int _CHANGER_FIG_5 = 5;
-	//private const int _CHANGER_FIG_6 = 6;
-	//private const int _CHANGER_FIG_7 = 7;
-	//private const int _CHANGER_FIG_8 = 8;
-	//private const int _CHANGER_FIG_9 = 9;
-	//private const int _CHANGER_COLON = 10;
-	//private const int _CHANGER_FRAME_1 = 11;
-	//private const int _CHANGER_FRAME_2 = 12;
-	//private const int _CHANGER_SUCCESS = 13;
-	//private const int _CHANGER_FAILURE = 14;
 
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
@@ -120,30 +103,9 @@ public class AcGuiGame : MonoBehaviour
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
 
-	//	private AcTextureChanger m_vChanger;
-
-	///// <summary>
-	///// 削除予定なので使用禁止だよ！
-	///// </summary>
-	//[System.Obsolete]
-	//private MonoBehaviour m_vMonoBehaviour;
-
-	private int m_vMode;
-
-	//private bool m_bReadyActive;
-	//private int m_vReadyCounter;
-
+	private _GuiTime m_vGuiTime;
+	private _GuiDoor m_vGuiDoor;
 	private _GuiReady m_vGuiReady;
-
-	private bool m_bTimeActive;
-	private float m_vTimerCounter;
-
-	private bool m_bDoorActive;
-	private int m_vDoorCounter;
-
-	//private bool m_bResultActive;
-	//private bool m_bResultSuccess;
-
 	private _GuiResult m_vGuiResult;
 
 	// ========================================================================== //
@@ -179,7 +141,6 @@ public class AcGuiGame : MonoBehaviour
 	/// <returns></returns>
 	public static AcGuiGame Create( AcPlayer vPlayer, AiGuiGameTrigger vTrigger )
 	{
-
 		/*
 		 * Unity入門-コンポーネントの追加 - WisdomSoft
 		 * http://www.wisdomsoft.jp/118.html
@@ -224,21 +185,10 @@ public class AcGuiGame : MonoBehaviour
 		//
 		m_vPlayer = vPlayer;
 		m_vTrigger = vTrigger;
-
-		//m_bReadyActive = false;
-		//m_vReadyCounter = 0;
-
+		//
+		m_vGuiTime = new _GuiTime( this );
+		m_vGuiDoor = new _GuiDoor( this );
 		m_vGuiReady = new _GuiReady( this );
-
-		m_bTimeActive = false;
-		m_vTimerCounter = 0.0f;
-
-		m_bDoorActive = false;
-		m_vDoorCounter = 0;
-
-		//m_bResultActive = false;
-		//m_bResultSuccess = false;
-
 		m_vGuiResult = new _GuiResult( this );
 	}
 
@@ -255,33 +205,12 @@ public class AcGuiGame : MonoBehaviour
 	// ========================================================================== //
 	// ========================================================================== //
 
-	/*
-	 * デフォルトコンストラクタ
-	 */
-	//public AcGuiGame()
+	/// <summary>
+	/// デフォルトコンストラクタ
+	/// </summary>
 	private AcGuiGame()
 	{
-		//		m_vChanger = new AcTextureChanger( AcGuiBase.getTextureChangerData() );
-		//		m_vChanger = AcGuiBase.getTextureChanger();
-
 		_debugLog( "コンストラクタ" );
-
-		////m_bReadyActive = false;
-		////m_vReadyCounter = 0;
-
-		//m_vGuiReady = new _GuiReady();
-
-		//m_bTimeActive = false;
-		//m_vTimerCounter = 0.0f;
-
-		//m_bDoorActive = false;
-		//m_vDoorCounter = 0;
-
-		////m_bResultActive = false;
-		////m_bResultSuccess = false;
-
-		//m_vGuiResult = new _GuiResult();
-
 	}
 
 	// ========================================================================== //
@@ -289,201 +218,255 @@ public class AcGuiGame : MonoBehaviour
 
 	// ========================================================================== //
 	// ========================================================================== //
-
-	//private struct _Param
-	//{
-	//	internal Rect m_vXywh;
-	//	internal Rect m_vUvwh;
-
-	//	//public _Param( float vX, float vY, float vW, float vH, float vScaleX, float vScaleY, Vector2 vUv, Vector2 vWh )
-	//	//{
-	//	//	//float pivot_x = -vX / vW;
-	//	//	//float pivot_y = -vY / vH;
-	//	//	//
-	//	//	m_vXywh = new Rect( vX * vScaleX, vY * vScaleY, vW * vScaleX, vH * vScaleY );
-	//	//	m_vUvwh = new Rect( vUv.x, vUv.y, vWh.x, vWh.y );
-	//	//}
-
-	//	//public _Param( float vX, float vY, float vW, float vH, float vScale, Vector2 vUv, Vector2 vWh )
-	//	//{
-	//	//	//float pivot_x = -vX / vW;
-	//	//	//float pivot_y = -vY / vH;
-	//	//	//
-	//	//	m_vXywh = new Rect( vX * vScale, vY * vScale, vW * vScale, vH * vScale );
-	//	//	m_vUvwh = new Rect( vUv.x, vUv.y, vWh.x, vWh.y );
-	//	//}
-
-	//	public _Param( float vX, float vY, float vW, float vH, Vector2 vUv, Vector2 vWh )
-	//	{
-	//		float _scale_x = AcUtil.getScreelScaleX( AcSetting.SCREEN_W );
-	//		float _scale_y = AcUtil.getScreelScaleY( AcSetting.SCREEN_H );
-	//		/*
-	//		 * 注意！
-	//		 * 位置 x/y は scale_x/y で補正する
-	//		 * 大きさ w/h は scale_x のみで補正する
-	//		 */
-	//		m_vXywh = new Rect( vX * _scale_x, vY * _scale_y, vW * _scale_x, vH * _scale_x );
-	//		m_vUvwh = new Rect( vUv.x, vUv.y, vWh.x, vWh.y );
-	//	}
-
-	//}
-
-	// ========================================================================== //
-	// ========================================================================== //
-
-	// ========================================================================== //
-	// ========================================================================== //
-
-	/// <summary>
-	/// ゲーム中のカウントダウン表示
-	/// </summary>
-	private void _onGUI_Ready()
-	{
-		//if ( m_bReadyActive )
-		//{
-		//	//_GuiReady _guiReady = new _GuiReady( m_vReadyCounter, 0, 0, m_vChanger );
-		//	//_GuiReady _guiReady = new _GuiReady( m_vMonoBehaviour, 0, 0, m_vReadyCounter );
-		//	_GuiReady _guiReady = new _GuiReady( 0, 0, m_vReadyCounter );
-		//	_guiReady._onGUI();
-		//}
-		m_vGuiReady._onGUI();
-	}
-
-	/// <summary>
-	/// ゲーム中のタイム表示
-	/// </summary>
-	private void _onGUI_Time()
-	{
-		if ( m_bTimeActive )
-		{
-			float _baseScale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
-			float _sizeScale = 1.0f;
-			//
-			//AcGuiTime _guiTime = new AcGuiTime( m_vTimerCounter, 10.0f, 10.0f, m_vChanger );
-			//AcGuiTime _guiTime = new AcGuiTime( m_vMonoBehaviour, 84.0f, 10.0f, m_vTimerCounter );
-			AcGuiTime _guiTime = new AcGuiTime( 84.0f, 10.0f, m_vTimerCounter );
-			_guiTime.onGUI( _baseScale, _sizeScale, false );
-		}
-	}
-
-	/// <summary>
-	/// ゲーム中のドア枚数表示
-	/// </summary>
-	private void _onGUI_Door()
-	{
-		if ( m_bDoorActive )
-		{
-			float _baseScale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
-			float _sizeScale = 1.0f;
-			//
-			//AcGuiDoor _guiDoor = new AcGuiDoor( m_vDoorCounter, AcApp.SCREEN_W - AcGuiDoor.getFrameW() - 10.0f, 10.0f, m_vChanger );
-			//AcGuiDoor _guiDoor = new AcGuiDoor( m_vDoorCounter, AcApp.SCREEN_W - AcGuiDoor.getFrameW() - 10.0f, 10.0f );
-			//AcGuiDoor _guiDoor = new AcGuiDoor( m_vMonoBehaviour, 84.0f, 10.0f, m_vDoorCounter );
-			AcGuiDoor _guiDoor = new AcGuiDoor( 84.0f, 10.0f, m_vDoorCounter );
-			_guiDoor.onGUI( _baseScale, _sizeScale, false );
-		}
-	}
-
-	/// <summary>
-	/// ゲーム中の結果表示
-	/// </summary>
-	private void _onGUI_Result()
-	{
-		//if ( m_bResultActive )
-		{
-			//_GuiResult _guiResult = new _GuiResult( 0, 0, 0, m_vChanger );
-			//_GuiResult _guiResult = new _GuiResult( m_vMonoBehaviour, 0, 0, 0 );
-			//_guiResult._onGUI( m_bResultSuccess );
-			m_vGuiResult._onGUI();
-		}
-	}
-
-	///// <summary>
-	///// ゲーム中の OnGUI 表示（誰かの OnGUI() で呼び出してもらうよ！）
-	///// </summary>
-	//public void onGUI()
-	//{
-	//	//_onGUI_Ready();
-	//	//_onGUI_Time();
-	//	//_onGUI_Door();
-	//	//_onGUI_Result();
-	//}
 
 	public void OnGUI()
 	{
-		_onGUI_Ready();
-		_onGUI_Time();
-		_onGUI_Door();
-		_onGUI_Result();
+		m_vGuiTime._onGUI();
+		m_vGuiDoor._onGUI();
+		m_vGuiReady._onGUI();
+		m_vGuiResult._onGUI();
 	}
 
 	// ========================================================================== //
 	// ========================================================================== //
-
-
-
-
-	public void swReadyActive( bool bSw )
-	{
-		//m_bReadyActive = bSw;
-		m_vGuiReady._swActive( this, bSw );
-	}
 
 	public void swTimeActive( bool bSw )
 	{
-		m_bTimeActive = bSw;
+		m_vGuiTime._swActive( bSw );
 	}
 
 	public void swDoorActive( bool bSw )
 	{
-		m_bDoorActive = bSw;
+		m_vGuiDoor._swActive( bSw );
 	}
 
-	/// <summary>
-	/// 結果表示
-	/// </summary>
-	/// <param name="bSw"></param>
-	//public void swResultActive( bool bSw )
-	//{
-	//	m_bResultActive = bSw;
-	//}
+	public void swReadyActive( bool bSw )
+	{
+		m_vGuiReady._swActive( bSw );
+	}
 
 	public void swResultActive( bool bSw, bool bSuccess )
 	{
-		//m_bResultActive = bSw;
+		m_vGuiResult._swActive( bSw, bSuccess );
+	}
+
+	// -------------------------------------------------------------------------- //
+	// -------------------------------------------------------------------------- //
+
+	public float getTime()
+	{
+		return ( m_vGuiTime._getTime() );
+	}
+
+	public void startTime()
+	{
+		m_vGuiTime._startTime();
+	}
+
+	public void stopTime()
+	{
+		m_vGuiTime._stopTime();
+	}
+
+	// -------------------------------------------------------------------------- //
+	// -------------------------------------------------------------------------- //
+
+	public void addDoor()
+	{
+		m_vGuiDoor._addDoor();
+	}
+
+	public int getDoor()
+	{
+		return ( m_vGuiDoor._getDoor() );
+	}
+
+	// ========================================================================== //
+	// ========================================================================== //
+
+	// ========================================================================== //
+	// ========================================================================== //
+
+	private class _GuiTime : AcGuiTime
+	{
+		private AcGuiGame m_vGuiGame;
 		//
-		m_vGuiResult._swActive( this, bSw, bSuccess );
+		private bool m_bActive;
+		private IEnumerator m_vIEnumerator;
+		//
+		private bool m_bStart;
+
+		public _GuiTime( AcGuiGame vGuiGame )
+			: base( 84.0f, 10.0f, 0.0f )
+		{
+			m_vGuiGame = vGuiGame;
+			//
+			m_bActive = false;
+			m_vIEnumerator = null;
+			//
+			m_bStart = false;
+		}
+
+		public void _swActive( bool bSw )
+		{
+			m_bActive = bSw;
+			//
+			if ( m_vIEnumerator != null )
+			{
+				m_vGuiGame.StopCoroutine( m_vIEnumerator );
+				m_vIEnumerator = null;
+			}
+			//
+			if ( bSw )
+			{
+				switch ( AcApp.getGameMode() )
+				{
+					case ( AcApp.GAMEMODE_TIMEATTACK ):
+						//
+						m_vValueFloat = 0.0f;
+						break;
+					//
+					case ( AcApp.GAMEMODE_CHALLENGE ):
+						//
+						m_vValueFloat = AcApp.GAMERULE_CHALLENGE_TIME;
+						break;
+				}
+				//
+				m_vIEnumerator = _coroutine();
+				m_vGuiGame.StartCoroutine( m_vIEnumerator );
+			}
+		}
+
+		/// <summary>
+		/// コルーチン
+		/// </summary>
+		/// <returns></returns>
+		private IEnumerator _coroutine()
+		{
+			while ( true )
+			{
+				if ( m_bStart )
+				{
+					switch ( AcApp.getGameMode() )
+					{
+						case ( AcApp.GAMEMODE_TIMEATTACK ):
+							//
+							m_vValueFloat += Time.deltaTime;
+							break;
+						//
+						case ( AcApp.GAMEMODE_CHALLENGE ):
+							//
+							m_vValueFloat -= Time.deltaTime;
+							//
+							if ( m_vValueFloat <= 0.0f )
+							{
+								m_vValueFloat = 0.0f;
+								m_vGuiGame.m_vTrigger.onTrigger( AcGuiGame.Trigger.TIME_END );
+								yield break;
+							}
+							break;
+					}
+				}
+				//
+				yield return null;
+			}
+		}
+
+		public void _startTime()
+		{
+			m_bStart = true;
+		}
+
+		public void _stopTime()
+		{
+			m_bStart = false;
+		}
+
+		public float _getTime()
+		{
+			return ( m_vValueFloat );
+		}
+
+		public void _onGUI()
+		{
+			if ( AcApp.getGameMode() == AcApp.GAMEMODE_CHALLENGE )
+			{
+				if ( m_bActive )
+				{
+					float _baseScale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
+					float _sizeScale = 1.0f;
+					//
+					onGUI( _baseScale, _sizeScale, false );
+				}
+			}
+		}
 	}
 
-	//public void setReady( int vReady )
-	//{
-	//	m_vReadyCounter = vReady;
-	//}
+	// ========================================================================== //
+	// ========================================================================== //
 
-	public void setTime( float vTime )
+	private class _GuiDoor : AcGuiDoor
 	{
-		m_vTimerCounter = vTime;
+		private AcGuiGame m_vGuiGame;
+		//
+		private bool m_bActive;
+
+		public _GuiDoor( AcGuiGame vGuiGame )
+			: base( 84.0f, 10.0f, 0 )
+		{
+			m_vGuiGame = vGuiGame;
+			//
+			m_bActive = false;
+		}
+
+		public void _swActive( bool bSw )
+		{
+			m_bActive = bSw;
+			//
+			if ( bSw )
+			{
+				m_vValueInt = 0;
+			}
+		}
+
+		public void _addDoor()
+		{
+			m_vValueInt++;
+			//
+			switch ( AcApp.getGameMode() )
+			{
+				case ( AcApp.GAMEMODE_TIMEATTACK ):
+					//
+					if ( m_vValueInt >= AcApp.GAMERULE_TIMEATTACK_DOOR )
+					{
+						m_vGuiGame.m_vTrigger.onTrigger( AcGuiGame.Trigger.DOOR_END );
+					}
+					break;
+				//
+				case ( AcApp.GAMEMODE_CHALLENGE ):
+					break;
+			}
+		}
+
+		public int _getDoor()
+		{
+			return ( m_vValueInt );
+		}
+
+		public void _onGUI()
+		{
+			if ( AcApp.getGameMode() == AcApp.GAMEMODE_TIMEATTACK )
+			{
+				if ( m_bActive )
+				{
+					float _baseScale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
+					float _sizeScale = 1.0f;
+					//
+					onGUI( _baseScale, _sizeScale, false );
+				}
+			}
+		}
 	}
-
-	public void setDoor( int vDoor )
-	{
-		m_vDoorCounter = vDoor;
-	}
-
-	///// <summary>
-	///// 結果（成功/失敗）の表示を切り替える
-	///// </summary>
-	///// <param name="bSw"></param>
-	//public void swResultSuccess( bool bSw )
-	//{
-	//	m_bResultSuccess = bSw;
-	//}
-
-	// ========================================================================== //
-	// ========================================================================== //
-
-	// ========================================================================== //
-	// ========================================================================== //
 
 	// ========================================================================== //
 	// ========================================================================== //
@@ -495,45 +478,29 @@ public class AcGuiGame : MonoBehaviour
 		private bool m_bActive;
 		private IEnumerator m_vIEnumerator;
 
-		//public _GuiReady( int vValue, float vX, float vY, AcTextureChanger vChanger )
-		//	: base( vValue, vX, vY, vChanger )
-		//{
-		//}
-
-		//public _GuiReady( MonoBehaviour vMonoBehaviour, float vX, float vY, int vValue )
-		//	: base( vMonoBehaviour, vX, vY, vValue )
-		//{
-		//}
-
-		//public _GuiReady( float vX, float vY, int vValue )
-		//	: base( vX, vY, vValue )
-		//{
-		//	m_bActive = false;
-		//	m_vIEnumerator = null;
-		//}
-
 		public _GuiReady( AcGuiGame vGuiGame )
 			: base()
 		{
 			m_vGuiGame = vGuiGame;
+			//
 			m_bActive = false;
 			m_vIEnumerator = null;
 		}
 
-		public void _swActive( MonoBehaviour vMonoBehaviour, bool bSw )
+		public void _swActive( bool bSw )
 		{
 			m_bActive = bSw;
 			//
 			if ( m_vIEnumerator != null )
 			{
-				vMonoBehaviour.StopCoroutine( m_vIEnumerator );
+				m_vGuiGame.StopCoroutine( m_vIEnumerator );
 				m_vIEnumerator = null;
 			}
 			//
 			if ( bSw )
 			{
 				m_vIEnumerator = _coroutine();
-				vMonoBehaviour.StartCoroutine( m_vIEnumerator );
+				m_vGuiGame.StartCoroutine( m_vIEnumerator );
 			}
 		}
 
@@ -548,7 +515,6 @@ public class AcGuiGame : MonoBehaviour
 			//
 			while ( true )
 			{
-				//
 				_timer -= Time.deltaTime;
 				//
 				int _new_count = ( int ) _timer;
@@ -559,21 +525,12 @@ public class AcGuiGame : MonoBehaviour
 					//
 					if ( _new_count > 0 )
 					{
-						/*
-						 * 実験
-						 */
 						m_vGuiGame.m_vTrigger.onTrigger( AcGuiGame.Trigger.READY_321 );
 					}
 					else
 					{
-						/*
-						 * 実験
-						 */
-						//_playSe( "se_cd_2" );
-						//_playBgm( "bgm_1" );
-						//
 						m_vGuiGame.m_vTrigger.onTrigger( AcGuiGame.Trigger.READY_GO );
-						break;
+						yield break;
 					}
 				}
 				//
@@ -581,49 +538,7 @@ public class AcGuiGame : MonoBehaviour
 				//
 				yield return null;
 			}
-			//
-			//m_bActive = false;
 		}
-
-
-		//public void _onGUI_2()
-		//{
-		//	float _scale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
-
-		//	int _timer = Time.frameCount;
-
-		//	/*
-		//	 * サイズを決めてセンタリングしてみる
-		//	 */
-		//	float _w = 200.0f;
-		//	float _h = 100.0f;
-		//	float _x = ( AcApp.SCREEN_W - _w ) / 2;
-		//	float _y = 50.0f;
-		//	//
-		//	/*
-		//	 * ArrayList クラス
-		//	 * http://msdn.microsoft.com/ja-jp/library/system.collections.arraylist(v=vs.110).aspx
-		//	 */
-		//	ArrayList _data = new ArrayList();
-		//	//
-		//	int _index = _CHANGER_FIG_0 + ( m_vValueInt % 10 );
-		//	//
-		//	//			_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FIG_0 + ( m_vValue % 10 ), 0, 0 ), m_vChanger.getWH() ) );
-		//	_data.Add( new _ImageList(
-		//		m_vChanger.getTexture( _index ),
-		//		( m_vX + _x ) * _scale,
-		//		( m_vY + _y ) * _scale,
-		//		_w * _scale,
-		//		_h * _scale,
-		//		m_vChanger.getUV( _timer, _index, 0 ),
-		//		m_vChanger.getWH( _index ) ) );
-		//	//
-		//	foreach ( _ImageList __data in _data )
-		//	{
-		//		GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture( _index ), __data.m_vUvwh );
-		//		//				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
-		//	}
-		//}
 
 		public void _onGUI()
 		{
@@ -672,15 +587,6 @@ public class AcGuiGame : MonoBehaviour
 
 	private class _GuiResult : AcGuiBase
 	{
-		//public _GuiResult( int vValue, float vX, float vY, AcTextureChanger vChanger )
-		//	: base( vValue, vX, vY, vChanger )
-		//{
-		//}
-		//public _GuiResult( MonoBehaviour vMonoBehaviour, float vX, float vY, int vValue )
-		//	: base( vMonoBehaviour, vX, vY, vValue )
-		//{
-		//}
-
 		private AcGuiGame m_vGuiGame;
 		//
 		private bool m_bActive;
@@ -690,17 +596,18 @@ public class AcGuiGame : MonoBehaviour
 			: base()
 		{
 			m_vGuiGame = vGuiGame;
+			//
 			m_bActive = false;
 			m_vIEnumerator = null;
 		}
 
-		public void _swActive( MonoBehaviour vMonoBehaviour, bool bSw, bool bSuccess )
+		public void _swActive( bool bSw, bool bSuccess )
 		{
 			m_bActive = bSw;
 			//
 			if ( m_vIEnumerator != null )
 			{
-				vMonoBehaviour.StopCoroutine( m_vIEnumerator );
+				m_vGuiGame.StopCoroutine( m_vIEnumerator );
 				m_vIEnumerator = null;
 			}
 			//
@@ -709,7 +616,7 @@ public class AcGuiGame : MonoBehaviour
 				m_vValueInt = bSuccess ? 1 : 0;
 				//
 				m_vIEnumerator = _coroutine();
-				vMonoBehaviour.StartCoroutine( m_vIEnumerator );
+				m_vGuiGame.StartCoroutine( m_vIEnumerator );
 			}
 		}
 
@@ -747,75 +654,6 @@ public class AcGuiGame : MonoBehaviour
 			//
 			m_vGuiGame.m_vTrigger.onTrigger( AcGuiGame.Trigger.RESULT_END );
 		}
-
-		//public void _onGUI_2( bool bSuccess )
-		//{
-		//	float _scale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
-
-		//	int _timer = Time.frameCount;
-
-		//	/*
-		//	 * サイズを決めてセンタリングしてみる
-		//	 */
-		//	float _w = 300.0f;
-		//	float _h = 200.0f;
-		//	float _x = ( AcApp.SCREEN_W - _w ) / 2;
-		//	float _y = 150.0f;
-		//	//
-		//	/*
-		//	 * ArrayList クラス
-		//	 * http://msdn.microsoft.com/ja-jp/library/system.collections.arraylist(v=vs.110).aspx
-		//	 */
-		//	ArrayList _list = new ArrayList();
-		//	//
-		//	int _index;
-		//	//
-		//	if ( bSuccess )
-		//	{
-		//		switch ( AcApp.getGameMode() )
-		//		{
-		//			//
-		//			case ( AcApp.GAMEMODE_TIMEATTACK ):
-		//				_index = _CHANGER_SUCCESS;
-		//				break;
-		//			//
-		//			//case ( AcApp.GAMEMODE_CHALLENGE ):
-		//			default:
-		//				_index = _CHANGER_SUCCESS_CHALLENGE;
-		//				break;
-		//		}
-		//		//
-		//		//				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_SUCCESS, 0, 0 ), m_vChanger.getWH() ) );
-		//		_list.Add( new _ImageList(
-		//			m_vChanger.getTexture( _index ),
-		//			( m_vX + _x ) * _scale,
-		//			( m_vY + _y ) * _scale,
-		//			_w * _scale,
-		//			_h * _scale,
-		//			m_vChanger.getUV( _timer, _index, 0 ),
-		//			m_vChanger.getWH( _index ) ) );
-		//	}
-		//	else
-		//	{
-		//		_index = _CHANGER_FAILURE;
-		//		//
-		//		//				_data.Add( new _Data( ( m_vX + _x ) * _scale, ( m_vY + _y ) * _scale, _w * _scale, _h * _scale, m_vChanger.getUV( _count, _CHANGER_FAILURE, 0, 0 ), m_vChanger.getWH() ) );
-		//		_list.Add( new _ImageList(
-		//			m_vChanger.getTexture( _index ),
-		//			( m_vX + _x ) * _scale,
-		//			( m_vY + _y ) * _scale,
-		//			_w * _scale,
-		//			_h * _scale,
-		//			m_vChanger.getUV( _timer, _index, 0 ),
-		//			m_vChanger.getWH( _index ) ) );
-		//	}
-		//	//
-		//	foreach ( _ImageList __data in _list )
-		//	{
-		//		//				GUI.DrawTextureWithTexCoords( __data.m_vXywh, m_vChanger.getTexture(), __data.m_vUvwh );
-		//		GUI.DrawTextureWithTexCoords( __data.m_vXywh, __data.m_vTexture, __data.m_vUvwh );
-		//	}
-		//}
 
 		public void _onGUI()
 		{
@@ -880,68 +718,10 @@ public class AcGuiGame : MonoBehaviour
 				draw();
 			}
 		}
-
-		//public void _onGUI( bool bSuccess )
-		//{
-		//	float _scale = AcUtil.getScreenScaleX( AcApp.SCREEN_W );
-
-		//	/*
-		//	 * サイズを決めてセンタリングしてみる
-		//	 */
-		//	float _w = 300.0f;
-		//	float _h = 200.0f;
-		//	//float _x = ( AcApp.SCREEN_W - _w ) / 2;
-		//	//float _y = 150.0f;
-		//	float _x = m_vX - ( _w ) / 2;
-		//	float _y = m_vY - ( _h ) / 2;
-
-		//	//
-		//	/*
-		//	 * ArrayList クラス
-		//	 * http://msdn.microsoft.com/ja-jp/library/system.collections.arraylist(v=vs.110).aspx
-		//	 */
-		//	List<_ImageList> _data = new List<_ImageList>();
-		//	//
-		//	clear();
-		//	//
-		//	int _index = _CHANGER_FAILURE;
-		//	//
-		//	if ( bSuccess )
-		//	{
-		//		switch ( AcApp.getGameMode() )
-		//		{
-		//			//
-		//			case ( AcApp.GAMEMODE_TIMEATTACK ):
-		//				_index = _CHANGER_SUCCESS;
-		//				break;
-		//			//
-		//			//case ( AcApp.GAMEMODE_CHALLENGE ):
-		//			default:
-		//				_index = _CHANGER_SUCCESS_CHALLENGE;
-		//				break;
-		//		}
-		//	}
-		//	else
-		//	{
-		//		_index = _CHANGER_FAILURE;
-		//	}
-		//	//
-		//	//
-		//	add(
-		//		_x * _scale,
-		//		_y * _scale,
-		//		_w * _scale,
-		//		_h * _scale,
-		//		_index
-		//	);
-		//	//
-		//	draw();
-		//}
 	}
 
 	// ========================================================================== //
 	// ========================================================================== //
-
 
 	// ========================================================================== //
 	// ========================================================================== //

@@ -455,9 +455,10 @@ public class AcGuiBase : Object
 	/// </summary>
 	protected class _ImageList
 	{
-		public Texture m_vTexture;
-		public Rect m_vXywh;
-		public Rect m_vUvwh;
+		//public Texture m_vTexture;
+		//public Rect m_vXywh;
+		//public Rect m_vUvwh;
+
 
 		//public _Data( float vX, float vY, float vW, float vH, float vScale, Vector2 vUv, Vector2 vWh )
 		//{
@@ -475,42 +476,41 @@ public class AcGuiBase : Object
 		//	m_vUvwh = new Rect( vUv.x, vUv.y, vWh.x, vWh.y );
 		//}
 
-		/// <summary>
-		/// コンストラクタ
-		/// </summary>
-		/// <param name="vX"></param>
-		/// <param name="vY"></param>
-		/// <param name="vW"></param>
-		/// <param name="vH"></param>
-		/// <param name="vUv"></param>
-		/// <param name="vWh"></param>
+		///// <summary>
+		///// コンストラクタ
+		///// </summary>
+		///// <param name="vX"></param>
+		///// <param name="vY"></param>
+		///// <param name="vW"></param>
+		///// <param name="vH"></param>
+		///// <param name="vUv"></param>
+		///// <param name="vWh"></param>
 		//public _Data( float vX, float vY, float vW, float vH, Vector2 vUv, Vector2 vWh )
 		//{
 		//	m_vXywh = new Rect( vX, vY, vW, vH );
 		//	m_vUvwh = new Rect( vUv.x, vUv.y, vWh.x, vWh.y );
 		//}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="vTexture"></param>
-		/// <param name="vX"></param>
-		/// <param name="vY"></param>
-		/// <param name="vW"></param>
-		/// <param name="vH"></param>
-		/// <param name="vUv"></param>
-		/// <param name="vWh"></param>
-		public _ImageList( Texture vTexture, float vX, float vY, float vW, float vH, Vector2 vUv, Vector2 vWh )
-		{
-			m_vTexture = vTexture;
-			m_vXywh = new Rect( vX, vY, vW, vH );
-			m_vUvwh = new Rect( vUv.x, vUv.y, vWh.x, vWh.y );
-		}
+		///// <summary>
+		///// 
+		///// </summary>
+		///// <param name="vTexture"></param>
+		///// <param name="vX"></param>
+		///// <param name="vY"></param>
+		///// <param name="vW"></param>
+		///// <param name="vH"></param>
+		///// <param name="vUv"></param>
+		///// <param name="vWh"></param>
+		//public _ImageList( Texture vTexture, float vX, float vY, float vW, float vH, Vector2 vUv, Vector2 vWh )
+		//{
+		//	m_vTexture = vTexture;
+		//	m_vXywh = new Rect( vX, vY, vW, vH );
+		//	m_vUvwh = new Rect( vUv.x, vUv.y, vWh.x, vWh.y );
+		//}
 
-
+		public Rect m_vXywh;
 		public string m_vEntryName;
 		public int m_vIndex;
-
 
 		/// <summary>
 		/// コンストラクタ
@@ -526,12 +526,10 @@ public class AcGuiBase : Object
 			m_vEntryName = m_vImageData[ vIndex ].m_vEntryName;
 			m_vIndex = m_vImageData[ vIndex ].m_vIndex;
 		}
-
-		//public _ImageList()
-		//{
-		//}
-
 	}
+
+	// ========================================================================== //
+	// ========================================================================== //
 
 	// ========================================================================== //
 	// ========================================================================== //
