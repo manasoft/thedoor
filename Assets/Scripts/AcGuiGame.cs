@@ -64,12 +64,13 @@ public class AcGuiGame : MonoBehaviour
 	// ========================================================================== //
 
 	/// <summary>
-	/// トリガー（それぞれのボタンが押された時用です）
+	/// トリガー（イベント発生時のトリガーです）
 	/// </summary>
 	public enum Trigger
 	{
-		COUNTDOWN,
-		GO,
+		READY_321,
+		READY_GO,
+		RESULT_END,
 	};
 
 	// -------------------------------------------------------------------------- //
@@ -173,12 +174,12 @@ public class AcGuiGame : MonoBehaviour
 	// ========================================================================== //
 
 	/// <summary>
-	/// 
+	/// 空のオブジェクトに AddComponent() して生成するよ
 	/// </summary>
 	/// <returns></returns>
-	public static AcGuiGame Create( AcPlayer vPlayer,AiGuiGameTrigger vTrigger )
+	public static AcGuiGame Create( AcPlayer vPlayer, AiGuiGameTrigger vTrigger )
 	{
-		
+
 		/*
 		 * Unity入門-コンポーネントの追加 - WisdomSoft
 		 * http://www.wisdomsoft.jp/118.html
@@ -195,7 +196,7 @@ public class AcGuiGame : MonoBehaviour
 		//
 		//AcDebug.debugLog( "コンポーネントを add するよ" );
 		//
-		AcGuiGame _guiGame = ( AcGuiGame ) _object.AddComponent( ( typeof( AcGuiGame ) ) );
+		AcGuiGame _class = ( AcGuiGame ) _object.AddComponent( ( typeof( AcGuiGame ) ) );
 		//		_object.AddComponent( typeof( AcGuiGame ) ); // この時点でコンストラクタが実行されるようです
 		//
 		//AcDebug.debugLog( "コンポーネントを get するよ" );
@@ -207,11 +208,11 @@ public class AcGuiGame : MonoBehaviour
 		//AcDebug.debugLog( _object.name );
 		//AcDebug.debugLog( _guiGame.GetType().FullName );
 		//
-		_object.name = _guiGame.GetType().FullName;
+		_object.name = _class.GetType().FullName;
 		//
-		_guiGame._create( vPlayer, vTrigger );
+		_class._create( vPlayer, vTrigger );
 		//
-		return ( _guiGame );
+		return ( _class );
 	}
 
 	// -------------------------------------------------------------------------- //
@@ -238,7 +239,7 @@ public class AcGuiGame : MonoBehaviour
 		//m_bResultActive = false;
 		//m_bResultSuccess = false;
 
-		m_vGuiResult = new _GuiResult(this);
+		m_vGuiResult = new _GuiResult( this );
 	}
 
 	// ========================================================================== //
@@ -493,7 +494,7 @@ public class AcGuiGame : MonoBehaviour
 		//
 		private bool m_bActive;
 		private IEnumerator m_vIEnumerator;
-	
+
 		//public _GuiReady( int vValue, float vX, float vY, AcTextureChanger vChanger )
 		//	: base( vValue, vX, vY, vChanger )
 		//{
@@ -511,7 +512,7 @@ public class AcGuiGame : MonoBehaviour
 		//	m_vIEnumerator = null;
 		//}
 
-		public _GuiReady(AcGuiGame vGuiGame)
+		public _GuiReady( AcGuiGame vGuiGame )
 			: base()
 		{
 			m_vGuiGame = vGuiGame;
@@ -561,7 +562,7 @@ public class AcGuiGame : MonoBehaviour
 						/*
 						 * 実験
 						 */
-						m_vGuiGame.m_vTrigger.onTrigger( AcGuiGame.Trigger.COUNTDOWN );
+						m_vGuiGame.m_vTrigger.onTrigger( AcGuiGame.Trigger.READY_321 );
 					}
 					else
 					{
@@ -571,7 +572,7 @@ public class AcGuiGame : MonoBehaviour
 						//_playSe( "se_cd_2" );
 						//_playBgm( "bgm_1" );
 						//
-						m_vGuiGame.m_vTrigger.onTrigger( AcGuiGame.Trigger.GO );
+						m_vGuiGame.m_vTrigger.onTrigger( AcGuiGame.Trigger.READY_GO );
 						break;
 					}
 				}
@@ -718,19 +719,33 @@ public class AcGuiGame : MonoBehaviour
 		/// <returns></returns>
 		private IEnumerator _coroutine()
 		{
-			//AcDebug.debugLog( "_coroutine()" );
+			int _frame;
 
+			// 移動時間のフレーム数
+			_frame = 60;
+			//
 			m_vX = AcApp.SCREEN_W / 2 + AcApp.SCREEN_W;
 			m_vY = AcApp.SCREEN_H / 2;
 			//
-			while ( ( m_vX -= ( AcApp.SCREEN_W / 60 ) ) > AcApp.SCREEN_W / 2 )
+			for ( int _count = 0; _count < _frame; _count++ )
 			{
-				//AcDebug.debugLog( "_coroutine() loop中・・・" );
+				m_vX -= ( ( float ) AcApp.SCREEN_W / _frame );
 				//
 				yield return null;
 			}
+
+			// 停止時間のフレーム数
+			_frame = 60 * 4;
 			//
-			m_vX = AcApp.SCREEN_W / 2;
+			for ( int _count = 0; _count < _frame; _count++ )
+			{
+				yield return null;
+			}
+
+			//
+			//m_vX = AcApp.SCREEN_W / 2;
+			//
+			m_vGuiGame.m_vTrigger.onTrigger( AcGuiGame.Trigger.RESULT_END );
 		}
 
 		//public void _onGUI_2( bool bSuccess )

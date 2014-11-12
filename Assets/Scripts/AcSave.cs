@@ -74,6 +74,23 @@ public class AcSave : Object
 	// ========================================================================== //
 	// ========================================================================== //
 
+	// ========================================================================== //
+	// ========================================================================== //
+
+	// -------------------------------------------------------------------------- //
+	// -------------------------------------------------------------------------- //
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="vString"></param>
+	private void _debugLog( string vString )
+	{
+		AcDebug.debugLog( this.GetType().FullName + " # " + vString );
+	}
+
+	// ========================================================================== //
+	// ========================================================================== //
 
 	// ========================================================================== //
 	// ========================================================================== //
@@ -99,6 +116,9 @@ public class AcSave : Object
 	//private ArrayList m_vTimeAttackMode;
 	//private ArrayList m_vChallengeMode;
 
+	public int m_vRank_Time;
+	public int m_vRank_Door;
+
 	// ========================================================================== //
 	// ========================================================================== //
 
@@ -110,9 +130,9 @@ public class AcSave : Object
 		m_vPath = null;
 		//
 		m_vSave = null;
-
-		//m_vTimeAttackMode = new ArrayList();
-		//m_vChallengeMode = new ArrayList();
+		//
+		m_vRank_Time = -1;
+		m_vRank_Door = -1;
 	}
 
 	// -------------------------------------------------------------------------- //
@@ -132,40 +152,51 @@ public class AcSave : Object
 		//
 		if ( m_vSave == null )
 		{
-			Debug.Log( "AcRanking ファイルが無いので new した" );
+			//Debug.Log( "AcRanking ファイルが無いので new した" );
 
 			m_vSave = new _Data();
 
+			// 初期値
+			float[] _timeTbl =
 			{
-				/*
-				 * デバッグ
-				 */
-				m_vSave.addTime( 99.99f );
-				m_vSave.addTime( 98.0f );
-				m_vSave.addTime( 97.0f );
-				m_vSave.addTime( 96.0f );
-				m_vSave.addTime( 95.0f );
-				m_vSave.addTime( 94.0f );
-				m_vSave.addTime( 93.0f );
-				m_vSave.addTime( 92.0f );
-				m_vSave.addTime( 91.0f );
-				m_vSave.addTime( 90.0f );
-
-				m_vSave.addDoor( 1 );
-				m_vSave.addDoor( 2 );
-				m_vSave.addDoor( 3 );
-				m_vSave.addDoor( 4 );
-				m_vSave.addDoor( 5 );
-				m_vSave.addDoor( 6 );
-				m_vSave.addDoor( 7 );
-				m_vSave.addDoor( 8 );
-				m_vSave.addDoor( 9 );
-				m_vSave.addDoor( 10 );
-
-				m_vSave.debugPrint();
+				90.00f,
+				91.00f,
+				92.00f,
+				93.00f,
+				94.00f,
+				95.00f,
+				96.00f,
+				97.00f,
+				98.00f,
+				99.00f,
+			};
+			//
+			int[] _doorTbl =
+			{
+				10,
+				9,
+				8,
+				7,
+				6,
+				5,
+				4,
+				3,
+				2,
+				1,
+			};
+			//
+			foreach ( float _time in _timeTbl )
+			{
+				m_vSave.addTime( _time );
 			}
-
+			foreach ( int _door in _doorTbl )
+			{
+				m_vSave.addDoor( _door );
+			}
+			//
 			m_vSave.save( vPath + _SAVEFILE );
+			//
+			//m_vSave.debugPrint();
 		}
 	}
 
@@ -242,31 +273,39 @@ public class AcSave : Object
 	// ========================================================================== //
 	// ========================================================================== //
 
+	/// <summary>
+	/// ランキングを配列として取得する（タイムアタックモード用の時間）
+	/// </summary>
+	/// <returns></returns>
 	public static float[] getTimes()
 	{
 		//ArrayList _arrayList = m_vInstance.m_vSave.m_vData_TimeAttack;
-		List<_Data_TimeAttack> _list = m_vInstance.m_vSave.m_vData_TimeAttack;
+		List<_Data_Time> _list = m_vInstance.m_vSave.m_vData_Time;
 
 		float[] _times = new float[ _list.Count ];
 		//
 		for ( int _count = 0; _count < _list.Count; _count++ )
 		{
-			_times[ _count ] = ( ( _Data_TimeAttack ) _list[ _count ] ).m_vTime;
+			_times[ _count ] = ( ( _Data_Time ) _list[ _count ] ).m_vTime;
 		}
 		//
 		return ( _times );
 	}
 
+	/// <summary>
+	/// ランキングを配列として取得する（チャレンジモード用のドアの枚数）
+	/// </summary>
+	/// <returns></returns>
 	public static int[] getDoors()
 	{
 		//ArrayList _arrayList = m_vInstance.m_vSave.m_vData_Challenge;
-		List<_Data_Challenge> _list = m_vInstance.m_vSave.m_vData_Challenge;
+		List<_Data_Door> _list = m_vInstance.m_vSave.m_vData_Door;
 
 		int[] _doors = new int[ _list.Count ];
 		//
 		for ( int _count = 0; _count < _list.Count; _count++ )
 		{
-			_doors[ _count ] = ( ( _Data_Challenge ) _list[ _count ] ).m_vDoor;
+			_doors[ _count ] = ( ( _Data_Door ) _list[ _count ] ).m_vDoor;
 		}
 		//
 		return ( _doors );
@@ -278,7 +317,8 @@ public class AcSave : Object
 	/// <returns></returns>
 	public static int getTimesRank()
 	{
-		return ( m_vInstance.m_vSave.m_vRank_TimeAttack );
+		//return ( m_vInstance.m_vSave.m_vRank_Time );
+		return ( m_vInstance.m_vRank_Time );
 	}
 
 	/// <summary>
@@ -287,7 +327,8 @@ public class AcSave : Object
 	/// <returns></returns>
 	public static int getDoorsRank()
 	{
-		return ( m_vInstance.m_vSave.m_vRank_Challenge );
+		//return ( m_vInstance.m_vSave.m_vRank_Door );
+		return ( m_vInstance.m_vRank_Door );
 	}
 
 	// ========================================================================== //
@@ -357,32 +398,27 @@ public class AcSave : Object
 
 	public static void addTime( float vTime )
 	{
-		m_vInstance.m_vSave.addTime( vTime );
+		m_vInstance.m_vRank_Time = m_vInstance.m_vSave.addTime( vTime );
 		//
 		m_vInstance.m_vSave.save( m_vInstance.m_vPath + _SAVEFILE );
 	}
 
 	public static void addDoor( int vDoor )
 	{
-		m_vInstance.m_vSave.addDoor( vDoor );
+		m_vInstance.m_vRank_Door = m_vInstance.m_vSave.addDoor( vDoor );
 		//
 		m_vInstance.m_vSave.save( m_vInstance.m_vPath + _SAVEFILE );
 	}
 
 	public static void missTime()
 	{
-		m_vInstance.m_vSave.missTime();
-		//
-		m_vInstance.m_vSave.save( m_vInstance.m_vPath + _SAVEFILE );
+		m_vInstance.m_vRank_Time = -1;
 	}
 
 	public static void missDoor()
 	{
-		m_vInstance.m_vSave.missDoor();
-		//
-		m_vInstance.m_vSave.save( m_vInstance.m_vPath + _SAVEFILE );
+		m_vInstance.m_vRank_Door = -1;
 	}
-
 
 	private static void debugPrint()
 	{
@@ -400,11 +436,11 @@ public class AcSave : Object
 	{
 		//public ArrayList m_vData_TimeAttack;
 		//public ArrayList m_vData_Challenge;
-		public List<_Data_TimeAttack> m_vData_TimeAttack;
-		public List<_Data_Challenge> m_vData_Challenge;
+		public List<_Data_Time> m_vData_Time;
+		public List<_Data_Door> m_vData_Door;
 
-		public int m_vRank_TimeAttack;
-		public int m_vRank_Challenge;
+		//public int m_vRank_Time;
+		//public int m_vRank_Door;
 
 		// -------------------------------------------------------------------------- //
 		// -------------------------------------------------------------------------- //
@@ -413,44 +449,48 @@ public class AcSave : Object
 		{
 			//m_vData_TimeAttack = new ArrayList();
 			//m_vData_Challenge = new ArrayList();
-			m_vData_TimeAttack = new List<_Data_TimeAttack>();
-			m_vData_Challenge = new List<_Data_Challenge>();
+			m_vData_Time = new List<_Data_Time>();
+			m_vData_Door = new List<_Data_Door>();
 			//
-			m_vRank_TimeAttack = -1;
-			m_vRank_Challenge = -1;
+			//m_vRank_Time = -1;
+			//m_vRank_Door = -1;
 		}
 
 		// -------------------------------------------------------------------------- //
 		// -------------------------------------------------------------------------- //
 
-		private class _comparerTime : IComparer<_Data_TimeAttack>
+		/*
+		 * http://programmers.high-way.info/cs/list-sort.html
+		 */
+
+		private class _comparerTime : IComparer<_Data_Time>
 		{
 			// Calls CaseInsensitiveComparer.Compare with the parameters reversed.
 			//int IComparer.Compare( _DataTimeAttackMode x, _DataTimeAttackMode y )
 			//{
 			//	return ( x.m_vTime - y.m_vTime );
 			//}
-			public int Compare( _Data_TimeAttack vL, _Data_TimeAttack vR )
+			public int Compare( _Data_Time vL, _Data_Time vR )
 			{
-				_Data_TimeAttack _l = ( _Data_TimeAttack ) vL;
-				_Data_TimeAttack _r = ( _Data_TimeAttack ) vR;
+				_Data_Time _l = ( _Data_Time ) vL;
+				_Data_Time _r = ( _Data_Time ) vR;
 				//
 				return ( _l.m_vTime.CompareTo( _r.m_vTime ) );
 				//				return ( _l.m_vTime - _r.m_vTime );
 			}
 		}
 
-		private class _comparerDoor : IComparer<_Data_Challenge>
+		private class _comparerDoor : IComparer<_Data_Door>
 		{
 			// Calls CaseInsensitiveComparer.Compare with the parameters reversed.
 			//int IComparer.Compare( _DataTimeAttackMode x, _DataTimeAttackMode y )
 			//{
 			//	return ( x.m_vTime - y.m_vTime );
 			//}
-			public int Compare( _Data_Challenge vL, _Data_Challenge vR )
+			public int Compare( _Data_Door vL, _Data_Door vR )
 			{
-				_Data_Challenge _l = ( _Data_Challenge ) vL;
-				_Data_Challenge _r = ( _Data_Challenge ) vR;
+				_Data_Door _l = ( _Data_Door ) vL;
+				_Data_Door _r = ( _Data_Door ) vR;
 				//
 				return ( _r.m_vDoor - _l.m_vDoor );
 			}
@@ -464,85 +504,74 @@ public class AcSave : Object
 			AcUtil.writeObject( vPath, this );
 		}
 
-		public void addTime( float vTime )
+		public int addTime( float vTime )
 		{
-			AcDebug.debugLog( "タイムアタック ランキング 時間 >> " + vTime );
-
-			m_vData_TimeAttack.Add( new _Data_TimeAttack( vTime ) );
-			/*
-			 * http://programmers.high-way.info/cs/list-sort.html
-			 */
-			m_vData_TimeAttack.Sort( new _comparerTime() );
+			m_vData_Time.Add( new _Data_Time( vTime ) );
+			m_vData_Time.Sort( new _comparerTime() );
 			//
-			while ( m_vData_TimeAttack.Count > _RANKING )
+			while ( m_vData_Time.Count > _RANKING )
 			{
-				Debug.Log( "Time 削除" );
-				m_vData_TimeAttack.RemoveAt( _RANKING );
+				m_vData_Time.RemoveAt( _RANKING );
 			}
 			//
-			AcDebug.debugLog( "タイムアタック ランキング 時間 >> " + vTime );
-
-			m_vRank_TimeAttack = -1;
-			//
-			for ( int _rank = 0; _rank < m_vData_TimeAttack.Count; _rank++ )
+			for ( int _rank = 0; _rank < m_vData_Time.Count; _rank++ )
 			{
-				_Data_TimeAttack _data = m_vData_TimeAttack[ _rank ];
+				_Data_Time _data = m_vData_Time[ _rank ];
 				//
 				if ( vTime == _data.m_vTime )
 				{
-					AcDebug.debugLog( "タイムアタック ランキング >> " + _rank );
-
-					m_vRank_TimeAttack = _rank;
+					return ( _rank );
 				}
 			}
+			//
+			return ( -1 );
 		}
 
-		public void addDoor( int vDoor )
+		public int addDoor( int vDoor )
 		{
-			m_vData_Challenge.Add( new _Data_Challenge( vDoor ) );
+			m_vData_Door.Add( new _Data_Door( vDoor ) );
+			m_vData_Door.Sort( new _comparerDoor() );
 			//
-			m_vData_Challenge.Sort( new _comparerDoor() );
-			//
-			while ( m_vData_Challenge.Count > _RANKING )
+			while ( m_vData_Door.Count > _RANKING )
 			{
-				Debug.Log( "Door 削除" );
-				m_vData_Challenge.RemoveAt( _RANKING );
+				m_vData_Door.RemoveAt( _RANKING );
 			}
 			//
-			m_vRank_Challenge = -1;
-			//
-			for ( int _rank = 0; _rank < m_vData_Challenge.Count; _rank++ )
+			for ( int _rank = 0; _rank < m_vData_Door.Count; _rank++ )
 			{
-				_Data_Challenge _data = m_vData_Challenge[ _rank ];
+				_Data_Door _data = m_vData_Door[ _rank ];
 				//
 				if ( vDoor == _data.m_vDoor )
 				{
-					AcDebug.debugLog( "チェレンジ ランキング >> " + _rank );
-
-					m_vRank_Challenge = _rank;
+					return ( _rank );
 				}
 			}
+			//
+			return ( -1 );
 		}
 
-		public void missTime()
-		{
-			m_vRank_TimeAttack = -1;
-		}
+		//public void missTime()
+		//{
+		//	m_vRank_Time = -1;
+		//}
 
-		public void missDoor()
-		{
-			m_vRank_Challenge = -1;
-		}
+		//public void missDoor()
+		//{
+		//	m_vRank_Door = -1;
+		//}
 
+		/// <summary>
+		/// デバッグ用のプリント表示
+		/// </summary>
 		public void debugPrint()
 		{
-			foreach ( _Data_TimeAttack _data in m_vData_TimeAttack )
+			foreach ( _Data_Time _data in m_vData_Time )
 			{
-				Debug.Log( "Time >> " + _data.m_vTime );
+				AcDebug.debugLog( "Time >> " + _data.m_vTime );
 			}
-			foreach ( _Data_Challenge _data in m_vData_Challenge )
+			foreach ( _Data_Door _data in m_vData_Door )
 			{
-				Debug.Log( "Door >> " + _data.m_vDoor );
+				AcDebug.debugLog( "Door >> " + _data.m_vDoor );
 			}
 		}
 	}
@@ -553,23 +582,29 @@ public class AcSave : Object
 	// ========================================================================== //
 	// ========================================================================== //
 
+	/// <summary>
+	/// タイムアタックモード用のデータを保持するクラス（時間を保持する）
+	/// </summary>
 	[System.Serializable]
-	private struct _Data_TimeAttack
+	private struct _Data_Time
 	{
 		public float m_vTime;
 
-		public _Data_TimeAttack( float vTime )
+		public _Data_Time( float vTime )
 		{
 			m_vTime = vTime;
 		}
 	}
 
+	/// <summary>
+	/// チャレンジモード用のデータを保持するクラス（ドアの枚数を保持する）
+	/// </summary>
 	[System.Serializable]
-	private struct _Data_Challenge
+	private struct _Data_Door
 	{
 		public int m_vDoor;
 
-		public _Data_Challenge( int vDoor )
+		public _Data_Door( int vDoor )
 		{
 			m_vDoor = vDoor;
 		}

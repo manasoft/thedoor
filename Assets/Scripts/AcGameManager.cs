@@ -288,7 +288,7 @@ public class AcGameManager : MonoBehaviour
 	private void _update()
 	{
 		//	m_vSoundManager.update();
-		AcApp.soundUpdate();
+		//AcApp.soundUpdate();
 
 		///*
 		// * バックキー？
