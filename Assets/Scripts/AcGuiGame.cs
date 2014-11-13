@@ -230,21 +230,42 @@ public class AcGuiGame : MonoBehaviour
 	// ========================================================================== //
 	// ========================================================================== //
 
+	// ========================================================================== //
+	// ========================================================================== //
+
+	/// <summary>
+	/// タイムの表示
+	/// </summary>
+	/// <param name="bSw"></param>
 	public void swTimeActive( bool bSw )
 	{
 		m_vGuiTime._swActive( bSw );
 	}
 
+	/// <summary>
+	/// ドア枚数の表示
+	/// </summary>
+	/// <param name="bSw"></param>
 	public void swDoorActive( bool bSw )
 	{
 		m_vGuiDoor._swActive( bSw );
 	}
 
+	/// <summary>
+	/// カウントダウンの表示
+	/// </summary>
+	/// <param name="bSw"></param>
 	public void swReadyActive( bool bSw )
 	{
 		m_vGuiReady._swActive( bSw );
 	}
 
+	/// <summary>
+	/// 結果の表示
+	/// 成功/失敗を引数で渡します
+	/// </summary>
+	/// <param name="bSw"></param>
+	/// <param name="bSuccess"></param>
 	public void swResultActive( bool bSw, bool bSuccess )
 	{
 		m_vGuiResult._swActive( bSw, bSuccess );
@@ -253,16 +274,26 @@ public class AcGuiGame : MonoBehaviour
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
 
+	/// <summary>
+	/// 時間の取得
+	/// </summary>
+	/// <returns></returns>
 	public float getTime()
 	{
 		return ( m_vGuiTime._getTime() );
 	}
 
+	/// <summary>
+	/// 時間の開始
+	/// </summary>
 	public void startTime()
 	{
 		m_vGuiTime._startTime();
 	}
 
+	/// <summary>
+	/// 時間の停止
+	/// </summary>
 	public void stopTime()
 	{
 		m_vGuiTime._stopTime();
@@ -271,14 +302,21 @@ public class AcGuiGame : MonoBehaviour
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
 
-	public void addDoor()
-	{
-		m_vGuiDoor._addDoor();
-	}
-
+	/// <summary>
+	/// ドア枚数の表示
+	/// </summary>
+	/// <returns></returns>
 	public int getDoor()
 	{
 		return ( m_vGuiDoor._getDoor() );
+	}
+
+	/// <summary>
+	/// ドア枚数の追加
+	/// </summary>
+	public void addDoor()
+	{
+		m_vGuiDoor._addDoor();
 	}
 
 	// ========================================================================== //
