@@ -143,21 +143,8 @@ public class AcGameManager : MonoBehaviour
 	// ========================================================================== //
 	// ========================================================================== //
 
-	//private enum _Phase
-	//{
-	//	_PHASE_INI,
-	//	_PHASE_TITLE,
-	//	_PHASE_GAME,
-	//	_PHASE_RANKING,
-	//}
-
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
-
-	//private const int _PHASE_INI = 0;
-	//private const int _PHASE_TITLE = 1;
-	//private const int _PHASE_GAME = 2;
-	//private const int _PHASE_RANKING = 3;
 
 	// ========================================================================== //
 	// ========================================================================== //
@@ -165,15 +152,9 @@ public class AcGameManager : MonoBehaviour
 	// ========================================================================== //
 	// ========================================================================== //
 
-	/// <summary>
-	/// 
-	/// </summary>
-	//	private AcSoundManager m_vSoundManager;
 
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
-
-	//	private _Phase m_vPhase;
 
 	private AcPlayer m_vPlayer;
 	//
@@ -182,27 +163,16 @@ public class AcGameManager : MonoBehaviour
 	private AcRanking m_vRanking;
 	private AcAd m_vAd;
 
-	// ========================================================================== //
-	// ========================================================================== //
-
-	// ========================================================================== //
-	// ========================================================================== //
+	// -------------------------------------------------------------------------- //
+	// -------------------------------------------------------------------------- //
 
 	/// <summary>
-	/// 音出るよ！
-	/// トラック名を返すよ
+	/// 広告が出るのは
+	/// ・[ゲーム]->[ランキング]->[広告]
+	/// ・[タイトル]->[ランキング]->[タイトル]
+	/// で [ランキング] から [広告] へ遷移するかのフラグです
 	/// </summary>
-	/// <param name="vEntryName"></param>
-	/// <returns></returns>
-	//public string soundPlay( string vEntryName, float vFadeInTime = 0.0f )
-	//{
-	//	return ( m_vSoundManager.play( vEntryName, vFadeInTime ) );
-	//}
-
-	//public void soundStop( string vTrackName, float vFadeOutTime = 0.0f )
-	//{
-	//	m_vSoundManager.stop( vTrackName, vFadeOutTime );
-	//}
+	private bool m_bAd;
 
 	// ========================================================================== //
 	// ========================================================================== //
@@ -259,46 +229,16 @@ public class AcGameManager : MonoBehaviour
 		//
 		m_vAd = AcAd.Create( this, new _AdTrigger( this ) );
 		m_vAd.setActive( false );
+		//
+		m_bAd = false;
 	}
 
 	private void _start()
 	{
-		//{
-		//	// 実験
-		//	AcImageManager.test();
-		//}
-
-		//m_vSoundManager = new AcSoundManager();
-		////
-		//m_vSoundManager.add( "se_3", "sound", new string[] { "se1", "se2", "se3" }, 1.0f, 1.0f, true, null, "Sounds/Seikai02-1" );
-
-		//m_vSoundManager.add( "se_1", "sound", new string[] { "se1", "se2", "se3" }, 1.0f, 1.0f, false, null, "Sounds/Seikai02-1" );
-		//m_vSoundManager.add( "se_2", "sound", new string[] { "se1" }, 1.0f, -1.0f, false, null, "Sounds/Huseikai02-4" );
-
-
-		//m_vSoundManager.add( "bgm_1", "sound", new string[] { "bgm1" }, 0.05f, 0.0f, false, "bgm_2", "Sounds/Encounter_loop" );
-		//m_vSoundManager.add( "bgm_2", "sound", new string[] { "bgm1" }, 0.05f, 0.0f, true, null, "Sounds/Top_Speed" );
-
-		//m_vSoundManager.add( "se_3", "sound", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Seikai02-1" );
-
-		//m_vSoundManager.add( "se_cd_1", "sound", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Accent Simple07-1" );
-		//m_vSoundManager.add( "se_cd_2", "sound", new string[] { "se1", "se2", "se3" }, 0.6f, 0.0f, false, null, "Sounds/Accent Simple06-1" );
 	}
 
 	private void _update()
 	{
-		//	m_vSoundManager.update();
-		//AcApp.soundUpdate();
-
-		///*
-		// * バックキー？
-		// * http://search.yahoo.co.jp/search;_ylt=A7dPSCnrby5U7xwA99aJBtF7?p=unity+%E3%83%90%E3%83%83%E3%82%AF%E3%82%AD%E3%83%BC&search.x=1&fr=top_ga1&tid=top_ga1&ei=UTF-8
-		// * http://unity3dplugin.blogspot.jp/2012/07/unityandroid.html
-		// * http://ochachaapp.blogspot.jp/2011/09/unityandroid.html
-		// * 
-		// */
-		//if ( Input.GetKeyDown( KeyCode.Escape ) )
-		//{
 	}
 
 	// ========================================================================== //
@@ -351,7 +291,7 @@ public class AcGameManager : MonoBehaviour
 	// ========================================================================== //
 
 	/// <summary>
-	/// ゲーム処理からの遷移用です
+	/// AcPlayer からのトリガー処理です
 	/// </summary>
 	private class _PlayerTrigger : AcPlayer.AiPlayerTrigger
 	{
@@ -364,23 +304,16 @@ public class AcGameManager : MonoBehaviour
 
 		public void onTrigger( AcPlayer.Trigger vTrigger )
 		{
-			m_vManager._debugLog( "_PlayerTrigger が呼ばれたよ" );
-
 			switch ( vTrigger )
 			{
-				//
 				case ( AcPlayer.Trigger.FINISH ):
-					m_vManager._debugLog( "AcPlayer.Trigger.FINISH" );
-					//
-					//m_vManager.m_vRanking.gameObject.SetActive( true );
+					/*
+					 * ゲームが終了したので「Ranking」へ行くよ！
+					 */
 					m_vManager.m_vRanking.setActive( true, true );
+					//
+					m_vManager.m_bAd = true;
 					break;
-				//
-				//case ( AcPlayer.Trigger.QUIT ):
-				//	Debug.Log( "AcPlayer.Trigger.QUIT" );
-				//	//
-				//	m_vManager.m_vTitle.gameObject.SetActive( true );
-				//	break;
 			}
 		}
 	}
@@ -389,7 +322,7 @@ public class AcGameManager : MonoBehaviour
 	// ========================================================================== //
 
 	/// <summary>
-	/// Title からの遷移用です
+	/// AcTitle からのトリガー処理です
 	/// </summary>
 	private class _TitleTrigger : AcTitle.AiTitleTrigger
 	{
@@ -402,42 +335,20 @@ public class AcGameManager : MonoBehaviour
 
 		public void onTrigger( AcTitle.Trigger vTrigger )
 		{
-			m_vManager._debugLog( "_TitleTrigger が呼ばれたよ" );
-
 			switch ( vTrigger )
 			{
-				////
-				//case ( AcTitle.Trigger.TIMEATTACK ):
-				//	Debug.Log( "AcTitle.Trigger.TIMEATTACK" );
-				//	//
-				//	//AcApp.setGameMode( AcApp.GAMEMODE_TIMEATTACK );
-				//	//
-				//	//m_vManager.m_vTitle.gameObject.SetActive( false );
-				//	//m_vManager.m_vHowtoplay.gameObject.SetActive( true );
-				//	m_vManager.m_vTitle.setActive( false );
-				//	m_vManager.m_vHowtoplay.setActive( true );
-				//	//
-				//	//m_vManager.soundPlay( "se_1" );
-				//	AcApp.soundPlay( "se_1" );
-				//	break;
-				////
-				//case ( AcTitle.Trigger.CHALLENGE ):
-				//	Debug.Log( "AcTitle.Trigger.CHALLENGE" );
-				//	//
-				//	//AcApp.setGameMode( AcApp.GAMEMODE_CHALLENGE );
-				//	//
-				//	//m_vManager.m_vTitle.gameObject.SetActive( false );
-				//	//m_vManager.m_vHowtoplay.gameObject.SetActive( true );
-				//	m_vManager.m_vTitle.setActive( false );
-				//	m_vManager.m_vHowtoplay.setActive( true );
-				//	break;
-				//
 				case ( AcTitle.Trigger.GAME ):
+					/*
+					 * ゲームが選ばれたの「Title」から「Howtoplay」へ行くよ
+					 */
 					m_vManager.m_vTitle.setActive( false );
 					m_vManager.m_vHowtoplay.setActive( true );
 					break;
 				//
 				case ( AcTitle.Trigger.RANKING ):
+					/*
+					 * ランキングが選ばれたの「Title」から「Ranking」へ行くよ
+					 */
 					m_vManager.m_vTitle.setActive( false );
 					m_vManager.m_vRanking.setActive( true, false );
 					break;
@@ -449,7 +360,7 @@ public class AcGameManager : MonoBehaviour
 	// ========================================================================== //
 
 	/// <summary>
-	/// Howtoplay からの遷移用です
+	/// AcHowtoplay からのトリガー処理です
 	/// </summary>
 	private class _HowtoplayTrigger : AcHowtoplay.AiHowtoplayTrigger
 	{
@@ -462,25 +373,22 @@ public class AcGameManager : MonoBehaviour
 
 		public void onTrigger( AcHowtoplay.Trigger vTrigger )
 		{
-			m_vManager._debugLog( "_HowtoplayTrigger が呼ばれたよ" );
-
 			switch ( vTrigger )
 			{
 				//
 				case ( AcHowtoplay.Trigger.YES ):
-					m_vManager._debugLog( "AcHowtoplay.Trigger.YES" );
-					//
-					//m_vManager.m_vHowtoplay.gameObject.SetActive( false );
+					/*
+					 * ゲーム開始するよ
+					 */
 					m_vManager.m_vHowtoplay.setActive( false );
 					//
 					m_vManager.m_vPlayer.requestStopAuto();
 					break;
 				//
 				case ( AcHowtoplay.Trigger.NO ):
-					m_vManager._debugLog( "AcHowtoplay.Trigger.NO" );
-					//
-					//m_vManager.m_vHowtoplay.gameObject.SetActive( false );
-					//m_vManager.m_vTitle.gameObject.SetActive( true );
+					/*
+					 * タイトルに戻るよ
+					 */
 					m_vManager.m_vHowtoplay.setActive( false );
 					m_vManager.m_vTitle.setActive( true );
 					break;
@@ -505,18 +413,25 @@ public class AcGameManager : MonoBehaviour
 
 		public void onTrigger( AcRanking.Trigger vTrigger )
 		{
-			m_vManager._debugLog( "_RankingTrigger が呼ばれたよ" );
-
 			switch ( vTrigger )
 			{
 				//
 				case ( AcRanking.Trigger.OK ):
-					m_vManager._debugLog( "AcRanking.Trigger.OK" );
-					//
-					//m_vManager.m_vRanking.gameObject.SetActive( false );
-					//m_vManager.m_vTitle.gameObject.SetActive( true );
+					/*
+					 * 
+					 */
 					m_vManager.m_vRanking.setActive( false, false );
-					m_vManager.m_vAd.setActive( true );
+					//
+					if ( m_vManager.m_bAd )
+					{
+						m_vManager.m_bAd = false;
+						//
+						m_vManager.m_vAd.setActive( true );
+					}
+					else
+					{
+						m_vManager.m_vTitle.setActive( true );
+					}
 					break;
 			}
 		}
@@ -539,14 +454,13 @@ public class AcGameManager : MonoBehaviour
 
 		public void onTrigger( AcAd.Trigger vTrigger )
 		{
-			m_vManager._debugLog( "_AdTrigger が呼ばれたよ" );
-
 			switch ( vTrigger )
 			{
 				//
 				case ( AcAd.Trigger.OK ):
-					m_vManager._debugLog( "AcAd.Trigger.OK" );
-					//
+					/*
+					 * タイトルに戻るよ
+					 */
 					m_vManager.m_vAd.setActive( false );
 					m_vManager.m_vTitle.setActive( true );
 					break;
