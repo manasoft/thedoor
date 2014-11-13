@@ -400,7 +400,7 @@ public class AcGameManager : MonoBehaviour
 	// ========================================================================== //
 
 	/// <summary>
-	/// Ranking からの遷移用です
+	/// AcRanking からのトリガー処理です
 	/// </summary>
 	private class _RankingTrigger : AcRanking.AiRankingTrigger
 	{
@@ -441,7 +441,7 @@ public class AcGameManager : MonoBehaviour
 	// ========================================================================== //
 
 	/// <summary>
-	/// Ad からの遷移用です
+	/// AcAd からのトリガー処理です
 	/// </summary>
 	private class _AdTrigger : AcAd.AiAdTrigger
 	{
