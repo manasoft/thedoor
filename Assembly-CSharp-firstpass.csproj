@@ -51,6 +51,7 @@
      <Compile Include="Assets\Plugins\Nend\NendAdIcon.cs" />
      <Compile Include="Assets\Plugins\Nend\NendAdInterstitial.cs" />
      <Compile Include="Assets\Plugins\Nend\NendUtils.cs" />
+     <Compile Include="Assets\Plugins\WebViewObject.cs" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-sv\common_strings.xml" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-lo-rLA\auth_strings.xml" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values\wallet_attrs.xml" />

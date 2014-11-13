@@ -107,6 +107,7 @@
      <Compile Include="Assets\Scripts\AcTitleManager.cs" />
      <Compile Include="Assets\Scripts\AcUtil.cs" />
      <Compile Include="Assets\Scripts\Test_Resource_Manager.cs" />
+     <Compile Include="Assets\Scripts\Test_WebView.cs" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-sv\common_strings.xml" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-lo-rLA\auth_strings.xml" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values\wallet_attrs.xml" />
