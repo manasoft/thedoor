@@ -59,11 +59,21 @@ Thumbs.db
 
 # ---------------------------------------------------------------------------- #
 
-*/Library/
-*/[Tt]emp/
-*/[Oo]bj/
-*/UnityGenerated/
-*/ProjectSettings/*.asset
+	*[as]Hogee
+	/_res*
+	#*.txt
+	*.md
+	*Library/*
+	*Library/*/
+
+	*/Library/
+	*/[Tt]emp/
+	*/[Oo]bj/
+	*/UnityGenerated/
+	*/ProjectSettings/*.asset
+
+	*.csproj
+	*.gitignore
 
 # ---------------------------------------------------------------------------- #
 
