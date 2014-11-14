@@ -306,7 +306,7 @@ public class AcGameManager : MonoBehaviour
 		{
 			switch ( vTrigger )
 			{
-				case ( AcPlayer.Trigger.FINISH ):
+				case ( AcPlayer.Trigger.END ):
 					/*
 					 * ゲームが終了したので「Ranking」へ行くよ！
 					 */
