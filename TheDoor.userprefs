@@ -1,16 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AcHowtoplay.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AcTitle.cs">
     <Files>
-      <File FileName="Assets\Scripts\AcHowtoplay.cs" Line="190" Column="1" />
-      <File FileName="Assets\Scripts\AcSoundManager.cs" Line="199" Column="1" />
+      <File FileName="Assets\Scripts\AcTitle.cs" Line="169" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\workshop\project\Unity\TheDoor\Assets\Scripts\AcSoundManager.cs" line="159" />
-      <Breakpoint file="C:\workshop\project\Unity\TheDoor\Assets\Scripts\AcHowtoplay.cs" line="190" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
