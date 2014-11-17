@@ -1,11 +1,11 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
-Project("{CA19AB6F-C0D1-B24D-0D89-731EC08B323E}") = "TheDoor", "Assembly-CSharp-firstpass-vs.csproj", "{3A701D43-B7CB-E416-F6AA-82203B876A86}"
+Project("{B75C9BF2-0A57-A79D-22A1-A61D414F048D}") = "thedoor", "Assembly-CSharp-firstpass-vs.csproj", "{9B47E00A-6C5B-AF65-950E-C33428F9ABB4}"
 EndProject
-Project("{CA19AB6F-C0D1-B24D-0D89-731EC08B323E}") = "TheDoor", "Assembly-CSharp-vs.csproj", "{38740B39-6BDB-FA1C-D9E2-6C5E8CACDA94}"
+Project("{B75C9BF2-0A57-A79D-22A1-A61D414F048D}") = "thedoor", "Assembly-CSharp-vs.csproj", "{B8168AEE-B0F2-9805-BAE9-3D029C8EB132}"
 EndProject
-Project("{CA19AB6F-C0D1-B24D-0D89-731EC08B323E}") = "TheDoor", "Assembly-CSharp-Editor-vs.csproj", "{13BA402D-AFAE-688D-17E3-CF435B0C9B3F}"
+Project("{B75C9BF2-0A57-A79D-22A1-A61D414F048D}") = "thedoor", "Assembly-CSharp-Editor-vs.csproj", "{4C590E58-0A14-A4F3-3941-9DE3244EDD92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,23 +13,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3A701D43-B7CB-E416-F6AA-82203B876A86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A701D43-B7CB-E416-F6AA-82203B876A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A701D43-B7CB-E416-F6AA-82203B876A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A701D43-B7CB-E416-F6AA-82203B876A86}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38740B39-6BDB-FA1C-D9E2-6C5E8CACDA94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38740B39-6BDB-FA1C-D9E2-6C5E8CACDA94}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38740B39-6BDB-FA1C-D9E2-6C5E8CACDA94}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38740B39-6BDB-FA1C-D9E2-6C5E8CACDA94}.Release|Any CPU.Build.0 = Release|Any CPU
-		{13BA402D-AFAE-688D-17E3-CF435B0C9B3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{13BA402D-AFAE-688D-17E3-CF435B0C9B3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{13BA402D-AFAE-688D-17E3-CF435B0C9B3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{13BA402D-AFAE-688D-17E3-CF435B0C9B3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B47E00A-6C5B-AF65-950E-C33428F9ABB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B47E00A-6C5B-AF65-950E-C33428F9ABB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B47E00A-6C5B-AF65-950E-C33428F9ABB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B47E00A-6C5B-AF65-950E-C33428F9ABB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8168AEE-B0F2-9805-BAE9-3D029C8EB132}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8168AEE-B0F2-9805-BAE9-3D029C8EB132}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8168AEE-B0F2-9805-BAE9-3D029C8EB132}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8168AEE-B0F2-9805-BAE9-3D029C8EB132}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C590E58-0A14-A4F3-3941-9DE3244EDD92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C590E58-0A14-A4F3-3941-9DE3244EDD92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C590E58-0A14-A4F3-3941-9DE3244EDD92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C590E58-0A14-A4F3-3941-9DE3244EDD92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										GlobalSection(MonoDevelopProperties) = preSolution
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											GlobalSection(MonoDevelopProperties) = preSolution
 =======
 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															GlobalSection(MonoDevelopProperties) = preSolution
 >>>>>>> 56df3aca8de84267450ac93bf6d8cdd1e04bea95
