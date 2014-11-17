@@ -198,6 +198,9 @@
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-ms-rMY\auth_strings.xml" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values\common_strings.xml" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\color\wallet_primary_text_holo_light.xml" />
+ <Reference Include="GPGSUtils">
+ <HintPath>C:/workshop/project/Unity/TheDoor/Assets/Plugins/GPGSUtils.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/workshop/sdk/Unity/Unity-4.5.5/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
  </Reference>
