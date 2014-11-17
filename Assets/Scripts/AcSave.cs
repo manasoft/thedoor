@@ -27,7 +27,10 @@ public class AcSave : Object
 	/*
 	 * シリアライズ
 	 * http://msdn.microsoft.com/ja-jp/library/system.serializableattribute(v=vs.90).aspx
-	 * 
+	 */
+	/*
+	 * シリアライスの例外
+	 * http://homepage2.nifty.com/nonnon/SoftSample/CS.NET/SampleException.html
 	 */
 	/*
 	 * ソート
