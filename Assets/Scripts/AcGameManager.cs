@@ -382,8 +382,7 @@ public class AcGameManager : MonoBehaviour
 					 */
 					m_vManager.m_vHowtoplay.setActive( false );
 					//
-					//m_vManager.m_vPlayer.requestStopAuto();
-					m_vManager.m_vPlayer.play();
+					m_vManager.m_vPlayer.requestStopAuto();
 					break;
 				//
 				case ( AcHowtoplay.Trigger.NO ):
