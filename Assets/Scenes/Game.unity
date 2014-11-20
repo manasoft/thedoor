@@ -13,12 +13,12 @@ SceneSettings:
 --- !u!104 &2
 RenderSettings:
   m_Fog: 0
-  m_FogColor: {r: 1, g: 1, b: 1, a: 1}
+  m_FogColor: {r: .5, g: .5, b: .5, a: 1}
   m_FogMode: 3
   m_FogDensity: .00999999978
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientLight: {r: .985294104, g: .985294104, b: .985294104, a: 1}
+  m_AmbientLight: {r: 1, g: 1, b: 1, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: .5
   m_FlareStrength: 1
@@ -74,15 +74,15 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
---- !u!1 &257122086
+--- !u!1 &278999667
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 257122087}
-  - 114: {fileID: 257122088}
+  - 4: {fileID: 278999669}
+  - 114: {fileID: 278999668}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -90,38 +90,38 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &257122087
+--- !u!114 &278999668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 278999667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ec80c781755a814fb9556e74a1f40b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &278999669
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 257122086}
+  m_GameObject: {fileID: 278999667}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &257122088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 257122086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ec80c781755a814fb9556e74a1f40b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &445763470
+--- !u!1 &565822742
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100000, guid: 68cdd53ba6bbf544b8187c46134a9ea5, type: 2}
-  m_PrefabInternal: {fileID: 1106998204}
+  m_PrefabInternal: {fileID: 1467065695}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 445763472}
-  - 114: {fileID: 445763471}
+  - 4: {fileID: 565822744}
+  - 114: {fileID: 565822743}
   m_Layer: 0
   m_Name: NendAdBanner
   m_TagString: Untagged
@@ -129,13 +129,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &445763471
+--- !u!114 &565822743
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: 68cdd53ba6bbf544b8187c46134a9ea5,
     type: 2}
-  m_PrefabInternal: {fileID: 1106998204}
-  m_GameObject: {fileID: 445763470}
+  m_PrefabInternal: {fileID: 1467065695}
+  m_GameObject: {fileID: 565822742}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a098066be788a47d1852a19c97c43ddd, type: 3}
@@ -157,19 +157,19 @@ MonoBehaviour:
     top: 0
     right: 0
     bottom: 0
---- !u!4 &445763472
+--- !u!4 &565822744
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: 68cdd53ba6bbf544b8187c46134a9ea5, type: 2}
-  m_PrefabInternal: {fileID: 1106998204}
-  m_GameObject: {fileID: 445763470}
+  m_PrefabInternal: {fileID: 1467065695}
+  m_GameObject: {fileID: 565822742}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!1001 &1106998204
+--- !u!1001 &1467065695
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -210,6 +210,6 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 68cdd53ba6bbf544b8187c46134a9ea5, type: 2}
-  m_RootGameObject: {fileID: 445763470}
+  m_RootGameObject: {fileID: 565822742}
   m_IsPrefabParent: 0
   m_IsExploded: 1
