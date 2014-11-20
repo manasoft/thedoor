@@ -10,8 +10,8 @@ PlayerSettings:
   targetGlesGraphics: 1
   targetResolution: 0
   accelerometerFrequency: 60
-  companyName: Manasoft
-  productName: TheDoor
+  companyName: exxyz
+  productName: crazydoor
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   defaultScreenWidth: 1024
@@ -56,6 +56,7 @@ PlayerSettings:
   visibleInBackground: 0
   macFullscreenMode: 2
   d3d9FullscreenMode: 1
+  d3d11ForceExclusiveMode: 0
   xboxSpeechDB: 0
   xboxEnableHeadOrientation: 0
   xboxEnableGuest: 0
@@ -93,6 +94,9 @@ PlayerSettings:
   iPhoneSplashScreen: {fileID: 0}
   iPhoneHighResSplashScreen: {fileID: 0}
   iPhoneTallHighResSplashScreen: {fileID: 0}
+  iPhone47inSplashScreen: {fileID: 0}
+  iPhone55inPortraitSplashScreen: {fileID: 0}
+  iPhone55inLandscapeSplashScreen: {fileID: 0}
   iPadPortraitSplashScreen: {fileID: 0}
   iPadHighResPortraitSplashScreen: {fileID: 0}
   iPadLandscapeSplashScreen: {fileID: 0}
@@ -107,6 +111,18 @@ PlayerSettings:
     m_Icons:
     - m_Icon: {fileID: 0}
       m_Size: 128
+  - m_BuildTarget: Android
+    m_Icons:
+    - m_Icon: {fileID: 2800000, guid: ce324a7d14f1f7b42b7d85365a78a3ca, type: 3}
+      m_Size: 144
+    - m_Icon: {fileID: 2800000, guid: 3d4cdccb9dc7b304aa6fc02bdf094b08, type: 3}
+      m_Size: 96
+    - m_Icon: {fileID: 2800000, guid: 3eb1047e9f574044691f8c4a878bad15, type: 3}
+      m_Size: 72
+    - m_Icon: {fileID: 2800000, guid: ee4be4d49d531124f8d32ef8cfef5e82, type: 3}
+      m_Size: 48
+    - m_Icon: {fileID: 2800000, guid: 1eb183b0e34a5bb4199aad310be67618, type: 3}
+      m_Size: 36
   m_BuildTargetBatching:
   - m_BuildTarget: Android
     m_StaticBatching: 1
