@@ -17,3 +17,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Ranking.unity
   - enabled: 0
     path: Assets/Scenes/Test.unity
+  - enabled: 0
+    path: Assets/Scenes/Test_NendAdIcon.unity

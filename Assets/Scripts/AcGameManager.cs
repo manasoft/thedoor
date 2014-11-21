@@ -157,11 +157,14 @@ public class AcGameManager : MonoBehaviour
 	// -------------------------------------------------------------------------- //
 
 	private AcPlayer m_vPlayer;
+	private AcHide m_vHide;
 	//
 	private AcTitle m_vTitle;
 	private AcHowtoplay m_vHowtoplay;
 	private AcRanking m_vRanking;
 	private AcAd m_vAd;
+	//
+	private AcNend m_vNend;
 
 	// -------------------------------------------------------------------------- //
 	// -------------------------------------------------------------------------- //
@@ -219,6 +222,9 @@ public class AcGameManager : MonoBehaviour
 		//
 		m_vPlayer = AcPlayer.Create( this, new _PlayerTrigger( this ) );
 		//
+		m_vHide = AcHide.Create( this, new _HideTrigger( this ) );
+		m_vHide.black( 0.5f );
+		//
 		m_vTitle = AcTitle.Create( this, new _TitleTrigger( this ) );
 		//
 		m_vHowtoplay = AcHowtoplay.Create( this, new _HowtoplayTrigger( this ) );
@@ -231,6 +237,10 @@ public class AcGameManager : MonoBehaviour
 		m_vAd.setActive( false );
 		//
 		m_bAd = false;
+
+		{
+			m_vNend = AcNend.Create();
+		}
 	}
 
 	private void _start()
@@ -306,13 +316,46 @@ public class AcGameManager : MonoBehaviour
 		{
 			switch ( vTrigger )
 			{
-				case ( AcPlayer.Trigger.END ):
+				case ( AcPlayer.Trigger.READY_GO ):
+					//
+					m_vManager.m_vHide.clear();
+					break;
+				//
+				case ( AcPlayer.Trigger.RESULT_END ):
 					/*
 					 * ゲームが終了したので「Ranking」へ行くよ！
 					 */
 					m_vManager.m_vRanking.setActive( true, true );
 					//
 					m_vManager.m_bAd = true;
+					//
+					m_vManager.m_vHide.black( 0.5f );
+					break;
+			}
+		}
+	}
+
+	// ========================================================================== //
+	// ========================================================================== //
+
+	/// <summary>
+	/// AcHide からのトリガー処理です
+	/// </summary>
+	private class _HideTrigger : AcHide.AiHideTrigger
+	{
+		private AcGameManager m_vManager;
+
+		public _HideTrigger( AcGameManager vManager )
+		{
+			m_vManager = vManager;
+		}
+
+		public void onTrigger( AcHide.Trigger vTrigger )
+		{
+			switch ( vTrigger )
+			{
+				//
+				case ( AcHide.Trigger.END ):
 					break;
 			}
 		}
@@ -384,6 +427,8 @@ public class AcGameManager : MonoBehaviour
 					//
 					//m_vManager.m_vPlayer.requestStopAuto();
 					m_vManager.m_vPlayer.play();
+					//
+					m_vManager.m_vHide.white();
 					break;
 				//
 				case ( AcHowtoplay.Trigger.NO ):
