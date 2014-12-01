@@ -241,7 +241,7 @@ MonoBehaviour:
       apiKey: 
       spotID: 0
   automaticDisplay: 1
-  outputLog: 0
+  outputLog: 1
   orientation: 0
   gravity: 0200000020000000
   margin:

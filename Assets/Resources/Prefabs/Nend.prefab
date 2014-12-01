@@ -104,7 +104,7 @@ MonoBehaviour:
     iOS:
       apiKey: 
       spotID: 0
-  automaticDisplay: 1
+  automaticDisplay: 0
   outputLog: 0
   size: 0
   gravity: 0800000020000000
