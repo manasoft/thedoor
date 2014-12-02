@@ -102,9 +102,9 @@ MonoBehaviour:
       apiKey: 7aa49305b90bc33ce3d38976aaacd40eba149baa
       spotID: 250080
     iOS:
-      apiKey: 
-      spotID: 0
-  automaticDisplay: 0
+      apiKey: fd7ea018f978abdc12a67f61c74991dcfe878726
+      spotID: 250084
+  automaticDisplay: 1
   outputLog: 0
   size: 0
   gravity: 0800000020000000
@@ -129,8 +129,8 @@ MonoBehaviour:
       apiKey: e583a8095d10ae8120c37d2b9df53712b26c969f
       spotID: 275123
     iOS:
-      apiKey: 
-      spotID: 0
+      apiKey: cf820c8c3ffb573764b99cc1951ea22dfe4f1416
+      spotID: 276937
   automaticDisplay: 0
   outputLog: 0
   orientation: 2
