@@ -71,8 +71,8 @@ PlayerSettings:
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   productGUID: 5eb53db39135bc24e8570c45321d009a
-  iPhoneBundleVersion: 1.1
-  AndroidBundleVersionCode: 1
+  iPhoneBundleVersion: 1.2
+  AndroidBundleVersionCode: 2
   AndroidMinSdkVersion: 9
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -103,8 +103,8 @@ PlayerSettings:
   iPadHighResLandscapeSplashScreen: {fileID: 0}
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: C:/workshop/project/Unity/TheDoor/user/Android/user.keystore
+  AndroidKeyaliasName: crazydoor
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:
   - m_BuildTarget: 
